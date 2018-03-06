@@ -19,10 +19,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupWidgets()
 {
-    ui->mainToolBar->addAction(ui->actionInitializeRepository);
-    ui->mainToolBar->addAction(ui->actionOpenRepository);
-    ui->mainToolBar->addAction(ui->actionAddTask);
-    ui->mainToolBar->addAction(ui->actionDeleteTask);
+    auto toolbar = ui->mainToolBar;
+    removeToolBar(toolbar);
+    addToolBar(Qt::LeftToolBarArea, toolbar);
+    toolbar->show();
+
+    toolbar->addAction(ui->actionInitializeRepository);
+    toolbar->addAction(ui->actionOpenRepository);
+    toolbar->addAction(ui->actionAddTask);
+    toolbar->addAction(ui->actionDeleteTask);
 
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
