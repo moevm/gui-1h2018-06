@@ -25,10 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        views/mainwindow.cpp \
+    models/todolistadapter.cpp \
+    presenters/mainwindowpresenter.cpp
 
 HEADERS += \
-        mainwindow.h
+        views/mainwindow.h \
+    models/todolistadapter.h \
+    presenters/mainwindowpresenter.h
 
 FORMS += \
-        mainwindow.ui
+        views/mainwindow.ui
