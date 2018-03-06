@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QToolButton>
+#include <QTableWidget>
 
 #include "presenters/mainwindowpresenter.h"
 
