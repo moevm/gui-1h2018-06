@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QToolButton>
+
 #include "presenters/mainwindowpresenter.h"
 
 namespace Ui {
@@ -18,8 +20,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
     MainWindowPresenter *m_presenter;
+
+    void setupWidgets();
+    void setupPresenter();
 };
 
 #endif // MAINWINDOW_H

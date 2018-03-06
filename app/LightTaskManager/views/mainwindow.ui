@@ -27,9 +27,9 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="actionAdd_Task"/>
-    <addaction name="actionDelete_Task"/>
+    <addaction name="actionInitialize"/>
+    <addaction name="actionAddTask"/>
+    <addaction name="actionDeleteTask"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -42,17 +42,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action">
+  <action name="actionInitialize">
    <property name="text">
     <string>Initialize todolist Repository</string>
    </property>
   </action>
-  <action name="actionAdd_Task">
+  <action name="actionAddTask">
    <property name="text">
     <string>Add Task</string>
    </property>
   </action>
-  <action name="actionDelete_Task">
+  <action name="actionDeleteTask">
    <property name="text">
     <string>Delete Task</string>
    </property>
