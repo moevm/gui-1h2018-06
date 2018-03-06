@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "presenters/mainwindowpresenter.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    MainWindowPresenter *m_presenter;
 };
 
 #endif // MAINWINDOW_H

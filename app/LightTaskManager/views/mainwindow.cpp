@@ -3,12 +3,14 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_presenter(new MainWindowPresenter(this))
 {
     ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
+    delete m_presenter;
     delete ui;
 }

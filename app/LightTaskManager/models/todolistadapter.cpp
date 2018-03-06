@@ -1,6 +1,7 @@
 #include "todolistadapter.h"
 
-TodolistAdapter::TodolistAdapter(QObject *parent) : QObject(parent)
+TodolistAdapter::TodolistAdapter(QObject *parent) :
+    QObject(parent)
 {
 
 }
