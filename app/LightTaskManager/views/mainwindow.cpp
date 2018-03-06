@@ -19,7 +19,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupWidgets()
 {
-    ui->mainToolBar->addAction(ui->actionInitialize);
+    ui->mainToolBar->addAction(ui->actionInitializeRepository);
+    ui->mainToolBar->addAction(ui->actionOpenRepository);
     ui->mainToolBar->addAction(ui->actionAddTask);
     ui->mainToolBar->addAction(ui->actionDeleteTask);
 

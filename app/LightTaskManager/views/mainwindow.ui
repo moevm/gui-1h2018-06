@@ -27,7 +27,8 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionInitialize"/>
+    <addaction name="actionInitializeRepository"/>
+    <addaction name="actionOpenRepository"/>
     <addaction name="actionAddTask"/>
     <addaction name="actionDeleteTask"/>
    </widget>
@@ -42,23 +43,46 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionInitialize">
+  <action name="actionInitializeRepository">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/images/images/FileNew.png</normaloff>:/images/images/FileNew.png</iconset>
+   </property>
    <property name="text">
-    <string>Initialize todolist Repository</string>
+    <string>Initialize Repository</string>
    </property>
   </action>
   <action name="actionAddTask">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/images/images/Plus.png</normaloff>:/images/images/Plus.png</iconset>
+   </property>
    <property name="text">
     <string>Add Task</string>
    </property>
   </action>
   <action name="actionDeleteTask">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/images/images/Minus.png</normaloff>:/images/images/Minus.png</iconset>
+   </property>
    <property name="text">
     <string>Delete Task</string>
    </property>
   </action>
+  <action name="actionOpenRepository">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/images/images/FileOpen.png</normaloff>:/images/images/FileOpen.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Repository</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

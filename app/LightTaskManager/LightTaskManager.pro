@@ -36,3 +36,6 @@ HEADERS += \
 
 FORMS += \
         views/mainwindow.ui
+
+RESOURCES += \
+    views/resources/resources.qrc
