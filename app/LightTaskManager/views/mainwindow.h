@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTableWidget>
+#include <QFileDialog>
 
 #include "presenters/mainwindowpresenter.h"
 

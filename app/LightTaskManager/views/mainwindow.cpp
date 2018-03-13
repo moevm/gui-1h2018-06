@@ -52,5 +52,6 @@ void MainWindow::viewDirectory(QString filePath)
 
 void MainWindow::on_actionOpenRepository_triggered()
 {
-    m_presenter->openRepository("/Users/Xtail/Projects/SML-Qt");
+    QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
+    m_presenter->openRepository(path);
 }
