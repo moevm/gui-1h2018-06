@@ -3,6 +3,7 @@
 TodolistAdapter::TodolistAdapter(QObject *parent) :
     QObject(parent),
     m_directory(""),
+    m_data(QByteArray()),
     m_todolistProcess(new QProcess(this))
 {
 
@@ -30,7 +31,7 @@ void TodolistAdapter::openRepository(QString directory)
 
 void TodolistAdapter::readData()
 {
-    QByteArray data = m_todolistProcess->readAllStandardOutput();
-    qDebug() << "read" << QString::fromUtf8(data);
-    emit dataUpdated(data);
+    m_data = m_todolistProcess->readAllStandardOutput();
+    qDebug() << "read" << QString::fromUtf8(m_data);
+    emit dataUpdated(m_data);
 }

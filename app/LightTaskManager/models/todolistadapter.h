@@ -17,7 +17,10 @@ public:
 
 protected:
     QString m_directory;
+    QByteArray m_data;
+
     QProcess* m_todolistProcess;
+
 
 signals:
     void dataUpdated(QByteArray data);
