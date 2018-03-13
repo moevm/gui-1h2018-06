@@ -32,4 +32,5 @@ void TodolistAdapter::readData()
 {
     QByteArray data = m_todolistProcess->readAllStandardOutput();
     qDebug() << "read" << QString::fromUtf8(data);
+    emit dataUpdated(data);
 }

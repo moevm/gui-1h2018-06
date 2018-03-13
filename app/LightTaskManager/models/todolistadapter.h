@@ -20,7 +20,7 @@ protected:
     QProcess* m_todolistProcess;
 
 signals:
-    void update(QByteArray* data);
+    void dataUpdated(QByteArray data);
 
 public slots:
     void openRepository(QString directory);
