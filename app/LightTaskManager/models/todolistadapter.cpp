@@ -34,4 +34,5 @@ void TodolistAdapter::readData()
     m_data = m_todolistProcess->readAllStandardOutput();
     qDebug() << "read" << QString::fromUtf8(m_data);
     emit dataUpdated(m_data);
+    emit directoryUpdated(m_directory);
 }

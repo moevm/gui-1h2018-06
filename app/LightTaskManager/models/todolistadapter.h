@@ -24,6 +24,7 @@ protected:
 
 signals:
     void dataUpdated(QByteArray data);
+    void directoryUpdated(QString path);
 
 public slots:
     void openRepository(QString directory);

@@ -32,7 +32,7 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    // растянуть таблицу с координатами
+    // растянуть таблицу
     QTableWidget *field = ui->taskContainerTableWidget;
     for (int i = 0; i < field->columnCount(); i++)
     {
