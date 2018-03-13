@@ -16,9 +16,11 @@ protected:
     TodolistAdapter *m_todolistAdapter;
 
 signals:
+    void directoryUpdated(QString directory);
 
 public slots:
     void openRepository(QString directory);
+    void readDirectory(QString directory);
 };
 
 #endif // MAINWINDOWPRESENTER_H

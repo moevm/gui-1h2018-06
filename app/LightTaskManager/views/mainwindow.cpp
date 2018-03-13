@@ -32,7 +32,7 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    // растянуть таблицу
+    // to stretch table
     QTableWidget *field = ui->taskContainerTableWidget;
     for (int i = 0; i < field->columnCount(); i++)
     {
@@ -42,7 +42,12 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupPresenter()
 {
+    connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(viewDirectory(QString)));
+}
 
+void MainWindow::viewDirectory(QString filePath)
+{
+    ui->filePathLineEdit->setText(filePath);
 }
 
 void MainWindow::on_actionOpenRepository_triggered()
