@@ -18,6 +18,7 @@ protected:
 signals:
 
 public slots:
+    void openRepository(QString directory);
 };
 
 #endif // MAINWINDOWPRESENTER_H

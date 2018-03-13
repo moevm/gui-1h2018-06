@@ -44,3 +44,8 @@ void MainWindow::setupPresenter()
 {
 
 }
+
+void MainWindow::on_actionOpenRepository_triggered()
+{
+    m_presenter->openRepository("/Users/Xtail/Projects/SML-Qt");
+}

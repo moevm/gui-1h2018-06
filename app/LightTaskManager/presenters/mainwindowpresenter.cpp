@@ -11,3 +11,8 @@ MainWindowPresenter::~MainWindowPresenter()
 {
     delete m_todolistAdapter;
 }
+
+void MainWindowPresenter::openRepository(QString directory)
+{
+    m_todolistAdapter->openRepository(directory);
+}
