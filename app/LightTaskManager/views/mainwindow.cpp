@@ -57,14 +57,44 @@ void MainWindow::viewToDo(QStringList todoList)
     qDebug() << "update table" << todoList.size();
     ui->taskContainerTableWidget->clear();
     ui->taskContainerTableWidget->setColumnCount(statusLabels.size());
-    ui->taskContainerTableWidget->setRowCount(todoList.size());
 
     ui->taskContainerTableWidget->setHorizontalHeaderLabels(statusLabels);
 
-    for(size_t i = 0; i < (size_t) todoList.size(); i++)
+    QStringList todoItems;
+    QStringList completedItems;
+
+    for(auto item : todoList)
     {
-        QTableWidgetItem* item = new QTableWidgetItem(todoList[i]);
+        if(item.contains("[ ]"))
+        {
+            todoItems.push_back(item);
+        }
+        else
+        {
+            if(item.contains("[x]"))
+            {
+                completedItems.push_back(item);
+            }
+            else
+            {
+                qDebug() << "undefined status" << item;
+            }
+        }
+    }
+
+    size_t maxCount = std::max(todoItems.size(), completedItems.size());
+    ui->taskContainerTableWidget->setRowCount(maxCount);
+
+    for(size_t i = 0; i < (size_t) todoItems.size(); i++)
+    {
+        QTableWidgetItem* item = new QTableWidgetItem(todoItems[i]);
         ui->taskContainerTableWidget->setItem(i, 0, item);
+    }
+
+    for(size_t i = 0; i < (size_t) completedItems.size(); i++)
+    {
+        QTableWidgetItem* item = new QTableWidgetItem(completedItems[i]);
+        ui->taskContainerTableWidget->setItem(i, 1, item);
     }
 
     // to stretch table
