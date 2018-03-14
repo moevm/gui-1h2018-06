@@ -40,9 +40,6 @@ void TodolistAdapter::openRepository(QString directory)
 
 void TodolistAdapter::addTask(QString text)
 {
-    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
-    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
-
     QString args = m_todolistBinPath + " " + m_addTask + " " + text;
     qDebug() << "add task" << args;
     m_todolistProcess->start(args);
