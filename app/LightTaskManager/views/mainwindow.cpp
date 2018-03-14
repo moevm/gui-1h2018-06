@@ -80,3 +80,16 @@ void MainWindow::on_actionOpenRepository_triggered()
     QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
     m_presenter->openRepository(path);
 }
+
+void MainWindow::on_taskContainerTableWidget_clicked(const QModelIndex &index)
+{
+    qDebug() << "mousePressEvent";
+    ui->currentTaskPlainTextEdit->clear();
+    if (ui->taskContainerTableWidget->selectedItems().isEmpty()){
+
+    }
+    else{
+        QString item = ui->taskContainerTableWidget->selectedItems()[0]->text();
+        ui->currentTaskPlainTextEdit->appendPlainText(item);
+    }
+}

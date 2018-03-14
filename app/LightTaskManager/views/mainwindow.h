@@ -19,20 +19,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-//signals:
-    //void directoryUpdated(QString directory);
-
 private slots:
     void on_actionOpenRepository_triggered();
     void viewDirectory(QString filePath);
     void viewToDo(QStringList todoList);
+
+    void on_taskContainerTableWidget_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
     MainWindowPresenter *m_presenter;
 
     void setupWidgets();
-    void setupPresenter();  
+    void setupPresenter();
 };
 
 #endif // MAINWINDOW_H
