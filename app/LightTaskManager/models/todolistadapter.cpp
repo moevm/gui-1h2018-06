@@ -3,7 +3,6 @@
 TodolistAdapter::TodolistAdapter(QObject *parent) :
     QObject(parent),
     m_directory(""),
-    m_data(QByteArray()),
     m_todolistProcess(new QProcess(this))
 {
 
@@ -19,22 +18,46 @@ QString TodolistAdapter::currentDirectory() const
     return m_directory;
 }
 
+void TodolistAdapter::initializeRepository(QString directory)
+{
+    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
+    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
+
+    m_directory = directory;
+    m_todolistProcess->setWorkingDirectory(m_directory);
+
+    QString args = m_todolistBinPath + " " + m_initializeRepository;
+    m_todolistProcess->start(args);
+
+    emit directoryUpdated(m_directory);
+    emit tasksUpdated("");
+}
+
 void TodolistAdapter::openRepository(QString directory)
 {
-    m_directory = directory;
+    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
+    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
 
-    qDebug() << "open";
+    m_directory = directory;
     m_todolistProcess->setWorkingDirectory(m_directory);
 
     QString args = m_todolistBinPath + " " + m_getTasks;
+    qDebug() << "open" << m_directory << args;
     m_todolistProcess->start(args);
-    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readData()));
 }
 
-void TodolistAdapter::readData()
+void TodolistAdapter::onTasks()
 {
-    m_data = m_todolistProcess->readAllStandardOutput();
-    qDebug() << "read" << QString::fromUtf8(m_data);
-    emit dataUpdated(m_data);
+    QByteArray tasks = m_todolistProcess->readAllStandardOutput();
+    qDebug() << "read data" << QString::fromUtf8(tasks);
     emit directoryUpdated(m_directory);
+    emit tasksUpdated(tasks);
+}
+
+void TodolistAdapter::onMessage()
+{
+    QByteArray message = m_todolistProcess->readAllStandardOutput();
+    qDebug() << "read message" << QString::fromUtf8(message);
+    emit directoryUpdated(m_directory);
+    emit newMessage(message);
 }
