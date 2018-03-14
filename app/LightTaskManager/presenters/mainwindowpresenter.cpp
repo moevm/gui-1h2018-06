@@ -31,9 +31,12 @@ void MainWindowPresenter::readDirectory(QString directory)
 void MainWindowPresenter::parseData(QByteArray data)
 {
     QString str(data);
-    //QStringList todoList = str.split(QRegExp("[\n;\r]"), QString::SkipEmptyParts);
-    str.remove("\t"); //delete spaces
-    str.remove("\n all\n");
-    QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
-    emit dataUpdated(todoList);
+    if(str.contains("all"))
+    {
+        //QStringList todoList = str.split(QRegExp("[\n;\r]"), QString::SkipEmptyParts);
+        str.remove("\t"); //delete spaces
+        str.remove("\n all\n");
+        QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
+        emit dataUpdated(todoList);
+    }
 }

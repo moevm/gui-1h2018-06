@@ -5,7 +5,8 @@ TodolistAdapter::TodolistAdapter(QObject *parent) :
     m_directory(""),
     m_todolistProcess(new QProcess(this))
 {
-    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
+    //connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
+    connect(m_todolistProcess, SIGNAL(finished(int)), this, SLOT(onMessage()));
 }
 
 TodolistAdapter::~TodolistAdapter()
