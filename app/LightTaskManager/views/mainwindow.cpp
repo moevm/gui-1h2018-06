@@ -56,6 +56,7 @@ void MainWindow::viewToDo(QStringList todoList)
 
     qDebug() << "update table" << todoList.size();
     ui->taskContainerTableWidget->clear();
+    ui->currentTaskPlainTextEdit->clear();
     ui->taskContainerTableWidget->setColumnCount(statusLabels.size());
 
     ui->taskContainerTableWidget->setHorizontalHeaderLabels(statusLabels);
@@ -67,13 +68,15 @@ void MainWindow::viewToDo(QStringList todoList)
     {
         if(item.contains("[ ]"))
         {
-            todoItems.push_back(item);
+            QString data = item.remove("[ ]");
+            todoItems.push_back(data);
         }
         else
         {
             if(item.contains("[x]"))
             {
-                completedItems.push_back(item);
+                QString data = item.remove("[x]");
+                completedItems.push_back(data);
             }
             else
             {
