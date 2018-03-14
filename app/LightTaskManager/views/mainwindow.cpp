@@ -83,15 +83,9 @@ void MainWindow::on_actionOpenRepository_triggered()
 
 void MainWindow::on_taskContainerTableWidget_clicked(const QModelIndex &index)
 {
-    qDebug() << "mousePressEvent";
     ui->currentTaskPlainTextEdit->clear();
-    if (ui->taskContainerTableWidget->selectedItems().isEmpty()){
-
-    }
-    else{
-        QString item = ui->taskContainerTableWidget->selectedItems()[0]->text();
-        ui->currentTaskPlainTextEdit->appendPlainText(item);
-    }
+    QString content = index.data().toString();
+    ui->currentTaskPlainTextEdit->setPlainText(content);
 }
 
 void MainWindow::on_actionInitializeRepository_triggered()
