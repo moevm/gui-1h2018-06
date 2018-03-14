@@ -24,6 +24,8 @@ private slots:
     void viewDirectory(QString filePath);
     void viewToDo(QStringList todoList);
 
+    void on_actionInitializeRepository_triggered();
+
     void on_taskContainerTableWidget_clicked(const QModelIndex &index);
 
 private:

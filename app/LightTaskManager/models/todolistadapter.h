@@ -37,7 +37,7 @@ signals:
 public slots:
     void initializeRepository(QString directory);
     void openRepository(QString directory);
-    void onTasks();
+    void addTask(QString text);
     void onMessage();
 };
 

@@ -93,3 +93,9 @@ void MainWindow::on_taskContainerTableWidget_clicked(const QModelIndex &index)
         ui->currentTaskPlainTextEdit->appendPlainText(item);
     }
 }
+
+void MainWindow::on_actionInitializeRepository_triggered()
+{
+    QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
+    m_presenter->initializeRepository(path);
+}

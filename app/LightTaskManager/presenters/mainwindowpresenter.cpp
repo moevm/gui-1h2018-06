@@ -18,6 +18,11 @@ void MainWindowPresenter::openRepository(QString directory)
     m_todolistAdapter->openRepository(directory);
 }
 
+void MainWindowPresenter::initializeRepository(QString directory)
+{
+    m_todolistAdapter->initializeRepository(directory);
+}
+
 void MainWindowPresenter::readDirectory(QString directory)
 {
     emit directoryUpdated(directory);
@@ -26,8 +31,12 @@ void MainWindowPresenter::readDirectory(QString directory)
 void MainWindowPresenter::parseData(QByteArray data)
 {
     QString str(data);
-    //QStringList todoList = str.split(QRegExp("[\n;\r]"), QString::SkipEmptyParts);
-    str.remove("\t"); //delete spaces
-    QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
-    emit dataUpdated(todoList);
+    if(str.contains("all"))
+    {
+        //QStringList todoList = str.split(QRegExp("[\n;\r]"), QString::SkipEmptyParts);
+        str.remove("\t"); //delete spaces
+        str.remove("\n all\n");
+        QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
+        emit dataUpdated(todoList);
+    }
 }
