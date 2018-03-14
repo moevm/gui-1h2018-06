@@ -24,6 +24,7 @@ void TodolistAdapter::initializeRepository(QString directory)
     m_todolistProcess->setWorkingDirectory(m_directory);
 
     QString args = m_todolistBinPath + " " + m_initializeRepository;
+    qDebug() << "initialize" << m_directory << args;
     m_todolistProcess->start(args);
 }
 
@@ -45,18 +46,6 @@ void TodolistAdapter::addTask(QString text)
     QString args = m_todolistBinPath + " " + m_addTask + " " + text;
     qDebug() << "add task" << args;
     m_todolistProcess->start(args);
-}
-
-void TodolistAdapter::onTasks()
-{
-    QByteArray tasks = m_todolistProcess->readAllStandardOutput();
-    qDebug() << "read data" << QString::fromUtf8(tasks);
-    emit directoryUpdated(m_directory);
-    emit tasksUpdated(tasks);
-    emit newMessage("");
-
-    //disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
-    //disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
 }
 
 void TodolistAdapter::onMessage()

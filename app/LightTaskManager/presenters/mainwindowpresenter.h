@@ -21,6 +21,7 @@ signals:
 
 public slots:
     void openRepository(QString directory);
+    void initializeRepository(QString directory);
     void readDirectory(QString directory);
     void parseData(QByteArray data);
 };

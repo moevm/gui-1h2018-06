@@ -27,6 +27,8 @@ private slots:
     void viewDirectory(QString filePath);
     void viewToDo(QStringList todoList);
 
+    void on_actionInitializeRepository_triggered();
+
 private:
     Ui::MainWindow *ui;
     MainWindowPresenter *m_presenter;

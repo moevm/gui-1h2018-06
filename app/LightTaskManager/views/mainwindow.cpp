@@ -80,3 +80,9 @@ void MainWindow::on_actionOpenRepository_triggered()
     QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
     m_presenter->openRepository(path);
 }
+
+void MainWindow::on_actionInitializeRepository_triggered()
+{
+    QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
+    m_presenter->initializeRepository(path);
+}

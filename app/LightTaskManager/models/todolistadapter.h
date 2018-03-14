@@ -38,7 +38,6 @@ public slots:
     void initializeRepository(QString directory);
     void openRepository(QString directory);
     void addTask(QString text);
-    void onTasks();
     void onMessage();
 };
 
