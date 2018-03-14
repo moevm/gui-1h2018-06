@@ -5,7 +5,7 @@ TodolistAdapter::TodolistAdapter(QObject *parent) :
     m_directory(""),
     m_todolistProcess(new QProcess(this))
 {
-
+    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
 }
 
 TodolistAdapter::~TodolistAdapter()
@@ -20,9 +20,6 @@ QString TodolistAdapter::currentDirectory() const
 
 void TodolistAdapter::initializeRepository(QString directory)
 {
-    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
-    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
-
     m_directory = directory;
     m_todolistProcess->setWorkingDirectory(m_directory);
 
@@ -32,14 +29,21 @@ void TodolistAdapter::initializeRepository(QString directory)
 
 void TodolistAdapter::openRepository(QString directory)
 {
-    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
-    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
-
     m_directory = directory;
     m_todolistProcess->setWorkingDirectory(m_directory);
 
     QString args = m_todolistBinPath + " " + m_getTasks;
     qDebug() << "open" << m_directory << args;
+    m_todolistProcess->start(args);
+}
+
+void TodolistAdapter::addTask(QString text)
+{
+    disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
+    connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
+
+    QString args = m_todolistBinPath + " " + m_addTask + " " + text;
+    qDebug() << "add task" << args;
     m_todolistProcess->start(args);
 }
 
@@ -50,6 +54,9 @@ void TodolistAdapter::onTasks()
     emit directoryUpdated(m_directory);
     emit tasksUpdated(tasks);
     emit newMessage("");
+
+    //disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onTasks()));
+    //disconnect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
 }
 
 void TodolistAdapter::onMessage()
@@ -57,6 +64,5 @@ void TodolistAdapter::onMessage()
     QByteArray message = m_todolistProcess->readAllStandardOutput();
     qDebug() << "read message" << QString::fromUtf8(message);
     emit directoryUpdated(m_directory);
-    emit newMessage(message);
-    emit tasksUpdated("");
+    emit tasksUpdated(message);
 }
