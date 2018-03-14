@@ -16,25 +16,28 @@ public:
     QString currentDirectory() const;
 
 protected:
-    QString m_directory;
-    QByteArray m_data;
-
     const QString m_todolistBinPath = "/usr/local/opt/todolist/bin/todolist";
+    const QString m_initializeRepository = "init";
     const QString m_getTasks = "list";
     const QString m_addTask = "add";
     const QString m_deleteTask = "delete";
     const QString m_updateTask = "update";
 
+    QString m_directory;
+
     QProcess* m_todolistProcess;
 
 
 signals:
-    void dataUpdated(QByteArray data);
+    void tasksUpdated(QByteArray tasks);
     void directoryUpdated(QString path);
+    void newMessage(QByteArray message);
 
 public slots:
+    void initializeRepository(QString directory);
     void openRepository(QString directory);
-    void readData();
+    void onTasks();
+    void onMessage();
 };
 
 #endif // TODOLISTADAPTER_H
