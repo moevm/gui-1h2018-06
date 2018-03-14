@@ -48,18 +48,8 @@ void MainWindow::viewDirectory(QString filePath)
 
 void MainWindow::viewToDo(QStringList todoList)
 {
-    QStringList statusLabels =
-    {
-        "Поставлены",
-        "Выполнены"
-    };
-
-    qDebug() << "update table" << todoList.size();
-    ui->taskContainerTableWidget->clear();
-    ui->currentTaskPlainTextEdit->clear();
-    ui->taskContainerTableWidget->setColumnCount(statusLabels.size());
-
-    ui->taskContainerTableWidget->setHorizontalHeaderLabels(statusLabels);
+    ui->todoListWidget->clear();
+    ui->completedListWidget->clear();
 
     QStringList todoItems;
     QStringList completedItems;
@@ -85,26 +75,16 @@ void MainWindow::viewToDo(QStringList todoList)
         }
     }
 
-    size_t maxCount = std::max(todoItems.size(), completedItems.size());
-    ui->taskContainerTableWidget->setRowCount(maxCount);
-
     for(size_t i = 0; i < (size_t) todoItems.size(); i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem(todoItems[i]);
-        ui->taskContainerTableWidget->setItem(i, 0, item);
+        QListWidgetItem* listItem = new QListWidgetItem(todoItems[i]);
+        ui->todoListWidget->addItem(listItem);
     }
 
     for(size_t i = 0; i < (size_t) completedItems.size(); i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem(completedItems[i]);
-        ui->taskContainerTableWidget->setItem(i, 1, item);
-    }
-
-    // to stretch table
-    QTableWidget *field = ui->taskContainerTableWidget;
-    for (int i = 0; i < field->columnCount(); i++)
-    {
-        field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        QListWidgetItem* listItem = new QListWidgetItem(completedItems[i]);
+        ui->completedListWidget->addItem(listItem);
     }
 }
 
@@ -114,15 +94,22 @@ void MainWindow::on_actionOpenRepository_triggered()
     m_presenter->openRepository(path);
 }
 
-void MainWindow::on_taskContainerTableWidget_clicked(const QModelIndex &index)
+void MainWindow::on_actionInitializeRepository_triggered()
+{
+    QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
+    m_presenter->initializeRepository(path);
+}
+
+void MainWindow::on_todoListWidget_clicked(const QModelIndex &index)
 {
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->currentTaskPlainTextEdit->setPlainText(content);
 }
 
-void MainWindow::on_actionInitializeRepository_triggered()
+void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
 {
-    QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
-    m_presenter->initializeRepository(path);
+    ui->currentTaskPlainTextEdit->clear();
+    QString content = index.data().toString();
+    ui->currentTaskPlainTextEdit->setPlainText(content);
 }

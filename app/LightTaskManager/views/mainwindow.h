@@ -26,7 +26,9 @@ private slots:
 
     void on_actionInitializeRepository_triggered();
 
-    void on_taskContainerTableWidget_clicked(const QModelIndex &index);
+    void on_todoListWidget_clicked(const QModelIndex &index);
+
+    void on_completedListWidget_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
