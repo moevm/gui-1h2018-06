@@ -5,7 +5,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     m_todolistAdapter(new TodolistAdapter(this))
 {
     connect(m_todolistAdapter, SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
-    connect(m_todolistAdapter, SIGNAL(dataUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
+    connect(m_todolistAdapter, SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
 }
 
 MainWindowPresenter::~MainWindowPresenter()
