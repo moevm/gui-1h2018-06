@@ -5,6 +5,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     m_todolistAdapter(new TodolistAdapter(this))
 {
     connect(m_todolistAdapter, SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
+    connect(m_todolistAdapter, SIGNAL(dataUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
 }
 
 MainWindowPresenter::~MainWindowPresenter()
@@ -20,4 +21,11 @@ void MainWindowPresenter::openRepository(QString directory)
 void MainWindowPresenter::readDirectory(QString directory)
 {
     emit directoryUpdated(directory);
+}
+
+void MainWindowPresenter::parseData(QByteArray data)
+{
+    QString str(data);
+    QStringList todoList = str.split("\t", QString::SkipEmptyParts);
+    emit dataUpdated(todoList);
 }

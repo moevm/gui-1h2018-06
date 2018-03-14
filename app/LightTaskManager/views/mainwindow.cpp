@@ -43,11 +43,19 @@ void MainWindow::setupWidgets()
 void MainWindow::setupPresenter()
 {
     connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(viewDirectory(QString)));
+    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(viewToDo(QStringList)));
 }
 
 void MainWindow::viewDirectory(QString filePath)
 {
     ui->filePathLineEdit->setText(filePath);
+}
+
+void MainWindow::viewToDo(QStringList todoList)
+{
+    ui->taskContainerTableWidget->insertColumn(0);
+    ui->taskContainerTableWidget->insertRow(0);
+    ui->taskContainerTableWidget->setItem(0,0,new QTableWidgetItem("todoList"));
 }
 
 void MainWindow::on_actionOpenRepository_triggered()

@@ -17,10 +17,12 @@ protected:
 
 signals:
     void directoryUpdated(QString directory);
+    void dataUpdated(QStringList todoList);
 
 public slots:
     void openRepository(QString directory);
     void readDirectory(QString directory);
+    void parseData(QByteArray data);
 };
 
 #endif // MAINWINDOWPRESENTER_H
