@@ -55,7 +55,7 @@
        <item>
         <widget class="QTableWidget" name="taskContainerTableWidget">
          <property name="editTriggers">
-          <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+          <set>QAbstractItemView::NoEditTriggers</set>
          </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
@@ -70,7 +70,7 @@
           <bool>false</bool>
          </property>
          <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
+          <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>false</bool>
@@ -84,16 +84,6 @@
          <attribute name="verticalHeaderStretchLastSection">
           <bool>false</bool>
          </attribute>
-         <column>
-          <property name="text">
-           <string>Поставлены</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Выполены</string>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>

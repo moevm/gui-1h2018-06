@@ -32,12 +32,7 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    // to stretch table
-    QTableWidget *field = ui->taskContainerTableWidget;
-    for (int i = 0; i < field->columnCount(); i++)
-    {
-        field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
+    viewToDo(QStringList());
 }
 
 void MainWindow::setupPresenter()
@@ -53,9 +48,31 @@ void MainWindow::viewDirectory(QString filePath)
 
 void MainWindow::viewToDo(QStringList todoList)
 {
-    ui->taskContainerTableWidget->insertColumn(0);
-    ui->taskContainerTableWidget->insertRow(0);
-    ui->taskContainerTableWidget->setItem(0,0,new QTableWidgetItem("todoList"));
+    QStringList statusLabels =
+    {
+        "Поставлены",
+        "Выполнены"
+    };
+
+    qDebug() << "update table" << todoList.size();
+    ui->taskContainerTableWidget->clear();
+    ui->taskContainerTableWidget->setColumnCount(statusLabels.size());
+    ui->taskContainerTableWidget->setRowCount(todoList.size());
+
+    ui->taskContainerTableWidget->setHorizontalHeaderLabels(statusLabels);
+
+    for(size_t i = 0; i < (size_t) todoList.size(); i++)
+    {
+        QTableWidgetItem* item = new QTableWidgetItem(todoList[i]);
+        ui->taskContainerTableWidget->setItem(i, 0, item);
+    }
+
+    // to stretch table
+    QTableWidget *field = ui->taskContainerTableWidget;
+    for (int i = 0; i < field->columnCount(); i++)
+    {
+        field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 }
 
 void MainWindow::on_actionOpenRepository_triggered()
