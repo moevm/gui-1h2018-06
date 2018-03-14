@@ -16,8 +16,11 @@ public:
     QString currentDirectory() const;
 
 protected:
-    const QString m_todolistBinPath = "/usr/local/opt/todolist/bin/todolist";
     const QString m_initializeRepository = "init";
+    QString m_directory;
+    QByteArray m_data;
+
+    const QString m_todolistBinPath = "/opt/todolist/todolist";
     const QString m_getTasks = "list";
     const QString m_addTask = "add";
     const QString m_deleteTask = "delete";
