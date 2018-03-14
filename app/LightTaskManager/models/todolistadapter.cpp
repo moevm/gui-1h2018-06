@@ -25,7 +25,9 @@ void TodolistAdapter::openRepository(QString directory)
 
     qDebug() << "open";
     m_todolistProcess->setWorkingDirectory(m_directory);
-    m_todolistProcess->start("/usr/local/opt/todolist/bin/todolist list");
+
+    QString args = m_todolistBinPath + " " + m_getTasks;
+    m_todolistProcess->start(args);
     connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readData()));
 }
 
