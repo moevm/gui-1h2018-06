@@ -28,9 +28,6 @@ void TodolistAdapter::initializeRepository(QString directory)
 
     QString args = m_todolistBinPath + " " + m_initializeRepository;
     m_todolistProcess->start(args);
-
-    emit directoryUpdated(m_directory);
-    emit tasksUpdated("");
 }
 
 void TodolistAdapter::openRepository(QString directory)
@@ -52,6 +49,7 @@ void TodolistAdapter::onTasks()
     qDebug() << "read data" << QString::fromUtf8(tasks);
     emit directoryUpdated(m_directory);
     emit tasksUpdated(tasks);
+    emit newMessage("");
 }
 
 void TodolistAdapter::onMessage()
@@ -60,4 +58,5 @@ void TodolistAdapter::onMessage()
     qDebug() << "read message" << QString::fromUtf8(message);
     emit directoryUpdated(m_directory);
     emit newMessage(message);
+    emit tasksUpdated("");
 }
