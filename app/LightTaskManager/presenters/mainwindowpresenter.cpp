@@ -39,4 +39,8 @@ void MainWindowPresenter::parseData(QByteArray data)
         QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
         emit dataUpdated(todoList);
     }
+    else
+    {
+        openRepository(m_todolistAdapter->currentDirectory());
+    }
 }
