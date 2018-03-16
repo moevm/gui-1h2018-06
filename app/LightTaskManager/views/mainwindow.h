@@ -20,9 +20,10 @@ public:
     ~MainWindow();
 
 private slots:
+    void updateDirectoryWidgets(QString filePath);
+    void updateTaskWidgets(QStringList todoList);
+
     void on_actionOpenRepository_triggered();
-    void viewDirectory(QString filePath);
-    void viewToDo(QStringList todoList);
 
     void on_actionInitializeRepository_triggered();
 

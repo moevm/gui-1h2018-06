@@ -34,7 +34,7 @@ void MainWindowPresenter::parseData(QByteArray data)
     if(str.contains("all"))
     {
         //QStringList todoList = str.split(QRegExp("[\n;\r]"), QString::SkipEmptyParts);
-        str.remove("\t"); //delete spaces
+        str.remove("\t"); //delete tabs
         str.remove("\n all\n");
         QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
         emit dataUpdated(todoList);

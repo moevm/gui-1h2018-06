@@ -32,21 +32,21 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    viewToDo(QStringList());
+    updateTaskWidgets(QStringList());
 }
 
 void MainWindow::setupPresenter()
 {
-    connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(viewDirectory(QString)));
-    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(viewToDo(QStringList)));
+    connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
+    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
 }
 
-void MainWindow::viewDirectory(QString filePath)
+void MainWindow::updateDirectoryWidgets(QString filePath)
 {
     ui->filePathLineEdit->setText(filePath);
 }
 
-void MainWindow::viewToDo(QStringList todoList)
+void MainWindow::updateTaskWidgets(QStringList todoList)
 {
     ui->todoListWidget->clear();
     ui->completedListWidget->clear();
