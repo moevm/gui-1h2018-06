@@ -61,6 +61,13 @@ void TodolistAdapter::uncompleteTask(size_t index)
     m_todolistProcess->start(args);
 }
 
+void TodolistAdapter::deleteTask(size_t index)
+{
+    QString args = m_todolistBinPath + " " + m_deleteTask + " " + QString::number(index);
+    qDebug() << "delete task" << args;
+    m_todolistProcess->start(args);
+}
+
 void TodolistAdapter::onMessage()
 {
     QByteArray message = m_todolistProcess->readAllStandardOutput();

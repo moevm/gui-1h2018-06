@@ -42,6 +42,7 @@ public slots:
     void addTask(QString text);
     void completeTask(size_t index);
     void uncompleteTask(size_t index);
+    void deleteTask(size_t index);
 
     void onMessage();
 };
