@@ -32,6 +32,8 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
+    connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
+
     updateTaskWidgets(QStringList());
 }
 
@@ -112,4 +114,9 @@ void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->currentTaskPlainTextEdit->setPlainText(content);
+}
+
+void MainWindow::completeTaskAction(QString data)
+{
+    m_presenter->completeTask(data);
 }

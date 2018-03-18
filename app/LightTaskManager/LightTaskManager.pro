@@ -28,13 +28,15 @@ SOURCES += \
         views/mainwindow.cpp \
     models/todolistadapter.cpp \
     presenters/mainwindowpresenter.cpp \
-    models/settingsmanager.cpp
+    models/settingsmanager.cpp \
+    views/widgets/mylistwidget.cpp
 
 HEADERS += \
         views/mainwindow.h \
     models/todolistadapter.h \
     presenters/mainwindowpresenter.h \
-    models/settingsmanager.h
+    models/settingsmanager.h \
+    views/widgets/mylistwidget.h
 
 FORMS += \
         views/mainwindow.ui

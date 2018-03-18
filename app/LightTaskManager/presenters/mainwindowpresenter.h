@@ -27,6 +27,7 @@ public slots:
     void readDirectory(QString directory);
     void parseData(QByteArray data);
 
+    void completeTask(QString data);
     void completeTask(size_t index);
     void uncompleteTask(size_t index);
 };

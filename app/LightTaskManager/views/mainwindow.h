@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTableWidget>
 #include <QFileDialog>
+#include <QListWidgetItem>
 
 #include "presenters/mainwindowpresenter.h"
 
@@ -30,6 +31,8 @@ private slots:
     void on_todoListWidget_clicked(const QModelIndex &index);
 
     void on_completedListWidget_clicked(const QModelIndex &index);
+
+    void completeTaskAction(QString data);
 
 private:
     Ui::MainWindow *ui;

@@ -43,7 +43,7 @@
         <number>0</number>
        </property>
        <item row="2" column="1">
-        <widget class="QListWidget" name="completedListWidget">
+        <widget class="MyListWidget" name="completedListWidget">
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -51,7 +51,7 @@
           <bool>true</bool>
          </property>
          <property name="dragDropOverwriteMode">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="dragDropMode">
           <enum>QAbstractItemView::DragDrop</enum>
@@ -85,7 +85,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QListWidget" name="todoListWidget">
+        <widget class="MyListWidget" name="todoListWidget">
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -289,6 +289,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MyListWidget</class>
+   <extends>QListWidget</extends>
+   <header>views/widgets/mylistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources/resources.qrc"/>
  </resources>
