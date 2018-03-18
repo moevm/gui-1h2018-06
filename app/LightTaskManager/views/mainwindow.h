@@ -6,6 +6,7 @@
 #include <QFileDialog>
 
 #include "presenters/mainwindowpresenter.h"
+#include "adddialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,8 @@ private slots:
     void on_actionInitializeRepository_triggered();
 
     void on_taskContainerTableWidget_clicked(const QModelIndex &index);
+
+    void on_actionAddTask_triggered();
 
 private:
     Ui::MainWindow *ui;

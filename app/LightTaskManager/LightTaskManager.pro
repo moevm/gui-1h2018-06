@@ -27,15 +27,18 @@ SOURCES += \
         main.cpp \
         views/mainwindow.cpp \
     models/todolistadapter.cpp \
-    presenters/mainwindowpresenter.cpp
+    presenters/mainwindowpresenter.cpp \
+    views/adddialog.cpp
 
 HEADERS += \
         views/mainwindow.h \
     models/todolistadapter.h \
-    presenters/mainwindowpresenter.h
+    presenters/mainwindowpresenter.h \
+    views/adddialog.h
 
 FORMS += \
-        views/mainwindow.ui
+        views/mainwindow.ui \
+    views/adddialog.ui
 
 RESOURCES += \
     views/resources/resources.qrc
