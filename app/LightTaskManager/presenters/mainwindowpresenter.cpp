@@ -54,3 +54,13 @@ void MainWindowPresenter::parseData(QByteArray data)
         openRepository(m_todolistAdapter->currentDirectory());
     }
 }
+
+void MainWindowPresenter::completeTask(size_t index)
+{
+    m_todolistAdapter->completeTask(index);
+}
+
+void MainWindowPresenter::uncompleteTask(size_t index)
+{
+    m_todolistAdapter->uncompleteTask(index);
+}

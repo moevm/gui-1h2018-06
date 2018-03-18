@@ -26,6 +26,9 @@ public slots:
     void initializeRepository(QString directory);
     void readDirectory(QString directory);
     void parseData(QByteArray data);
+
+    void completeTask(size_t index);
+    void uncompleteTask(size_t index);
 };
 
 #endif // MAINWINDOWPRESENTER_H

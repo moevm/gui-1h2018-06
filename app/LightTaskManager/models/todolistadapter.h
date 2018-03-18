@@ -22,6 +22,8 @@ protected:
     const QString m_addTask = "add";
     const QString m_deleteTask = "delete";
     const QString m_updateTask = "update";
+    const QString m_completeTask = "complete";
+    const QString m_uncompleteTask = "uncomplete";
 
     QString m_directory;
     QByteArray m_data;
@@ -38,6 +40,9 @@ public slots:
     void initializeRepository(QString directory);
     void openRepository(QString directory);
     void addTask(QString text);
+    void completeTask(size_t index);
+    void uncompleteTask(size_t index);
+
     void onMessage();
 };
 
