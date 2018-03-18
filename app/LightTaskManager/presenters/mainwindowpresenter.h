@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "models/todolistadapter.h"
+#include "models/settingsmanager.h"
 
 class MainWindowPresenter : public QObject
 {
@@ -13,6 +14,7 @@ public:
     ~MainWindowPresenter();
 
 protected:
+    SettingsManager *m_settingsManager;
     TodolistAdapter *m_todolistAdapter;
 
 signals:

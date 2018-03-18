@@ -10,13 +10,13 @@ class TodolistAdapter : public QObject
 {
     Q_OBJECT
 public:
-    explicit TodolistAdapter(QObject *parent = nullptr);
+    explicit TodolistAdapter(QString todolistBinPath, QObject *parent = nullptr);
     ~TodolistAdapter();
 
     QString currentDirectory() const;
 
 protected:
-    const QString m_todolistBinPath = "/usr/local/opt/todolist/bin/todolist";
+    const QString m_todolistBinPath = "";
     const QString m_initializeRepository = "init";
     const QString m_getTasks = "list";
     const QString m_addTask = "add";

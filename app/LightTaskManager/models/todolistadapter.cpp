@@ -1,7 +1,8 @@
 #include "todolistadapter.h"
 
-TodolistAdapter::TodolistAdapter(QObject *parent) :
+TodolistAdapter::TodolistAdapter(QString todolistBinPath, QObject *parent) :
     QObject(parent),
+    m_todolistBinPath(todolistBinPath),
     m_directory(""),
     m_todolistProcess(new QProcess(this))
 {

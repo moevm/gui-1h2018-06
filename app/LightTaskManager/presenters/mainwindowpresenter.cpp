@@ -1,11 +1,21 @@
 #include "mainwindowpresenter.h"
 
 MainWindowPresenter::MainWindowPresenter(QObject *parent) :
-    QObject(parent),
-    m_todolistAdapter(new TodolistAdapter(this))
+    QObject(parent),  
+    m_settingsManager(new SettingsManager())
 {
-    connect(m_todolistAdapter, SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
-    connect(m_todolistAdapter, SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
+    try
+    {
+        QString todolistPath = m_settingsManager->get("General", "TodoListBinPath").toString();
+        m_todolistAdapter = new TodolistAdapter(todolistPath, this);
+
+        connect(m_todolistAdapter, SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
+        connect(m_todolistAdapter, SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
 
 MainWindowPresenter::~MainWindowPresenter()
