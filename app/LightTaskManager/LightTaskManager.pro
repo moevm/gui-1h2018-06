@@ -29,17 +29,20 @@ SOURCES += \
     models/todolistadapter.cpp \
     presenters/mainwindowpresenter.cpp \
     models/settingsmanager.cpp \
-    views/widgets/mylistwidget.cpp
+    views/widgets/mylistwidget.cpp \
+    views/adddialog.cpp
 
 HEADERS += \
         views/mainwindow.h \
     models/todolistadapter.h \
     presenters/mainwindowpresenter.h \
     models/settingsmanager.h \
-    views/widgets/mylistwidget.h
+    views/widgets/mylistwidget.h \
+    views/adddialog.h
 
 FORMS += \
-        views/mainwindow.ui
+        views/mainwindow.ui \
+        views/adddialog.ui
 
 RESOURCES += \
     views/resources/resources.qrc

@@ -7,6 +7,7 @@
 #include <QListWidgetItem>
 
 #include "presenters/mainwindowpresenter.h"
+#include "adddialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +35,8 @@ private slots:
 
     void completeTaskAction(QString data);
     void uncompleteTaskAction(QString data);
+
+    void on_actionAddTask_triggered();
 
 private:
     Ui::MainWindow *ui;
