@@ -1,14 +1,27 @@
 #include "adddialog.h"
 #include "ui_adddialog.h"
 
-addDialog::addDialog(QWidget *parent) :
+AddDialog::AddDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::addDialog)
+    ui(new Ui::AddDialog)
 {
     ui->setupUi(this);
 }
 
-addDialog::~addDialog()
+AddDialog::~AddDialog()
 {
     delete ui;
+}
+
+void AddDialog::on_addButtonBox_accepted()
+{
+    if(ui->addTextEdit->toPlainText() == nullptr)
+    {
+        QMessageBox(QMessageBox::Information, "Information", "Введите описание задачи").exec();
+    }
+    else
+    {
+        QString task = ui->addTextEdit->toPlainText();
+        emit addTask(task);
+    }
 }
