@@ -29,6 +29,7 @@ public slots:
 
     void completeTask(QString data);
     void completeTask(size_t index);
+    void uncompleteTask(QString data);
     void uncompleteTask(size_t index);
 };
 

@@ -33,6 +33,7 @@ void MainWindow::setupWidgets()
     ui->statusBar->showMessage("Ready");
 
     connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
+    connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
 
     updateTaskWidgets(QStringList());
 }
@@ -119,4 +120,9 @@ void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
 void MainWindow::completeTaskAction(QString data)
 {
     m_presenter->completeTask(data);
+}
+
+void MainWindow::uncompleteTaskAction(QString data)
+{
+    m_presenter->uncompleteTask(data);
 }

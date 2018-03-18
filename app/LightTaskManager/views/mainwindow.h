@@ -33,6 +33,7 @@ private slots:
     void on_completedListWidget_clicked(const QModelIndex &index);
 
     void completeTaskAction(QString data);
+    void uncompleteTaskAction(QString data);
 
 private:
     Ui::MainWindow *ui;

@@ -76,6 +76,22 @@ void MainWindowPresenter::completeTask(size_t index)
     m_todolistAdapter->completeTask(index);
 }
 
+void MainWindowPresenter::uncompleteTask(QString data)
+{
+    QString index = data.split(" ").operator [](1);
+    qDebug() << data.split(" ") << index;
+    bool isCorrect;
+    size_t number = index.toUInt(&isCorrect);
+    if(isCorrect)
+    {
+        uncompleteTask(number);
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Невозможно сменить статус задачи №" + index).exec();
+    }
+}
+
 void MainWindowPresenter::uncompleteTask(size_t index)
 {
     m_todolistAdapter->uncompleteTask(index);
