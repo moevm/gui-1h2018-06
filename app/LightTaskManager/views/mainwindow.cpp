@@ -126,6 +126,7 @@ void MainWindow::uncompleteTaskAction(QString data)
 {
     m_presenter->uncompleteTask(data);
 }
-void MainWindow::on_actionAddTask_triggered(){
+void MainWindow::on_actionAddTask_triggered()
+{
     AddDialog(this).exec();
 }

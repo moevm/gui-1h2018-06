@@ -17,7 +17,6 @@ public:
 protected:
     SettingsManager *m_settingsManager;
     TodolistAdapter *m_todolistAdapter;
-    AddDialog *m_addDialog;
 
 signals:
     void directoryUpdated(QString directory);
@@ -33,7 +32,6 @@ public slots:
     void completeTask(size_t index);
     void uncompleteTask(QString data);
     void uncompleteTask(size_t index);
-    void addTask(QString task);
 };
 
 #endif // MAINWINDOWPRESENTER_H
