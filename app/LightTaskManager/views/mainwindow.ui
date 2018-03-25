@@ -183,7 +183,14 @@
     <addaction name="actionAddTask"/>
     <addaction name="actionDeleteTask"/>
    </widget>
+   <widget class="QMenu" name="menuEnvironment">
+    <property name="title">
+     <string>Environment</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menuEnvironment"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="movable">
@@ -285,6 +292,15 @@
    </property>
    <property name="text">
     <string>Open Repository</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/images/images/Settings.png</normaloff>:/images/images/Settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

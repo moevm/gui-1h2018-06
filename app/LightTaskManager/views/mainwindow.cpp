@@ -28,6 +28,7 @@ void MainWindow::setupWidgets()
     toolbar->addAction(ui->actionOpenRepository);
     toolbar->addAction(ui->actionAddTask);
     toolbar->addAction(ui->actionDeleteTask);
+    toolbar->addAction(ui->actionSettings);
 
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
