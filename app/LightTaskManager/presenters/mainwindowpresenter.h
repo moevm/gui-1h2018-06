@@ -32,7 +32,7 @@ public slots:
     void uncompleteTask(QString data);
     void uncompleteTask(size_t index);
 
-    void addTask(QString &task);
+    void addTask(QString task);
 };
 
 #endif // MAINWINDOWPRESENTER_H
