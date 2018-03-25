@@ -129,4 +129,6 @@ void MainWindow::uncompleteTaskAction(QString data)
 void MainWindow::on_actionAddTask_triggered()
 {
     AddDialog(this).exec();
+    AddDialog add;
+    connect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
 }

@@ -5,7 +5,6 @@
 
 #include "models/todolistadapter.h"
 #include "models/settingsmanager.h"
-#include "views/adddialog.h"
 
 class MainWindowPresenter : public QObject
 {
@@ -32,6 +31,8 @@ public slots:
     void completeTask(size_t index);
     void uncompleteTask(QString data);
     void uncompleteTask(size_t index);
+
+    void addTask(QString &task);
 };
 
 #endif // MAINWINDOWPRESENTER_H
