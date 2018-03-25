@@ -4,5 +4,6 @@
         <file>images/Plus.png</file>
         <file>images/FileOpen.png</file>
         <file>images/Minus.png</file>
+        <file>images/Settings.png</file>
     </qresource>
 </RCC>

@@ -28,6 +28,7 @@ void MainWindow::setupWidgets()
     toolbar->addAction(ui->actionOpenRepository);
     toolbar->addAction(ui->actionAddTask);
     toolbar->addAction(ui->actionDeleteTask);
+    toolbar->addAction(ui->actionSettings);
 
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
@@ -36,12 +37,16 @@ void MainWindow::setupWidgets()
     connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
 
     updateTaskWidgets(QStringList());
+
+    ui->actionAddTask->setEnabled(false);
+    ui->actionDeleteTask->setEnabled(false);
 }
 
 void MainWindow::setupPresenter()
 {
     connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
     connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
+    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
 }
 
 void MainWindow::updateDirectoryWidgets(QString filePath)
@@ -132,4 +137,18 @@ void MainWindow::on_actionAddTask_triggered()
     connect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
     add.exec();
     disconnect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
+}
+
+void MainWindow::enableTasksActions()
+{
+    ui->actionAddTask->setEnabled(true);
+    ui->actionDeleteTask->setEnabled(true);
+}
+
+void MainWindow::on_actionDeleteTask_triggered()
+{
+    DeleteTaskDialog dialog(this);
+    connect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
+    dialog.exec();
+    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
 }

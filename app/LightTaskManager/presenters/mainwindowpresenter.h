@@ -33,6 +33,7 @@ public slots:
     void uncompleteTask(size_t index);
 
     void addTask(QString task);
+    void deleteTask(QString index);
 };
 
 #endif // MAINWINDOWPRESENTER_H
