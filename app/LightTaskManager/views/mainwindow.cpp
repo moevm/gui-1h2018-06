@@ -144,3 +144,11 @@ void MainWindow::enableTasksActions()
     ui->actionAddTask->setEnabled(true);
     ui->actionDeleteTask->setEnabled(true);
 }
+
+void MainWindow::on_actionDeleteTask_triggered()
+{
+    DeleteTaskDialog dialog(this);
+    connect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
+    dialog.exec();
+    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
+}
