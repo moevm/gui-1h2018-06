@@ -36,12 +36,16 @@ void MainWindow::setupWidgets()
     connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
 
     updateTaskWidgets(QStringList());
+
+    ui->actionAddTask->setEnabled(false);
+    ui->actionDeleteTask->setEnabled(false);
 }
 
 void MainWindow::setupPresenter()
 {
     connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
     connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
+    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
 }
 
 void MainWindow::updateDirectoryWidgets(QString filePath)
@@ -132,4 +136,10 @@ void MainWindow::on_actionAddTask_triggered()
     connect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
     add.exec();
     disconnect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
+}
+
+void MainWindow::enableTasksActions()
+{
+    ui->actionAddTask->setEnabled(true);
+    ui->actionDeleteTask->setEnabled(true);
 }

@@ -38,6 +38,8 @@ private slots:
 
     void on_actionAddTask_triggered();
 
+    void enableTasksActions();
+
 private:
     Ui::MainWindow *ui;
     MainWindowPresenter *m_presenter;
