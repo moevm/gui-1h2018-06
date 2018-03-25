@@ -99,5 +99,5 @@ void MainWindowPresenter::uncompleteTask(size_t index)
 
 void MainWindowPresenter::addTask(QString task)
 {
-    qDebug() << task;
+    m_todolistAdapter->addTask(task);
 }
