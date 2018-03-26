@@ -21,7 +21,7 @@ protected:
     const QString m_getTasks = "list";
     const QString m_addTask = "add";
     const QString m_deleteTask = "delete";
-    const QString m_updateTask = "update";
+    const QString m_editTask = "edit";
     const QString m_completeTask = "complete";
     const QString m_uncompleteTask = "uncomplete";
 
@@ -43,6 +43,7 @@ public slots:
     void completeTask(size_t index);
     void uncompleteTask(size_t index);
     void deleteTask(size_t index);
+    void editTask(size_t index, QString text);
 
     void onMessage();
 };
