@@ -58,6 +58,7 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
 {
     ui->todoListWidget->clear();
     ui->completedListWidget->clear();
+    ui->currentTaskPlainTextEdit->clear();
 
     QStringList todoItems;
     QStringList completedItems;
