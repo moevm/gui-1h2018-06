@@ -6,67 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
-    <height>294</height>
+    <width>593</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Добавить задачу</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QFrame" name="addFrame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+   <item row="4" column="1">
+    <widget class="QLabel" name="personLabel">
+     <property name="text">
+      <string>Исполнитель:</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="3" column="0">
-       <widget class="QLabel" name="nameLabel">
-        <property name="text">
-         <string>Заголовок проекта</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="addLabel">
-        <property name="text">
-         <string>Введите описание задачи</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="nameLineEdit"/>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="personLineEdit"/>
-      </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QTextEdit" name="addTextEdit"/>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="dateLabel">
-        <property name="text">
-         <string>Дата</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QDateEdit" name="dateEdit"/>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="personLabel">
-        <property name="text">
-         <string>Участник</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="3" column="2">
+    <widget class="QLineEdit" name="projectLineEdit"/>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLineEdit" name="personLineEdit"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="addLabel">
+     <property name="text">
+      <string>Описание задачи</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QTextEdit" name="addTextEdit"/>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="projectLabel">
+     <property name="text">
+      <string>Проект:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QCalendarWidget" name="calendarWidget"/>
+   </item>
+   <item row="5" column="2">
     <widget class="QDialogButtonBox" name="addButtonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

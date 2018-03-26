@@ -3,7 +3,8 @@
 
 AddDialog::AddDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddDialog)
+    ui(new Ui::AddDialog),
+    m_date(QDate())
 {
     ui->setupUi(this);
 }
@@ -21,7 +22,15 @@ void AddDialog::on_addButtonBox_accepted()
     }
     else
     {
-        QString task = ui->addTextEdit->toPlainText();
+        QString task = "+" + ui->projectLineEdit->text() + " " +
+                ui->addTextEdit->toPlainText() + " until [" + m_date.toString() +"]" +
+                " @" + ui->personLineEdit->text();
+        qDebug() << "new task =" << task;
         emit addTask(task);
     }
+}
+
+void AddDialog::on_calendarWidget_clicked(const QDate &date)
+{
+    m_date = date;
 }

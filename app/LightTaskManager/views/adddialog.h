@@ -2,7 +2,9 @@
 #define ADDDIALOG_H
 
 #include <QDialog>
+#include <QDate>
 #include <QMessageBox>
+#include <QDebug>
 
 namespace Ui {
 class AddDialog;
@@ -22,8 +24,11 @@ signals:
 private slots:
     void on_addButtonBox_accepted();
 
+    void on_calendarWidget_clicked(const QDate &date);
+
 private:
     Ui::AddDialog *ui;
+    QDate m_date;
 };
 
 #endif // ADDDIALOG_H
