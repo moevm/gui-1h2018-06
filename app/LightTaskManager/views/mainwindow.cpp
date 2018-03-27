@@ -40,6 +40,7 @@ void MainWindow::setupWidgets()
 
     ui->actionAddTask->setEnabled(false);
     ui->actionDeleteTask->setEnabled(false);
+    ui->editTaskPushButton->setEnabled(false);
 }
 
 void MainWindow::setupPresenter()
@@ -114,6 +115,7 @@ void MainWindow::on_todoListWidget_clicked(const QModelIndex &index)
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->currentTaskPlainTextEdit->setPlainText(content);
+    ui->editTaskPushButton->setEnabled(true);
 }
 
 void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
