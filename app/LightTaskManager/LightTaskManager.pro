@@ -31,7 +31,8 @@ SOURCES += \
     models/settingsmanager.cpp \
     views/widgets/mylistwidget.cpp \
     views/adddialog.cpp \
-    views/deletetaskdialog.cpp
+    views/deletetaskdialog.cpp \
+    views/edittaskdialog.cpp
 
 HEADERS += \
         views/mainwindow.h \
@@ -40,12 +41,14 @@ HEADERS += \
     models/settingsmanager.h \
     views/widgets/mylistwidget.h \
     views/adddialog.h \
-    views/deletetaskdialog.h
+    views/deletetaskdialog.h \
+    views/edittaskdialog.h
 
 FORMS += \
         views/mainwindow.ui \
         views/adddialog.ui \
-    views/deletetaskdialog.ui
+    views/deletetaskdialog.ui \
+    views/edittaskdialog.ui
 
 RESOURCES += \
     views/resources/resources.qrc

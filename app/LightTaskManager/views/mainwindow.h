@@ -9,6 +9,7 @@
 #include "presenters/mainwindowpresenter.h"
 #include "adddialog.h"
 #include "deletetaskdialog.h"
+#include "edittaskdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +43,8 @@ private slots:
     void enableTasksActions();
 
     void on_actionDeleteTask_triggered();
+
+    void on_editTaskPushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

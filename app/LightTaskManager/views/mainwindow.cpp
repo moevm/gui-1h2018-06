@@ -155,3 +155,9 @@ void MainWindow::on_actionDeleteTask_triggered()
     dialog.exec();
     disconnect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
 }
+
+void MainWindow::on_editTaskPushButton_clicked()
+{
+    EditTaskDialog dialog(this);
+    dialog.exec();
+}
