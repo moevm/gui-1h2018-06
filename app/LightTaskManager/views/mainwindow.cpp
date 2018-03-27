@@ -123,6 +123,7 @@ void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->currentTaskPlainTextEdit->setPlainText(content);
+    ui->editTaskPushButton->setEnabled(true);
 }
 
 void MainWindow::completeTaskAction(QString data)
@@ -158,6 +159,10 @@ void MainWindow::on_actionDeleteTask_triggered()
 
 void MainWindow::on_editTaskPushButton_clicked()
 {
-    EditTaskDialog dialog(this);
+    QString str = ui->currentTaskPlainTextEdit->toPlainText();
+    QString data = str.section(" ", 1); //delete first " "
+    QString index = data.section(" ", 0, 0); //index
+    QString text = data.section(" ", 1); //remaining text
+    EditTaskDialog dialog(index, text, this);
     dialog.exec();
 }

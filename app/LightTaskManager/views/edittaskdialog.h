@@ -12,11 +12,16 @@ class EditTaskDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditTaskDialog(QWidget *parent = 0);
+    explicit EditTaskDialog(QString _index, QString _text, QWidget *parent = 0);
     ~EditTaskDialog();
+
+private slots:
+    void view();
 
 private:
     Ui::EditTaskDialog *ui;
+    QString index;
+    QString text;
 };
 
 #endif // EDITTASKDIALOG_H
