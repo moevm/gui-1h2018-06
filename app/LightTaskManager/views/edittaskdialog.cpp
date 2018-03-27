@@ -21,3 +21,8 @@ void EditTaskDialog::view()
     ui->taskIndexLineEdit->setText(index);
     ui->editTextEdit->setText(text);
 }
+
+void EditTaskDialog::on_editButtonBox_accepted()
+{
+    emit editTask(ui->taskIndexLineEdit->text(), ui->editTextEdit->toPlainText());
+}

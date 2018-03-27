@@ -164,5 +164,7 @@ void MainWindow::on_editTaskPushButton_clicked()
     QString index = data.section(" ", 0, 0); //index
     QString text = data.section(" ", 1); //remaining text
     EditTaskDialog dialog(index, text, this);
+    connect(&dialog, SIGNAL(editTask(QString,QString)), m_presenter, SLOT(editTask(QString,QString)));
     dialog.exec();
+    disconnect(&dialog, SIGNAL(editTask(QString,QString)), m_presenter, SLOT(editTask(QString,QString)));
 }

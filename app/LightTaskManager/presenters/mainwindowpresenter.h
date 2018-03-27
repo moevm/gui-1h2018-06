@@ -34,6 +34,7 @@ public slots:
 
     void addTask(QString task);
     void deleteTask(QString index);
+    void editTask(QString index, QString task);
 };
 
 #endif // MAINWINDOWPRESENTER_H

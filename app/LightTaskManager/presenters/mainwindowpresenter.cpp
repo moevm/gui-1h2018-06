@@ -106,3 +106,8 @@ void MainWindowPresenter::deleteTask(QString index)
 {
     m_todolistAdapter->deleteTask(index.toUInt());
 }
+
+void MainWindowPresenter::editTask(QString index, QString task)
+{
+    m_todolistAdapter->editTask(index.toUInt(), task);
+}

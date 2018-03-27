@@ -15,8 +15,13 @@ public:
     explicit EditTaskDialog(QString _index, QString _text, QWidget *parent = 0);
     ~EditTaskDialog();
 
+signals:
+    void editTask(QString index, QString task);
+
 private slots:
     void view();
+
+    void on_editButtonBox_accepted();
 
 private:
     Ui::EditTaskDialog *ui;
