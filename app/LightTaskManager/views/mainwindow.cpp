@@ -162,9 +162,6 @@ void MainWindow::on_editTaskPushButton_clicked()
     QString str = ui->currentTaskPlainTextEdit->toPlainText();
     QString data = str.section(" ", 1); //delete first " "
     QString index = data.section(" ", 0, 0); //index
-    QString text = data.section(" ", 1); //remaining text
-    EditTaskDialog dialog(index, text, this);
-    connect(&dialog, SIGNAL(editTask(QString,QString)), m_presenter, SLOT(editTask(QString,QString)));
-    dialog.exec();
-    disconnect(&dialog, SIGNAL(editTask(QString,QString)), m_presenter, SLOT(editTask(QString,QString)));
+    QString task = data.section(" ", 1); //remaining text
+    m_presenter->editTask(index, task);
 }

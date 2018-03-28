@@ -9,7 +9,6 @@
 #include "presenters/mainwindowpresenter.h"
 #include "adddialog.h"
 #include "deletetaskdialog.h"
-#include "edittaskdialog.h"
 
 namespace Ui {
 class MainWindow;
