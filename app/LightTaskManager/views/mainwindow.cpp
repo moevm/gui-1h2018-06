@@ -169,4 +169,5 @@ void MainWindow::on_saveTaskPushButton_clicked()
     QString index = data.section(" ", 0, 0); //index
     QString task = data.section(" ", 1); //remaining text
     m_presenter->editTask(index, task);
+    ui->currentTaskPlainTextEdit->setReadOnly(true);
 }
