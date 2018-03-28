@@ -41,6 +41,7 @@ void MainWindow::setupWidgets()
     ui->actionAddTask->setEnabled(false);
     ui->actionDeleteTask->setEnabled(false);
     ui->editTaskPushButton->setEnabled(false);
+    ui->saveTaskPushButton->setEnabled(false);
 }
 
 void MainWindow::setupPresenter()
@@ -160,6 +161,7 @@ void MainWindow::on_actionDeleteTask_triggered()
 void MainWindow::on_editTaskPushButton_clicked()
 {
     ui->currentTaskPlainTextEdit->setReadOnly(false);
+    ui->saveTaskPushButton->setEnabled(true);
 }
 
 void MainWindow::on_saveTaskPushButton_clicked()
@@ -170,4 +172,5 @@ void MainWindow::on_saveTaskPushButton_clicked()
     QString task = data.section(" ", 1); //remaining text
     m_presenter->editTask(index, task);
     ui->currentTaskPlainTextEdit->setReadOnly(true);
+    ui->saveTaskPushButton->setEnabled(false);
 }
