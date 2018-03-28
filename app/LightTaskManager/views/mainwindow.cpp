@@ -159,6 +159,11 @@ void MainWindow::on_actionDeleteTask_triggered()
 
 void MainWindow::on_editTaskPushButton_clicked()
 {
+    ui->currentTaskPlainTextEdit->setReadOnly(false);
+}
+
+void MainWindow::on_saveTaskPushButton_clicked()
+{
     QString str = ui->currentTaskPlainTextEdit->toPlainText();
     QString data = str.section(" ", 1); //delete first " "
     QString index = data.section(" ", 0, 0); //index

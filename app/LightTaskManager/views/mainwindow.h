@@ -45,6 +45,8 @@ private slots:
 
     void on_editTaskPushButton_clicked();
 
+    void on_saveTaskPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     MainWindowPresenter *m_presenter;
