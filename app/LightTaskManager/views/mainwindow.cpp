@@ -161,6 +161,10 @@ void MainWindow::on_actionDeleteTask_triggered()
 void MainWindow::on_editTaskPushButton_clicked()
 {
     ui->currentTaskPlainTextEdit->setReadOnly(false);
+    ui->indexLineEdit->setReadOnly(false);
+    ui->tagLineEdit->setReadOnly(false);
+    ui->dateEdit->setReadOnly(false);
+    ui->userLineEdit->setReadOnly(false);
     ui->saveTaskPushButton->setEnabled(true);
 }
 
@@ -172,5 +176,9 @@ void MainWindow::on_saveTaskPushButton_clicked()
     QString task = data.section(" ", 1); //remaining text
     m_presenter->editTask(index, task);
     ui->currentTaskPlainTextEdit->setReadOnly(true);
+    ui->indexLineEdit->setReadOnly(true);
+    ui->tagLineEdit->setReadOnly(true);
+    ui->dateEdit->setReadOnly(true);
+    ui->userLineEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
 }
