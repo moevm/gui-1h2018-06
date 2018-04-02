@@ -255,13 +255,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QDateEdit" name="dateEdit">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="tagLineEdit">
        <property name="readOnly">
@@ -306,6 +299,13 @@
      </item>
      <item row="3" column="1">
       <widget class="QLineEdit" name="userLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="dateLineEdit">
        <property name="readOnly">
         <bool>true</bool>
        </property>
