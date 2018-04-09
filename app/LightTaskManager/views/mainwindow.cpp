@@ -115,7 +115,11 @@ void MainWindow::on_todoListWidget_clicked(const QModelIndex &index)
 {
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
-    ui->currentTaskPlainTextEdit->setPlainText(content);
+    ui->indexLineEdit->setText(m_presenter->parseIndex(content));
+    ui->tagLineEdit->setText(m_presenter->parseTag(content));
+    ui->dateLineEdit->setText(m_presenter->parseDate(content));
+    ui->userLineEdit->setText(m_presenter->parseUser(content));
+    ui->currentTaskPlainTextEdit->setPlainText(m_presenter->parseTask(content));
     ui->editTaskPushButton->setEnabled(true);
 }
 
@@ -123,7 +127,11 @@ void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
 {
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
-    ui->currentTaskPlainTextEdit->setPlainText(content);
+    ui->indexLineEdit->setText(m_presenter->parseIndex(content));
+    ui->tagLineEdit->setText(m_presenter->parseTag(content));
+    ui->dateLineEdit->setText(m_presenter->parseDate(content));
+    ui->userLineEdit->setText(m_presenter->parseUser(content));
+    ui->currentTaskPlainTextEdit->setPlainText(m_presenter->parseTask(content));
     ui->editTaskPushButton->setEnabled(true);
 }
 
@@ -161,6 +169,10 @@ void MainWindow::on_actionDeleteTask_triggered()
 void MainWindow::on_editTaskPushButton_clicked()
 {
     ui->currentTaskPlainTextEdit->setReadOnly(false);
+    ui->indexLineEdit->setReadOnly(false);
+    ui->tagLineEdit->setReadOnly(false);
+    ui->dateLineEdit->setReadOnly(false);
+    ui->userLineEdit->setReadOnly(false);
     ui->saveTaskPushButton->setEnabled(true);
 }
 
@@ -172,6 +184,10 @@ void MainWindow::on_saveTaskPushButton_clicked()
     QString task = data.section(" ", 1); //remaining text
     m_presenter->editTask(index, task);
     ui->currentTaskPlainTextEdit->setReadOnly(true);
+    ui->indexLineEdit->setReadOnly(true);
+    ui->tagLineEdit->setReadOnly(true);
+    ui->dateLineEdit->setReadOnly(true);
+    ui->userLineEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
 }
 

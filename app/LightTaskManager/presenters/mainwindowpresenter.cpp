@@ -121,5 +121,47 @@ void MainWindowPresenter::openTerminal(QString path)
     qDebug() << "Open Terminal with args:" << args;
     qDebug() << terminal.startDetached("/bin/bash", args);
     //proc.startDetached("zenity --info --text Hello");
-    //qDebug() << QProcess::startDetached("/bin/bash", args);
+    //qDebug() << QProcess::startDetached("/bin/bash", args);   
+}
+
+QString MainWindowPresenter::parseIndex(QString content)
+{
+    return content.section(" ", 1, 1);
+}
+
+QString MainWindowPresenter::parseTag(QString content)
+{
+    QString tag = "";
+    if(content.contains("+"))
+    {
+        tag = content.split("+")[1].split(" ")[0];
+    }
+    return tag;
+    //return content.section("+", 0, 0);
+}
+
+QString MainWindowPresenter::parseDate(QString content)
+{
+    QString date = "";
+    if(content.contains("until ["))
+    {
+        date = content.split("until [")[1].split("]")[0];
+        qDebug() << "test reqExp" << date;
+    }
+    return date;
+}
+
+QString MainWindowPresenter::parseUser(QString content)
+{
+    return content.section("@", 1, 1);
+}
+
+QString MainWindowPresenter::parseTask(QString content)
+{
+    QString res = content;
+    res = res.remove(parseIndex(res));
+    res = res.remove(parseUser(res));
+    res = res.remove(parseDate(res));
+    res = res.remove(parseTag(res));
+    return res;
 }

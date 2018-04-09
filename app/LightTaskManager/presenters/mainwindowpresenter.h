@@ -25,7 +25,7 @@ public slots:
     void openRepository(QString directory);
     void initializeRepository(QString directory);
     void readDirectory(QString directory);
-    void parseData(QByteArray data);
+    void parseData(QByteArray data);    
 
     void completeTask(QString data);
     void completeTask(size_t index);
@@ -35,8 +35,12 @@ public slots:
     void addTask(QString task);
     void deleteTask(QString index);
     void editTask(QString index, QString task);
-
     void openTerminal(QString path);
+    QString parseIndex(QString content);
+    QString parseTag(QString content);
+    QString parseDate(QString content);
+    QString parseUser(QString content);
+    QString parseTask(QString content);
 };
 
 #endif // MAINWINDOWPRESENTER_H
