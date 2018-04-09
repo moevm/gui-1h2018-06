@@ -174,3 +174,8 @@ void MainWindow::on_saveTaskPushButton_clicked()
     ui->currentTaskPlainTextEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
 }
+
+void MainWindow::on_actionOpenTerminal_triggered()
+{
+    m_presenter->openTerminal(ui->filePathLineEdit->text());
+}

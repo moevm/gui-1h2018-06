@@ -188,6 +188,7 @@
      <string>Environment</string>
     </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionOpenTerminal"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuEnvironment"/>
@@ -301,6 +302,11 @@
    </property>
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionOpenTerminal">
+   <property name="text">
+    <string>Open Terminal</string>
    </property>
   </action>
  </widget>

@@ -111,3 +111,15 @@ void MainWindowPresenter::editTask(QString index, QString task)
 {
     m_todolistAdapter->editTask(index.toUInt(), task);
 }
+
+void MainWindowPresenter::openTerminal(QString path)
+{
+    QProcess terminal;
+    terminal.setWorkingDirectory(path);
+    QStringList args;
+    //args << "ls";
+    qDebug() << "Open Terminal with args:" << args;
+    qDebug() << terminal.startDetached("/bin/bash", args);
+    //proc.startDetached("zenity --info --text Hello");
+    //qDebug() << QProcess::startDetached("/bin/bash", args);
+}

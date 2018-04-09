@@ -47,6 +47,8 @@ private slots:
 
     void on_saveTaskPushButton_clicked();
 
+    void on_actionOpenTerminal_triggered();
+
 private:
     Ui::MainWindow *ui;
     MainWindowPresenter *m_presenter;
