@@ -42,6 +42,7 @@ void MainWindow::setupWidgets()
     ui->actionDeleteTask->setEnabled(false);
     ui->editTaskPushButton->setEnabled(false);
     ui->saveTaskPushButton->setEnabled(false);
+    ui->acceptFiltersPushButton->setEnabled(false);
 }
 
 void MainWindow::setupPresenter()
@@ -60,6 +61,10 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
 {
     ui->todoListWidget->clear();
     ui->completedListWidget->clear();
+    ui->indexLineEdit->clear();
+    ui->tagLineEdit->clear();
+    ui->dateLineEdit->clear();
+    ui->userLineEdit->clear();
     ui->currentTaskPlainTextEdit->clear();
 
     QStringList todoItems;
@@ -156,6 +161,7 @@ void MainWindow::enableTasksActions()
 {
     ui->actionAddTask->setEnabled(true);
     ui->actionDeleteTask->setEnabled(true);
+    ui->acceptFiltersPushButton->setEnabled(true);
 }
 
 void MainWindow::on_actionDeleteTask_triggered()
@@ -177,13 +183,14 @@ void MainWindow::on_editTaskPushButton_clicked()
 
 void MainWindow::on_saveTaskPushButton_clicked()
 {
-    QString str = ui->currentTaskPlainTextEdit->toPlainText();
-    QString data = str.section(" ", 1); //delete first " "
-    QString index = data.section(" ", 0, 0); //index
-    QString task = data.section(" ", 1); //remaining text
+    QString index = ui->indexLineEdit->text();
+    QString task = "+" + ui->tagLineEdit->text() + " " +
+                   "until [" + ui->dateLineEdit->text() + "] " +
+                   "@" + ui->userLineEdit->text() + " " +
+                   ui->currentTaskPlainTextEdit->toPlainText();
     m_presenter->editTask(index, task);
+
     ui->currentTaskPlainTextEdit->setReadOnly(true);
-    ui->indexLineEdit->setReadOnly(true);
     ui->tagLineEdit->setReadOnly(true);
     ui->dateLineEdit->setReadOnly(true);
     ui->userLineEdit->setReadOnly(true);

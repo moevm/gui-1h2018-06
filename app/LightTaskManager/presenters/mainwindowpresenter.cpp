@@ -146,22 +146,37 @@ QString MainWindowPresenter::parseDate(QString content)
     if(content.contains("until ["))
     {
         date = content.split("until [")[1].split("]")[0];
-        qDebug() << "test reqExp" << date;
+        //qDebug() << "test reqExp" << date;
     }
     return date;
 }
 
 QString MainWindowPresenter::parseUser(QString content)
 {
-    return content.section("@", 1, 1);
+    QString res = "";
+    if(content.contains("@"))
+    {
+        res = content.split("@").operator [](1).split(" ")[0];
+    }
+    return res;
+    //return content.section("@", 1, 1);
 }
 
 QString MainWindowPresenter::parseTask(QString content)
 {
-    QString res = content;
-    res = res.remove(parseIndex(res));
-    res = res.remove(parseUser(res));
-    res = res.remove(parseDate(res));
-    res = res.remove(parseTag(res));
+    QString res = "";
+    QString index = content.split(" ", QString::SkipEmptyParts).operator[](0);
+    content.remove(0, index.length() +1);
+    //content = content.remove(parseIndex(content));
+    content = content.remove("+" + parseTag(content));
+    content = content.remove("@" + parseUser(content));
+    content = content.remove(parseDate(content));
+    content.remove("until [");
+    content.remove("]");
+    QStringList tmp = content.split(QRegExp(" "), QString::SkipEmptyParts);
+    for(auto s : tmp)
+    {
+        res += s + QStringLiteral(" ");
+    }
     return res;
 }

@@ -221,7 +221,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="acceptPushButton">
+        <widget class="QPushButton" name="acceptFiltersPushButton">
          <property name="text">
           <string>Применить</string>
          </property>
