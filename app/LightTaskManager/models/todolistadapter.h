@@ -14,7 +14,7 @@ public:
     ~TodolistAdapter();
 
     QString currentDirectory() const;
-    QString currentTodoListBinPath();
+    QString currentTodoListBinPath() const;
 
 protected:
     const QString m_todolistBinPath = "";

@@ -20,7 +20,7 @@ QString TodolistAdapter::currentDirectory() const
     return m_directory;
 }
 
-QString TodolistAdapter::currentTodoListBinPath()
+QString TodolistAdapter::currentTodoListBinPath() const
 {
     return m_todolistBinPath;
 }
