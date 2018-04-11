@@ -88,7 +88,7 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("General");
-        settings->setValue("TodoListBinPath", "/usr/local/opt/todolist/bin/todolist");
+        settings->setValue("TodoListBinPath", "");
     settings->endGroup();
 
     saveSettings();
