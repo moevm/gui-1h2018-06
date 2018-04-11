@@ -180,3 +180,8 @@ QString MainWindowPresenter::parseTask(QString content)
     }
     return res;
 }
+
+void MainWindowPresenter::applytodoDirectory(QString directory)
+{
+    qDebug() << "todoDirectory" << directory;
+}
