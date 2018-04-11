@@ -9,6 +9,7 @@
 #include "presenters/mainwindowpresenter.h"
 #include "adddialog.h"
 #include "deletetaskdialog.h"
+#include "settingsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,6 +49,8 @@ private slots:
     void on_saveTaskPushButton_clicked();
 
     void on_actionOpenTerminal_triggered();
+
+    void on_actionSettings_triggered();
 
 private:
     Ui::MainWindow *ui;

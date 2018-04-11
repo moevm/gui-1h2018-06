@@ -195,3 +195,9 @@ void MainWindow::on_actionOpenTerminal_triggered()
 {
     m_presenter->openTerminal(ui->filePathLineEdit->text());
 }
+
+void MainWindow::on_actionSettings_triggered()
+{
+    SettingsDialog dialog(this);
+    dialog.exec();
+}
