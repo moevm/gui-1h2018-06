@@ -22,8 +22,9 @@ void AddDialog::on_addButtonBox_accepted()
     }
     else
     {
-        QString task = "+" + ui->projectLineEdit->text() + " " +
-                ui->addTextEdit->toPlainText() + " until [" + m_date.toString() +"]" +
+        QString task =  ui->addTextEdit->toPlainText() + " " +
+                "+" + ui->projectLineEdit->text() + " " +
+                " until [" + m_date.toString() +"]" +
                 " @" + ui->personLineEdit->text();
         qDebug() << "new task =" << task;
         emit addTask(task);

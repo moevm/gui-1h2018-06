@@ -184,10 +184,10 @@ void MainWindow::on_editTaskPushButton_clicked()
 void MainWindow::on_saveTaskPushButton_clicked()
 {
     QString index = ui->indexLineEdit->text();
-    QString task = "+" + ui->tagLineEdit->text() + " " +
+    QString task = ui->currentTaskPlainTextEdit->toPlainText() + " " +
+                   "+" + ui->tagLineEdit->text() + " " +
                    "until [" + ui->dateLineEdit->text() + "] " +
-                   "@" + ui->userLineEdit->text() + " " +
-                   ui->currentTaskPlainTextEdit->toPlainText();
+                   "@" + ui->userLineEdit->text();
     m_presenter->editTask(index, task);
 
     ui->currentTaskPlainTextEdit->setReadOnly(true);
