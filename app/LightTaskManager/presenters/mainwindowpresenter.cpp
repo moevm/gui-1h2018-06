@@ -165,3 +165,8 @@ QString MainWindowPresenter::parseTask(QString content)
     res = res.remove(parseTag(res));
     return res;
 }
+
+void MainWindowPresenter::applytodoDirectory(QString directory)
+{
+    qDebug() << "todoDirectory" << directory;
+}

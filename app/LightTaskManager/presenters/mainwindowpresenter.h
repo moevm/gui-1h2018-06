@@ -41,6 +41,7 @@ public slots:
     QString parseDate(QString content);
     QString parseUser(QString content);
     QString parseTask(QString content);
+    void applytodoDirectory(QString directory);
 };
 
 #endif // MAINWINDOWPRESENTER_H

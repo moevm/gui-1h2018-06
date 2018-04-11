@@ -11,9 +11,15 @@ class SettingsDialog : public QDialog
 {
     Q_OBJECT
 
+signals:
+    void applytodoDirectory(QString directory);
+
 public:
     explicit SettingsDialog(QWidget *parent = 0);
     ~SettingsDialog();
+
+private slots:
+    void on_buttonBox_accepted();
 
 private:
     Ui::SettingsDialog *ui;
