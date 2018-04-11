@@ -169,7 +169,6 @@ void MainWindow::on_actionDeleteTask_triggered()
 void MainWindow::on_editTaskPushButton_clicked()
 {
     ui->currentTaskPlainTextEdit->setReadOnly(false);
-    ui->indexLineEdit->setReadOnly(false);
     ui->tagLineEdit->setReadOnly(false);
     ui->dateLineEdit->setReadOnly(false);
     ui->userLineEdit->setReadOnly(false);
