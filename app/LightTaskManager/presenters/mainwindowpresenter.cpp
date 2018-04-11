@@ -184,7 +184,8 @@ QString MainWindowPresenter::parseTask(QString content)
 void MainWindowPresenter::applytodoDirectory(QString directory)
 {
     qDebug() << "todoDirectory" << directory;
-
+    m_settingsManager->saveSettings();
+    m_todolistAdapter->setBinPath(directory);
 }
 
 QString MainWindowPresenter::todoSettingsPath()

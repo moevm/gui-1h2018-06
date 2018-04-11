@@ -87,3 +87,9 @@ void TodolistAdapter::onMessage()
     emit directoryUpdated(m_directory);
     emit tasksUpdated(message);
 }
+
+void TodolistAdapter::setBinPath(QString todolistPath)
+{
+    m_todolistBinPath.clear();
+    m_todolistBinPath = todolistPath;
+}
