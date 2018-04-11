@@ -20,6 +20,11 @@ QString TodolistAdapter::currentDirectory() const
     return m_directory;
 }
 
+QString TodolistAdapter::currentTodoListBinPath()
+{
+    return m_todolistBinPath;
+}
+
 void TodolistAdapter::initializeRepository(QString directory)
 {
     m_directory = directory;

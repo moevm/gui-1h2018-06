@@ -204,7 +204,8 @@ void MainWindow::on_actionOpenTerminal_triggered()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    SettingsDialog dialog(this);
+    QString path = m_presenter->todoSettingsPath();
+    SettingsDialog dialog(path, this);
     connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_presenter, SLOT(applytodoDirectory(QString)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_presenter, SLOT(applytodoDirectory(QString)));

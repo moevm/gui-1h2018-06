@@ -42,6 +42,7 @@ public slots:
     QString parseUser(QString content);
     QString parseTask(QString content);
     void applytodoDirectory(QString directory);
+    QString todoSettingsPath();
 };
 
 #endif // MAINWINDOWPRESENTER_H
