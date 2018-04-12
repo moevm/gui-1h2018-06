@@ -59,6 +59,9 @@ void MainWindow::updateDirectoryWidgets(QString filePath)
 
 void MainWindow::updateTaskWidgets(QStringList todoList)
 {
+    qDebug() << "----- tasks -----";
+    qDebug() << todoList;
+
     ui->todoListWidget->clear();
     ui->completedListWidget->clear();
     ui->indexLineEdit->clear();
@@ -209,4 +212,11 @@ void MainWindow::on_actionSettings_triggered()
     connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
+}
+
+void MainWindow::on_acceptFiltersPushButton_clicked()
+{
+    m_taskManager->setTagFilter(ui->filterByTagLineEdit->text());
+    m_taskManager->setUserFilter(ui->filterByUserLineEdit->text());
+    m_taskManager->reopenRepository();
 }

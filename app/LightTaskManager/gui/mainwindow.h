@@ -53,6 +53,8 @@ private slots:
 
     void on_actionSettings_triggered();
 
+    void on_acceptFiltersPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     TaskManager *m_taskManager;

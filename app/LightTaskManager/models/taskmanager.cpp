@@ -2,8 +2,11 @@
 
 TaskManager::TaskManager(QObject *parent) :
     QObject(parent),  
-    m_settingsManager(new SettingsManager())
+    m_settingsManager(new SettingsManager()),
+    m_tagFilter(""),
+    m_userFilter("")
 {
+    qDebug() << "new instance of task Manager";
     try
     {
         QString todolistPath = m_settingsManager->get("General", "TodoListBinPath").toString();
@@ -23,6 +26,16 @@ TaskManager::~TaskManager()
     delete m_todolistAdapter;
 }
 
+void TaskManager::setTagFilter(const QString &tagFilter)
+{
+    m_tagFilter = tagFilter;
+}
+
+void TaskManager::setUserFilter(const QString &userFilter)
+{
+    m_userFilter = userFilter;
+}
+
 void TaskManager::openRepository(QString directory)
 {
     m_todolistAdapter->openRepository(directory);
@@ -33,6 +46,11 @@ void TaskManager::initializeRepository(QString directory)
     m_todolistAdapter->initializeRepository(directory);
 }
 
+void TaskManager::reopenRepository()
+{
+    openRepository(m_todolistAdapter->currentDirectory());
+}
+
 void TaskManager::readDirectory(QString directory)
 {
     emit directoryUpdated(directory);
@@ -40,6 +58,8 @@ void TaskManager::readDirectory(QString directory)
 
 void TaskManager::parseData(QByteArray data)
 {
+    qDebug() << "filters:" << m_tagFilter << m_userFilter;
+
     QString str(data);
     if(str.contains("all"))
     {
@@ -47,11 +67,25 @@ void TaskManager::parseData(QByteArray data)
         str.remove("\t"); //delete tabs
         str.remove("\n all\n");
         QStringList todoList = str.split(QRegExp("\n"), QString::SkipEmptyParts);
+        if(!m_tagFilter.isEmpty())
+        {
+            todoList = filterByTagName(todoList);
+            qDebug() << "----- tasks filtered by tag -----" << m_tagFilter;
+            qDebug() << todoList;
+        }
+
+        if(!m_userFilter.isEmpty())
+        {
+            todoList = filterByUserName(todoList);
+            qDebug() << "----- tasks filtered by user -----" << m_userFilter;
+            qDebug() << todoList;
+        }
+
         emit dataUpdated(todoList);
     }
     else
     {
-        openRepository(m_todolistAdapter->currentDirectory());
+        reopenRepository();
     }
 }
 
@@ -194,4 +228,30 @@ void TaskManager::applytodoDirectory(QString directory)
 QString TaskManager::todoSettingsPath()
 {
     return m_todolistAdapter->currentTodoListBinPath();
+}
+
+QStringList TaskManager::filterByTagName(QStringList allTasks)
+{
+    QStringList filteredTasks;
+    for(auto task : allTasks)
+    {
+        if(task.contains(QString(QString("+") + m_tagFilter)))
+        {
+            filteredTasks.push_back(task);
+        }
+    }
+    return filteredTasks;
+}
+
+QStringList TaskManager::filterByUserName(QStringList allTasks)
+{
+    QStringList filteredTasks;
+    for(auto task : allTasks)
+    {
+        if(task.contains(QString(QString("@") + m_userFilter)))
+        {
+            filteredTasks.push_back(task);
+        }
+    }
+    return filteredTasks;
 }

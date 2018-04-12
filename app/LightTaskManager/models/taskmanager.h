@@ -13,9 +13,16 @@ public:
     explicit TaskManager(QObject *parent = nullptr);
     ~TaskManager();
 
+    void setTagFilter(const QString &tagFilter);
+
+    void setUserFilter(const QString &userFilter);
+
 protected:
     SettingsManager *m_settingsManager;
     TodolistAdapter *m_todolistAdapter;
+
+    QString m_tagFilter;
+    QString m_userFilter;
 
 signals:
     void directoryUpdated(QString directory);
@@ -24,6 +31,8 @@ signals:
 public slots:
     void openRepository(QString directory);
     void initializeRepository(QString directory);
+    void reopenRepository();
+
     void readDirectory(QString directory);
     void parseData(QByteArray data);    
 
@@ -43,6 +52,10 @@ public slots:
     QString parseTask(QString content);
     void applytodoDirectory(QString directory);
     QString todoSettingsPath();
+
+protected slots:
+    QStringList filterByTagName(QStringList allTasks);
+    QStringList filterByUserName(QStringList allTasks);
 };
 
 #endif // TASKMANAGER_H
