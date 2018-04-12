@@ -1,17 +1,17 @@
-#ifndef MAINWINDOWPRESENTER_H
-#define MAINWINDOWPRESENTER_H
+#ifndef TASKMANAGER_H
+#define TASKMANAGER_H
 
 #include <QObject>
 
 #include "models/todolistadapter.h"
 #include "models/settingsmanager.h"
 
-class MainWindowPresenter : public QObject
+class TaskManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit MainWindowPresenter(QObject *parent = nullptr);
-    ~MainWindowPresenter();
+    explicit TaskManager(QObject *parent = nullptr);
+    ~TaskManager();
 
 protected:
     SettingsManager *m_settingsManager;
@@ -45,4 +45,4 @@ public slots:
     QString todoSettingsPath();
 };
 
-#endif // MAINWINDOWPRESENTER_H
+#endif // TASKMANAGER_H

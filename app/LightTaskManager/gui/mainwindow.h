@@ -6,7 +6,8 @@
 #include <QFileDialog>
 #include <QListWidgetItem>
 
-#include "presenters/mainwindowpresenter.h"
+#include "models/taskmanager.h"
+
 #include "adddialog.h"
 #include "deletetaskdialog.h"
 #include "settingsdialog.h"
@@ -54,7 +55,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MainWindowPresenter *m_presenter;
+    TaskManager *m_taskManager;
 
     void setupWidgets();
     void setupPresenter();

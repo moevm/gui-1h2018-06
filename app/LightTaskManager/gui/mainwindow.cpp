@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_presenter(new MainWindowPresenter(this))
+    m_taskManager(new TaskManager(this))
 {
     ui->setupUi(this);
     setupWidgets();
@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete m_presenter;
+    delete m_taskManager;
     delete ui;
 }
 
@@ -47,9 +47,9 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupPresenter()
 {
-    connect(m_presenter, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
-    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
-    connect(m_presenter, SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
+    connect(m_taskManager, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
+    connect(m_taskManager, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
+    connect(m_taskManager, SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
 }
 
 void MainWindow::updateDirectoryWidgets(QString filePath)
@@ -107,24 +107,24 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
 void MainWindow::on_actionOpenRepository_triggered()
 {
     QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
-    m_presenter->openRepository(path);
+    m_taskManager->openRepository(path);
 }
 
 void MainWindow::on_actionInitializeRepository_triggered()
 {
     QString path = QFileDialog::getExistingDirectory(0,"Open Directory", "");
-    m_presenter->initializeRepository(path);
+    m_taskManager->initializeRepository(path);
 }
 
 void MainWindow::on_todoListWidget_clicked(const QModelIndex &index)
 {
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
-    ui->indexLineEdit->setText(m_presenter->parseIndex(content));
-    ui->tagLineEdit->setText(m_presenter->parseTag(content));
-    ui->dateLineEdit->setText(m_presenter->parseDate(content));
-    ui->userLineEdit->setText(m_presenter->parseUser(content));
-    ui->currentTaskPlainTextEdit->setPlainText(m_presenter->parseTask(content));
+    ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
+    ui->tagLineEdit->setText(m_taskManager->parseTag(content));
+    ui->dateLineEdit->setText(m_taskManager->parseDate(content));
+    ui->userLineEdit->setText(m_taskManager->parseUser(content));
+    ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
     ui->editTaskPushButton->setEnabled(true);
 }
 
@@ -132,29 +132,29 @@ void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
 {
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
-    ui->indexLineEdit->setText(m_presenter->parseIndex(content));
-    ui->tagLineEdit->setText(m_presenter->parseTag(content));
-    ui->dateLineEdit->setText(m_presenter->parseDate(content));
-    ui->userLineEdit->setText(m_presenter->parseUser(content));
-    ui->currentTaskPlainTextEdit->setPlainText(m_presenter->parseTask(content));
+    ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
+    ui->tagLineEdit->setText(m_taskManager->parseTag(content));
+    ui->dateLineEdit->setText(m_taskManager->parseDate(content));
+    ui->userLineEdit->setText(m_taskManager->parseUser(content));
+    ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
     ui->editTaskPushButton->setEnabled(true);
 }
 
 void MainWindow::completeTaskAction(QString data)
 {
-    m_presenter->completeTask(data);
+    m_taskManager->completeTask(data);
 }
 
 void MainWindow::uncompleteTaskAction(QString data)
 {
-    m_presenter->uncompleteTask(data);
+    m_taskManager->uncompleteTask(data);
 }
 void MainWindow::on_actionAddTask_triggered()
 {
     AddDialog add(this);
-    connect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
+    connect(&add, SIGNAL(addTask(QString)), m_taskManager, SLOT(addTask(QString)));
     add.exec();
-    disconnect(&add, SIGNAL(addTask(QString)), m_presenter, SLOT(addTask(QString)));
+    disconnect(&add, SIGNAL(addTask(QString)), m_taskManager, SLOT(addTask(QString)));
 }
 
 void MainWindow::enableTasksActions()
@@ -167,9 +167,9 @@ void MainWindow::enableTasksActions()
 void MainWindow::on_actionDeleteTask_triggered()
 {
     DeleteTaskDialog dialog(this);
-    connect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
+    connect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager, SLOT(deleteTask(QString)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_presenter, SLOT(deleteTask(QString)));
+    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager, SLOT(deleteTask(QString)));
 }
 
 void MainWindow::on_editTaskPushButton_clicked()
@@ -188,7 +188,7 @@ void MainWindow::on_saveTaskPushButton_clicked()
                    "+" + ui->tagLineEdit->text() + " " +
                    "until [" + ui->dateLineEdit->text() + "] " +
                    "@" + ui->userLineEdit->text();
-    m_presenter->editTask(index, task);
+    m_taskManager->editTask(index, task);
 
     ui->currentTaskPlainTextEdit->setReadOnly(true);
     ui->tagLineEdit->setReadOnly(true);
@@ -199,14 +199,14 @@ void MainWindow::on_saveTaskPushButton_clicked()
 
 void MainWindow::on_actionOpenTerminal_triggered()
 {
-    m_presenter->openTerminal(ui->filePathLineEdit->text());
+    m_taskManager->openTerminal(ui->filePathLineEdit->text());
 }
 
 void MainWindow::on_actionSettings_triggered()
 {
-    QString path = m_presenter->todoSettingsPath();
+    QString path = m_taskManager->todoSettingsPath();
     SettingsDialog dialog(path, this);
-    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_presenter, SLOT(applytodoDirectory(QString)));
+    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_presenter, SLOT(applytodoDirectory(QString)));
+    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
 }

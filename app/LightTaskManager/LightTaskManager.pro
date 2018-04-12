@@ -25,30 +25,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        views/mainwindow.cpp \
+    gui/mainwindow.cpp \
     models/todolistadapter.cpp \
-    presenters/mainwindowpresenter.cpp \
     models/settingsmanager.cpp \
-    views/widgets/mylistwidget.cpp \
-    views/adddialog.cpp \
-    views/deletetaskdialog.cpp \
-    views/settingsdialog.cpp
+    gui/widgets/mylistwidget.cpp \
+    gui/adddialog.cpp \
+    gui/deletetaskdialog.cpp \
+    gui/settingsdialog.cpp \
+    models/taskmanager.cpp
 
 HEADERS += \
-        views/mainwindow.h \
+        gui/mainwindow.h \
     models/todolistadapter.h \
-    presenters/mainwindowpresenter.h \
     models/settingsmanager.h \
-    views/widgets/mylistwidget.h \
-    views/adddialog.h \
-    views/deletetaskdialog.h \
-    views/settingsdialog.h
+    gui/widgets/mylistwidget.h \
+    gui/adddialog.h \
+    gui/deletetaskdialog.h \
+    gui/settingsdialog.h \
+    models/taskmanager.h
 
 FORMS += \
-        views/mainwindow.ui \
-        views/adddialog.ui \
-    views/deletetaskdialog.ui \
-    views/settingsdialog.ui
+        gui/mainwindow.ui \
+    gui/adddialog.ui \
+    gui/deletetaskdialog.ui \
+    gui/settingsdialog.ui
 
 RESOURCES += \
-    views/resources/resources.qrc
+    gui/resources/resources.qrc

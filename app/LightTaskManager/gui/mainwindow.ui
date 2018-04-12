@@ -438,7 +438,7 @@
   <customwidget>
    <class>MyListWidget</class>
    <extends>QListWidget</extends>
-   <header>views/widgets/mylistwidget.h</header>
+   <header>gui/widgets/mylistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

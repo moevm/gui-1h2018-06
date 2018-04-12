@@ -1,6 +1,6 @@
-#include "mainwindowpresenter.h"
+#include "taskmanager.h"
 
-MainWindowPresenter::MainWindowPresenter(QObject *parent) :
+TaskManager::TaskManager(QObject *parent) :
     QObject(parent),  
     m_settingsManager(new SettingsManager())
 {
@@ -18,27 +18,27 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     }
 }
 
-MainWindowPresenter::~MainWindowPresenter()
+TaskManager::~TaskManager()
 {
     delete m_todolistAdapter;
 }
 
-void MainWindowPresenter::openRepository(QString directory)
+void TaskManager::openRepository(QString directory)
 {
     m_todolistAdapter->openRepository(directory);
 }
 
-void MainWindowPresenter::initializeRepository(QString directory)
+void TaskManager::initializeRepository(QString directory)
 {
     m_todolistAdapter->initializeRepository(directory);
 }
 
-void MainWindowPresenter::readDirectory(QString directory)
+void TaskManager::readDirectory(QString directory)
 {
     emit directoryUpdated(directory);
 }
 
-void MainWindowPresenter::parseData(QByteArray data)
+void TaskManager::parseData(QByteArray data)
 {
     QString str(data);
     if(str.contains("all"))
@@ -55,7 +55,7 @@ void MainWindowPresenter::parseData(QByteArray data)
     }
 }
 
-void MainWindowPresenter::completeTask(QString data)
+void TaskManager::completeTask(QString data)
 {
     QString index = data.split(" ").operator [](1);
     qDebug() << data.split(" ") << index;
@@ -71,12 +71,12 @@ void MainWindowPresenter::completeTask(QString data)
     }
 }
 
-void MainWindowPresenter::completeTask(size_t index)
+void TaskManager::completeTask(size_t index)
 {
     m_todolistAdapter->completeTask(index);
 }
 
-void MainWindowPresenter::uncompleteTask(QString data)
+void TaskManager::uncompleteTask(QString data)
 {
     QString index = data.split(" ").operator [](1);
     qDebug() << data.split(" ") << index;
@@ -92,27 +92,27 @@ void MainWindowPresenter::uncompleteTask(QString data)
     }
 }
 
-void MainWindowPresenter::uncompleteTask(size_t index)
+void TaskManager::uncompleteTask(size_t index)
 {
     m_todolistAdapter->uncompleteTask(index);
 }
 
-void MainWindowPresenter::addTask(QString task)
+void TaskManager::addTask(QString task)
 {
     m_todolistAdapter->addTask(task);
 }
 
-void MainWindowPresenter::deleteTask(QString index)
+void TaskManager::deleteTask(QString index)
 {
     m_todolistAdapter->deleteTask(index.toUInt());
 }
 
-void MainWindowPresenter::editTask(QString index, QString task)
+void TaskManager::editTask(QString index, QString task)
 {
     m_todolistAdapter->editTask(index.toUInt(), task);
 }
 
-void MainWindowPresenter::openTerminal(QString path)
+void TaskManager::openTerminal(QString path)
 {
     QProcess terminal;
     terminal.setWorkingDirectory(path);
@@ -124,12 +124,12 @@ void MainWindowPresenter::openTerminal(QString path)
     //qDebug() << QProcess::startDetached("/bin/bash", args);   
 }
 
-QString MainWindowPresenter::parseIndex(QString content)
+QString TaskManager::parseIndex(QString content)
 {
     return content.section(" ", 1, 1);
 }
 
-QString MainWindowPresenter::parseTag(QString content)
+QString TaskManager::parseTag(QString content)
 {
     QString tag = "";
     if(content.contains("+"))
@@ -140,7 +140,7 @@ QString MainWindowPresenter::parseTag(QString content)
     //return content.section("+", 0, 0);
 }
 
-QString MainWindowPresenter::parseDate(QString content)
+QString TaskManager::parseDate(QString content)
 {
     QString date = "";
     if(content.contains("until ["))
@@ -151,7 +151,7 @@ QString MainWindowPresenter::parseDate(QString content)
     return date;
 }
 
-QString MainWindowPresenter::parseUser(QString content)
+QString TaskManager::parseUser(QString content)
 {
     QString res = "";
     if(content.contains("@"))
@@ -162,7 +162,7 @@ QString MainWindowPresenter::parseUser(QString content)
     //return content.section("@", 1, 1);
 }
 
-QString MainWindowPresenter::parseTask(QString content)
+QString TaskManager::parseTask(QString content)
 {
     QString res = "";
     QString index = content.split(" ", QString::SkipEmptyParts).operator[](0);
@@ -181,7 +181,7 @@ QString MainWindowPresenter::parseTask(QString content)
     return res;
 }
 
-void MainWindowPresenter::applytodoDirectory(QString directory)
+void TaskManager::applytodoDirectory(QString directory)
 {
     qDebug() << "todoDirectory" << directory;
     m_settingsManager->set("General", "TodoListBinPath", directory);
@@ -191,7 +191,7 @@ void MainWindowPresenter::applytodoDirectory(QString directory)
     m_todolistAdapter->setBinPath(todolistPath);
 }
 
-QString MainWindowPresenter::todoSettingsPath()
+QString TaskManager::todoSettingsPath()
 {
     return m_todolistAdapter->currentTodoListBinPath();
 }
