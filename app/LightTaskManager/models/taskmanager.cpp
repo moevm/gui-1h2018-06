@@ -148,12 +148,13 @@ void TaskManager::editTask(QString index, QString task)
 
 void TaskManager::openTerminal(QString path)
 {
-    qDebug() << "open termianal";
     QProcess terminal(this);
     //terminal.setWorkingDirectory(path);
     QStringList args;
-    args.append("cd " + path);
-    terminal.startDetached("open /bin/bash");
+    args << "cd " + path;
+    qDebug() << "open termianal" << args;
+    terminal.setArguments(args);
+    terminal.startDetached("open /Applications/Utilities/Terminal.app");
 }
 
 QString TaskManager::parseIndex(QString content)
