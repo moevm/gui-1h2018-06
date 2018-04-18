@@ -24,6 +24,8 @@ protected:
     QString m_tagFilter;
     QString m_userFilter;
 
+    QProcess *m_term;
+
 signals:
     void directoryUpdated(QString directory);
     void dataUpdated(QStringList todoList);

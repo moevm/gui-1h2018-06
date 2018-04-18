@@ -4,7 +4,8 @@ TaskManager::TaskManager(QObject *parent) :
     QObject(parent),  
     m_settingsManager(new SettingsManager()),
     m_tagFilter(""),
-    m_userFilter("")
+    m_userFilter(""),
+    m_term(new QProcess(this))
 {
     qDebug() << "new instance of task Manager";
     try
@@ -23,6 +24,7 @@ TaskManager::TaskManager(QObject *parent) :
 
 TaskManager::~TaskManager()
 {
+    delete m_term;
     delete m_todolistAdapter;
 }
 
@@ -148,13 +150,30 @@ void TaskManager::editTask(QString index, QString task)
 
 void TaskManager::openTerminal(QString path)
 {
+    qDebug() << "open terminal";
+    //QProcess::startDetached("open /Applications/Utilities/Terminal.app");
     QProcess terminal(this);
     //terminal.setWorkingDirectory(path);
-    QStringList args;
-    args << "cd " + path;
-    qDebug() << "open termianal" << args;
-    terminal.setArguments(args);
-    terminal.startDetached("open /Applications/Utilities/Terminal.app");
+    //QStringList args;
+    //args << "-c" << "cd " + path;
+    //args << "cd " + path;
+    //qDebug() << "open termianal" << args;
+    //terminal.setArguments(args);
+    //terminal.setProgram("open /Applications/Utilities/Terminal.app");
+    //terminal.startDetached("open /Applications/Utilities/Terminal.app");
+    terminal.startDetached("bash --rcfile <(echo '. ~/.bashrc; ls')");
+    //qDebug() << terminal.open();
+    /*if(terminal.waitForStarted(30000))
+    {
+        if(terminal.open())
+        {
+            qDebug() << "opened";
+            qDebug() << terminal.waitForReadyRead(30000);
+            QString tmp = "cd " + path + '\n';
+            qDebug() << tmp;
+            terminal.write(tmp.toStdString().data());
+        }
+    }*/
 }
 
 QString TaskManager::parseIndex(QString content)
