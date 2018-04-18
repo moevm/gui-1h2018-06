@@ -24,6 +24,10 @@ TaskManager::TaskManager(QObject *parent) :
 
 TaskManager::~TaskManager()
 {
+    if(m_term->isOpen())
+    {
+        m_term->close();
+    }
     delete m_term;
     delete m_todolistAdapter;
 }
@@ -151,29 +155,34 @@ void TaskManager::editTask(QString index, QString task)
 void TaskManager::openTerminal(QString path)
 {
     qDebug() << "open terminal";
-    //QProcess::startDetached("open /Applications/Utilities/Terminal.app");
-    QProcess terminal(this);
+#ifdef Q_OS_MACOS
+    QProcess::startDetached("open /Applications/Utilities/Terminal.app");
+#endif
+#ifdef Q_OS_LINUX
+    QProcess::startDetached("konsole");
+    QProcess::startDetached("gnome-terminal");
+#endif
+
+    //QProcess terminal(this);
+    //m_term->setProgram("/bin/bash");
     //terminal.setWorkingDirectory(path);
     //QStringList args;
-    //args << "-c" << "cd " + path;
-    //args << "cd " + path;
-    //qDebug() << "open termianal" << args;
-    //terminal.setArguments(args);
-    //terminal.setProgram("open /Applications/Utilities/Terminal.app");
-    //terminal.startDetached("open /Applications/Utilities/Terminal.app");
-    terminal.startDetached("bash --rcfile <(echo '. ~/.bashrc; ls')");
-    //qDebug() << terminal.open();
-    /*if(terminal.waitForStarted(30000))
-    {
-        if(terminal.open())
-        {
-            qDebug() << "opened";
-            qDebug() << terminal.waitForReadyRead(30000);
-            QString tmp = "cd " + path + '\n';
-            qDebug() << tmp;
-            terminal.write(tmp.toStdString().data());
-        }
-    }*/
+    //args << "-c ls";
+    //args << "/bin/bash" <<"--rcfile <(echo '. ~/.bashrc; ls')";
+    //m_term->setArguments(args);
+    //m_term->setReadChannel(QProcess::StandardOutput);
+    //m_term->setWorkingDirectory(path);
+    //m_term->setCurrentReadChannel(QProcess::StandardOutput);
+    //m_term->setCurrentWriteChannel(QProcess::StandardOutput);
+    //m_term->start("konsole", QIODevice::ReadWrite);
+    //qDebug() << m_term->waitForStarted(10000);
+    //qDebug() << m_term->waitForReadyRead(10000);
+    //qDebug() << m_term->isOpen();
+    //qDebug() << m_term->isReadable() << m_term->isWritable();
+    //m_term->write(QByteArray("asnd,nas"));
+    //m_term->write("/bin/bash --rcfile <(echo '. ~/.bashrc; ls')");
+    //qDebug() << m_term->writeChannelCount();
+    //qDebug() << "read" << m_term->readAll() << m_term->readAllStandardError();
 }
 
 QString TaskManager::parseIndex(QString content)
