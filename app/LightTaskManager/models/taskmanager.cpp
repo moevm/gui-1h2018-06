@@ -259,12 +259,17 @@ QString TaskManager::todoSettingsPath()
 
 QStringList TaskManager::filterByTagName(QStringList allTasks)
 {
+    QString tagTemplate = QString(QString("+") + m_tagFilter);
     QStringList filteredTasks;
     for(auto task : allTasks)
     {
-        if(task.contains(QString(QString("+") + m_tagFilter)))
+        QStringList splittedTask = task.split(" ");
+        for(auto word : splittedTask)
         {
-            filteredTasks.push_back(task);
+            if(word == tagTemplate)
+            {
+                filteredTasks.push_back(task);
+            }
         }
     }
     return filteredTasks;
@@ -273,11 +278,16 @@ QStringList TaskManager::filterByTagName(QStringList allTasks)
 QStringList TaskManager::filterByUserName(QStringList allTasks)
 {
     QStringList filteredTasks;
+    QString userTemplate = QString(QString("@") + m_userFilter);
     for(auto task : allTasks)
     {
-        if(task.contains(QString(QString("@") + m_userFilter)))
+        QStringList splittedTask = task.split(" ");
+        for(auto word : splittedTask)
         {
-            filteredTasks.push_back(task);
+            if(word == userTemplate)
+            {
+                filteredTasks.push_back(task);
+            }
         }
     }
     return filteredTasks;
