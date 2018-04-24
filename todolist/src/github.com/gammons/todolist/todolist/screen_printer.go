@@ -55,7 +55,7 @@ func (f *ScreenPrinter) printTodo(todo *Todo) {
 	}
 	fmt.Fprintf(f.Writer, " %s\t%s\t%s\t%s\t\n",
 		yellow.SprintFunc()(strconv.Itoa(todo.Id)),
-		f.formatCompleted(todo.Completed),
+		f.formatCompleted(todo.Status),
 		f.formatDue(todo.Due, todo.IsPriority),
 		f.formatSubject(todo.Subject, todo.IsPriority))
 }
@@ -122,6 +122,6 @@ func (f *ScreenPrinter) formatSubject(subject string, isPriority bool) string {
 
 }
 
-func (f *ScreenPrinter) formatCompleted(index int) string {
-	return "[" + strconv.Itoa(index) + "]";
+func (f *ScreenPrinter) formatCompleted(status string) string {
+	return "[" + status + "]";
 }

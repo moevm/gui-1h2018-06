@@ -153,10 +153,8 @@ func routeInput(command string, input string) {
 		app.AddDoneTodo(input)
 	case "d", "delete":
 		app.DeleteTodo(input)
-	case "c", "complete":
-		app.CompleteTodo(input)
-	case "uc", "uncomplete":
-		app.UncompleteTodo(input)
+	case "cs", "ch_status", "change_status":
+		app.ChangeTodoStatus(input)
 	case "ar", "archive":
 		app.ArchiveTodo(input)
 	case "uar", "unarchive":

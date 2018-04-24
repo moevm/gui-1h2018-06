@@ -56,7 +56,7 @@ func (a *App) AddDoneTodo(input string) {
 
 	id := a.TodoList.NextId()
 	a.TodoList.Add(todo)
-	a.TodoList.Complete(id)
+	a.TodoList.ChangeTaskStatus("Done", id)
 	a.Save()
 	fmt.Printf("Completed Todo %d added.\n", id)
 }
@@ -72,30 +72,17 @@ func (a *App) DeleteTodo(input string) {
 	fmt.Printf("%s deleted.\n", pluralize(len(ids), "Todo", "Todos"))
 }
 
-func (a *App) CompleteTodo(input string) {
+func (a *App) ChangeTodoStatus(input string) {
 	a.Load()
 	ids := a.getIds(input)
 	if len(ids) == 0 {
 		return
 	}
 
-	statusIndex := a.getStatusIndex(input)
-	a.TodoList.Complete(statusIndex, ids...)
+	statusIndex := a.getStatus(input)
+	a.TodoList.ChangeTaskStatus(statusIndex, ids...)
 	a.Save()
-	fmt.Println("Todo completed.")
-}
-
-func (a *App) UncompleteTodo(input string) {
-	a.Load()
-	ids := a.getIds(input)
-	if len(ids) == 0 {
-		return
-	}
-
-	statusIndex := a.getStatusIndex(input)
-	a.TodoList.Uncomplete(statusIndex, ids...)
-	a.Save()
-	fmt.Println("Todo uncompleted.")
+	fmt.Println("Todo status changed.")
 }
 
 func (a *App) ArchiveTodo(input string) {
@@ -197,7 +184,7 @@ func (a *App) HandleNotes(input string) {
 func (a *App) ArchiveCompleted() {
 	a.Load()
 	for _, todo := range a.TodoList.Todos() {
-		if (todo.Completed != 0) {
+		if (todo.Status != "ToDo") {
 			todo.Archive()
 		}
 	}
@@ -266,19 +253,13 @@ func (a *App) getIds(input string) (ids []int) {
 	return ids
 }
 
-func (a *App) getStatusIndex(input string) int {
-	index := 0
+func (a *App) getStatus(input string) string {
+	status := "Undefined"
 	parsed := strings.Split(input, " ")
 	if len(parsed) > 2 {
-		ret, err := strconv.Atoi(parsed[2])
-		if err != nil {
-			fmt.Println(err)
-			index = 0
-		} else {
-			index = ret
-		}
+		status = parsed[2]
 	}
-	return index
+	return status
 }
 
 func (a *App) parseRangedIds(input string) (ids []int, err error) {
