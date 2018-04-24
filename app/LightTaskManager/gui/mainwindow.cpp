@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete m_taskManager;
     delete ui;
 }
 
@@ -47,9 +46,9 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupPresenter()
 {
-    connect(m_taskManager, SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
-    connect(m_taskManager, SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
-    connect(m_taskManager, SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
+    connect(m_taskManager.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
+    connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
+    connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
 }
 
 void MainWindow::updateDirectoryWidgets(QString filePath)
@@ -155,9 +154,9 @@ void MainWindow::uncompleteTaskAction(QString data)
 void MainWindow::on_actionAddTask_triggered()
 {
     AddDialog add(this);
-    connect(&add, SIGNAL(addTask(QString)), m_taskManager, SLOT(addTask(QString)));
+    connect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
     add.exec();
-    disconnect(&add, SIGNAL(addTask(QString)), m_taskManager, SLOT(addTask(QString)));
+    disconnect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
 }
 
 void MainWindow::enableTasksActions()
@@ -170,9 +169,9 @@ void MainWindow::enableTasksActions()
 void MainWindow::on_actionDeleteTask_triggered()
 {
     DeleteTaskDialog dialog(this);
-    connect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager, SLOT(deleteTask(QString)));
+    connect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager.data(), SLOT(deleteTask(QString)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager, SLOT(deleteTask(QString)));
+    disconnect(&dialog, SIGNAL(deleteTask(QString)), m_taskManager.data(), SLOT(deleteTask(QString)));
 }
 
 void MainWindow::on_editTaskPushButton_clicked()
@@ -209,9 +208,9 @@ void MainWindow::on_actionSettings_triggered()
 {
     QString path = m_taskManager->todoSettingsPath();
     SettingsDialog dialog(path, this);
-    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
+    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager, SLOT(applytodoDirectory(QString)));
+    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
 }
 
 void MainWindow::on_acceptFiltersPushButton_clicked()

@@ -57,7 +57,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    TaskManager *m_taskManager;
+    QScopedPointer<TaskManager> m_taskManager;
 
     void setupWidgets();
     void setupPresenter();
