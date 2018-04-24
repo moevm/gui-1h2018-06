@@ -2,6 +2,9 @@
 #define SETTINGSDIALOG_H
 
 #include <QDialog>
+#include <QDebug>
+
+#include "models/settingsmanager.h"
 
 namespace Ui {
 class SettingsDialog;
@@ -15,7 +18,7 @@ signals:
     void applytodoDirectory(QString directory);
 
 public:
-    explicit SettingsDialog(QString _path, QWidget *parent = 0);
+    explicit SettingsDialog(const SettingsManager &settingsManager = SettingsManager(), QWidget *parent = 0);
     ~SettingsDialog();
 
 private slots:
@@ -23,7 +26,9 @@ private slots:
 
 private:
     Ui::SettingsDialog *ui;
-    QString path;
+    const SettingsManager& m_settingsManager;
+
+    void setup();
 };
 
 #endif // SETTINGSDIALOG_H

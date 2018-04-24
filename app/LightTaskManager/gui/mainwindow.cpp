@@ -206,8 +206,7 @@ void MainWindow::on_actionOpenTerminal_triggered()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    QString path = m_taskManager->todoSettingsPath();
-    SettingsDialog dialog(path, this);
+    SettingsDialog dialog(m_taskManager->getSettingsManager(), this);
     connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));

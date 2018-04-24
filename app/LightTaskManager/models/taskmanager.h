@@ -53,6 +53,8 @@ public slots:
     void applytodoDirectory(QString directory);
     QString todoSettingsPath();
 
+    SettingsManager& getSettingsManager();
+
 protected slots:
     QStringList filterByTagName(QStringList allTasks);
     QStringList filterByUserName(QStringList allTasks);

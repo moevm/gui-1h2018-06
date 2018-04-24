@@ -251,6 +251,11 @@ QString TaskManager::todoSettingsPath()
     return m_todolistAdapter->currentTodoListBinPath();
 }
 
+SettingsManager &TaskManager::getSettingsManager()
+{
+    return (*(m_settingsManager.data()));
+}
+
 QStringList TaskManager::filterByTagName(QStringList allTasks)
 {
     QString tagTemplate = QString(QString("+") + m_tagFilter);

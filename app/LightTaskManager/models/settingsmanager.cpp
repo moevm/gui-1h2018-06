@@ -91,6 +91,27 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("TodoListBinPath", "");
     settings->endGroup();
 
+    settings->beginGroup("Statuses");
+        settings->setValue("Count", 4);
+        settings->setValue("Status0", "ToDo");
+        settings->setValue("Status1", "InProgress");
+        settings->setValue("Status2", "Testing");
+        settings->setValue("Status3", "Done");
+    settings->endGroup();
+
+    settings->beginGroup("Users");
+        settings->setValue("Count", 2);
+        settings->setValue("User0", "Xtail");
+        settings->setValue("User1", "Valeria");
+    settings->endGroup();
+
+    settings->beginGroup("Tags");
+        settings->setValue("Count", 3);
+        settings->setValue("Tag0", "Important");
+        settings->setValue("Tag1", "Task");
+        settings->setValue("Tag2", "Bug");
+    settings->endGroup();
+
     saveSettings();
 }
 
