@@ -71,6 +71,7 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
 
     SettingsManager& sm = m_taskManager->getSettingsManager();
     QList< QStringList > tasksContainers;
+    QStringList statuses;
     try
     {
         int statusesCount = sm.get("Statuses", "Count").toInt();
@@ -78,8 +79,15 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
         {
             for(size_t i = 0; i < (size_t) statusesCount; i++)
             {
+                QString key = QStringLiteral("Status") + QString::number(i);
+                QString statusName = sm.get("Statuses", key).toString();
+                statuses.push_back(statusName);
+            }
+
+            for(auto status : statuses)
+            {
                 QStringList tmp;
-                QString statusTemplate = QStringLiteral("[") + QString::number(i) + QStringLiteral("]");
+                QString statusTemplate = QStringLiteral("[") + status + QStringLiteral("]");
                 for(auto item : todoList)
                 {
                     if(item.contains(statusTemplate))
@@ -97,8 +105,13 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
         QMessageBox(QMessageBox::Warning, "Todo item error", e.what()).exec();
     }
 
+    qDebug() << tasksContainers;
 
 
+    for(size_t i = 0; i < (size_t) statuses.size(); i++)
+    {
+        ui->taskContainerFrame
+    }
 
     /*QStringList todoItems;
     QStringList completedItems;
