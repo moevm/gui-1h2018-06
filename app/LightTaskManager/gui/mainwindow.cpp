@@ -69,11 +69,43 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     ui->userLineEdit->clear();
     ui->currentTaskPlainTextEdit->clear();
 
-    QStringList todoItems;
+    SettingsManager& sm = m_taskManager->getSettingsManager();
+    QList< QStringList > tasksContainers;
+    try
+    {
+        int statusesCount = sm.get("Statuses", "Count").toInt();
+        if(statusesCount > 0)
+        {
+            for(size_t i = 0; i < (size_t) statusesCount; i++)
+            {
+                QStringList tmp;
+                QString statusTemplate = QStringLiteral("[") + QString::number(i) + QStringLiteral("]");
+                for(auto item : todoList)
+                {
+                    if(item.contains(statusTemplate))
+                    {
+                        QString data = item.remove(statusTemplate);
+                        tmp.push_back(data);
+                    }
+                }
+                tasksContainers.push_back(tmp);
+            }
+        }
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Todo item error", e.what()).exec();
+    }
+
+
+
+
+    /*QStringList todoItems;
     QStringList completedItems;
 
     for(auto item : todoList)
     {
+
         if(item.contains("[ ]"))
         {
             QString data = item.remove("[ ]");
@@ -103,7 +135,7 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     {
         QListWidgetItem* listItem = new QListWidgetItem(completedItems[i]);
         ui->completedListWidget->addItem(listItem);
-    }
+    }*/
 }
 
 void MainWindow::on_actionOpenRepository_triggered()
