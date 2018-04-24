@@ -29,7 +29,7 @@ protected:
     QString m_directory;
     QByteArray m_data;
 
-    QProcess* m_todolistProcess;
+     QScopedPointer<QProcess> m_todolistProcess;
 
 
 signals:

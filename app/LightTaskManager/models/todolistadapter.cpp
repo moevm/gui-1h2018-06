@@ -7,12 +7,12 @@ TodolistAdapter::TodolistAdapter(QString todolistBinPath, QObject *parent) :
     m_todolistProcess(new QProcess(this))
 {
     //connect(m_todolistProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(onMessage()));
-    connect(m_todolistProcess, SIGNAL(finished(int)), this, SLOT(onMessage()));
+    connect(m_todolistProcess.data(), SIGNAL(finished(int)), this, SLOT(onMessage()));
 }
 
 TodolistAdapter::~TodolistAdapter()
 {
-    delete m_todolistProcess;
+
 }
 
 QString TodolistAdapter::currentDirectory() const
