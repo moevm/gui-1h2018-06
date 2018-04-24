@@ -18,13 +18,11 @@ public:
     void setUserFilter(const QString &userFilter);
 
 protected:
-    SettingsManager *m_settingsManager;
-    TodolistAdapter *m_todolistAdapter;
+    QScopedPointer<SettingsManager> m_settingsManager;
+    QSharedPointer<TodolistAdapter> m_todolistAdapter;
 
     QString m_tagFilter;
     QString m_userFilter;
-
-    QProcess *m_term;
 
 signals:
     void directoryUpdated(QString directory);

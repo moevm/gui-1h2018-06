@@ -4,17 +4,16 @@ TaskManager::TaskManager(QObject *parent) :
     QObject(parent),  
     m_settingsManager(new SettingsManager()),
     m_tagFilter(""),
-    m_userFilter(""),
-    m_term(new QProcess(this))
+    m_userFilter("")
 {
     qDebug() << "new instance of task Manager";
     try
     {
         QString todolistPath = m_settingsManager->get("General", "TodoListBinPath").toString();
-        m_todolistAdapter = new TodolistAdapter(todolistPath, this);
+        m_todolistAdapter = QSharedPointer<TodolistAdapter> (new TodolistAdapter(todolistPath, this));
 
-        connect(m_todolistAdapter, SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
-        connect(m_todolistAdapter, SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
+        connect(m_todolistAdapter.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
+        connect(m_todolistAdapter.data(), SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
     }
     catch(std::invalid_argument e)
     {
@@ -24,12 +23,7 @@ TaskManager::TaskManager(QObject *parent) :
 
 TaskManager::~TaskManager()
 {
-    if(m_term->isOpen())
-    {
-        m_term->close();
-    }
-    delete m_term;
-    delete m_todolistAdapter;
+
 }
 
 void TaskManager::setTagFilter(const QString &tagFilter)
