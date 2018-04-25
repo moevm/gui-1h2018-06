@@ -18,6 +18,7 @@ SettingsDialog::~SettingsDialog()
 void SettingsDialog::on_buttonBox_accepted()
 {
     emit applytodoDirectory(ui->todolistBinPathLineEdit->text());
+    QMessageBox(QMessageBox::Information, "Информация", "Перезагрузите приложение, чтобы настройки обновились.").exec();
     this->close();
 }
 
