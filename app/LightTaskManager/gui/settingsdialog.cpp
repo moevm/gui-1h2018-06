@@ -22,25 +22,28 @@ void SettingsDialog::on_buttonBox_accepted()
     QStringList users = ui->usersTextEdit->toPlainText().split("\n");
     QStringList tags = ui->tagsTextEdit->toPlainText().split("\n");
     QStringList statuses = ui->statusesTextEdit->toPlainText().split("\n");
-    int userCount = 2;
-    for(size_t i = 0; i < (size_t) userCount; i++)
+    int usersCount = users.size();
+    m_settingsManager.set("Users", "Count", usersCount);
+    for(size_t i = 0; i < (size_t) usersCount; i++)
     {
        QString key = QStringLiteral("User") + QString::number(i);
        m_settingsManager.set("Users", key, users[i]);
     }
 
-    int statusesCount = 4;
-    for(size_t i = 0; i < (size_t) statusesCount; i++)
-    {
-       QString key = QStringLiteral("Status") + QString::number(i);
-       m_settingsManager.set("Statuses", key, statuses[i]);
-    }
-
-    int tagsCount = 3;
+    int tagsCount = tags.size();
+    m_settingsManager.set("Tags", "Count", tagsCount);
     for(size_t i = 0; i < (size_t) tagsCount; i++)
     {
        QString key = QStringLiteral("Tag") + QString::number(i);
        m_settingsManager.set("Tags", key, tags[i]);
+    }
+
+    int statusesCount = statuses.size();
+    m_settingsManager.set("Statuses", "Count", statusesCount);
+    for(size_t i = 0; i < (size_t) statusesCount; i++)
+    {
+       QString key = QStringLiteral("Status") + QString::number(i);
+       m_settingsManager.set("Statuses", key, statuses[i]);
     }
 
     m_settingsManager.saveSettings();
