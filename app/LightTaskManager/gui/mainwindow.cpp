@@ -74,6 +74,10 @@ void MainWindow::setupWidgets()
         MyListWidget* taskList = new MyListWidget(ui->tasksContainerWidget);
         objectName = status + QStringLiteral("ListWidget");
         taskList->setObjectName(objectName);
+        taskList->setDragEnabled(true);
+        taskList->setDropIndicatorShown(true);
+        taskList->setDragDropMode(QAbstractItemView::DragDrop);
+        qDebug() << taskList->dragEnabled() << taskList->dragDropMode();
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
         ui->tasksContainerHorizontalLayout->addWidget(taskList);
@@ -99,6 +103,11 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
 {
     qDebug() << "----- tasks -----";
     qDebug() << todoList;
+
+    for(auto list : m_tasksLists)
+    {
+        list->clear();
+    }
 
     ui->indexLineEdit->clear();
     ui->tagLineEdit->clear();
@@ -180,7 +189,19 @@ void MainWindow::on_actionInitializeRepository_triggered()
 
 void MainWindow::changeTaskStatusAction(QString data)
 {
-    m_taskManager->changeTaskStatus(data);
+    QString status = "undefined";
+    MyListWidget* senderWidget = qobject_cast<MyListWidget *>(sender());
+    for(size_t i = 0; i < (size_t) m_statuses.size(); i++)
+    {
+        if(m_tasksLists[i] == senderWidget)
+        {
+            status = m_statuses[i];
+        }
+    }
+
+    qDebug() << data << status;
+
+    m_taskManager->changeTaskStatus(data, status);
 }
 
 void MainWindow::showTask(QModelIndex index)

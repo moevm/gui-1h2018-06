@@ -89,11 +89,10 @@ void TaskManager::parseData(QByteArray data)
     }
 }
 
-void TaskManager::changeTaskStatus(QString data)
+void TaskManager::changeTaskStatus(QString data, QString status)
 {
     QString index = data.split(" ").operator [](1);
-    QString status = data.split(" ").operator [](2);
-    qDebug() << data.split(" ") << index << status;
+    qDebug() << "change task status" << data.split(" ") << index << status;
     bool isCorrect;
     size_t number = index.toUInt(&isCorrect);
     if(isCorrect)

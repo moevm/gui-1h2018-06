@@ -37,7 +37,7 @@ public slots:
     void readDirectory(QString directory);
     void parseData(QByteArray data);    
 
-    void changeTaskStatus(QString data);
+    void changeTaskStatus(QString data, QString status);
     void changeTaskStatus(size_t index, QString status);
 
     void addTask(QString task);
