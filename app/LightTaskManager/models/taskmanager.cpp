@@ -201,6 +201,8 @@ QString TaskManager::parseUser(QString content)
             currentTaskUsers += user + " ";
         }
     }
+
+    qDebug() << "taskUsers" << currentTaskUsers;
     return currentTaskUsers;
 }
 

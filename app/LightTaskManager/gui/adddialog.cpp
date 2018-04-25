@@ -38,19 +38,7 @@ void AddDialog::on_addButtonBox_accepted()
         QString desctiption = ui->addTextEdit->toPlainText();
 
         QString tags = ui->activeTagsLineEdit->text();
-        /*QStringList allActiveTags = ui->activeTagsLineEdit->text().split(" ", QString::SkipEmptyParts);
-        for(auto activeTag : allActiveTags)
-        {
-            tags += QStringLiteral("+") + activeTag + QStringLiteral(" ");
-        }*/
-
         QString users = ui->activeUsersLineEdit->text();
-        /*QStringList allActiveUsers = ui->activeUsersLineEdit->text().split(" ", QString::SkipEmptyParts);
-        for(auto activeUser : allActiveUsers)
-        {
-            users += QStringLiteral("@") + activeUser + QStringLiteral(" ");
-        }*/
-
         QString date = "until [" + m_date.toString() +"]";
 
         QString task = desctiption + " " + tags + users + " " + date;

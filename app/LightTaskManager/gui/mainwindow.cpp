@@ -232,12 +232,29 @@ void MainWindow::on_editTaskPushButton_clicked()
 
 void MainWindow::on_saveTaskPushButton_clicked()
 {
-    QString index = ui->indexLineEdit->text();
-    QString task = ui->currentTaskPlainTextEdit->toPlainText() + " " +
-                   "+" + ui->tagLineEdit->text() + " " +
-                   "until [" + ui->dateLineEdit->text() + "] " +
-                   "@" + ui->userLineEdit->text();
-    m_taskManager->editTask(index, task);
+    QString taskIndex = ui->indexLineEdit->text();
+
+    QString taskTags = "";
+    QStringList tags = ui->tagLineEdit->text().split(" ", QString::SkipEmptyParts);
+    for(auto tag : tags)
+    {
+        taskTags += QStringLiteral("+") + tag + QStringLiteral(" ");
+    }
+
+    QString taskUsers = "";
+    QStringList users = ui->userLineEdit->text().split(" ", QString::SkipEmptyParts);
+    for(auto user : users)
+    {
+        taskUsers += QStringLiteral("@") + user + QStringLiteral(" ");
+    }
+
+    QString taskDate = QStringLiteral("until [") + ui->dateLineEdit->text() + QStringLiteral("]");
+
+    QString taskDescription = ui->currentTaskPlainTextEdit->toPlainText();
+
+    QString task = taskDescription + " " + taskTags + taskUsers + taskDate;
+
+    m_taskManager->editTask(taskIndex, task);
 
     ui->currentTaskPlainTextEdit->setReadOnly(true);
     ui->tagLineEdit->setReadOnly(true);
