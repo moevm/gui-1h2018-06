@@ -37,8 +37,6 @@ void MainWindow::setupWidgets()
     //connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
     //connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
 
-    updateTaskWidgets(QStringList());
-
     ui->actionAddTask->setEnabled(false);
     ui->actionDeleteTask->setEnabled(false);
     ui->editTaskPushButton->setEnabled(false);
@@ -74,6 +72,8 @@ void MainWindow::setupWidgets()
         ui->tasksContainerHorizontalLayout->addWidget(taskList);
         m_tasksLists.push_back(taskList);
     }
+
+    updateTaskWidgets(QStringList());
 }
 
 void MainWindow::setupPresenter()
@@ -115,6 +115,11 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     }
 
     qDebug() << tasksContainers << m_statuses;
+
+    for(size_t i = 0; i < (size_t) m_statuses.size(); i++)
+    {
+        m_tasksLists[i]->addItems(tasksContainers[i]);
+    }
 
     /*QStringList todoItems;
     QStringList completedItems;
