@@ -64,8 +64,15 @@ void MainWindow::setupWidgets()
 
     for(auto status : m_statuses)
     {
+        QLabel* statusLabel = new QLabel(ui->tasksContainerWidget);
+        QString objectName = status + QStringLiteral("Label");
+        statusLabel->setText(status);
+        statusLabel->setAlignment(Qt::AlignCenter);
+        statusLabel->setObjectName(objectName);
+        ui->statusesLabelsHorizontalLayout->addWidget(statusLabel);
+
         MyListWidget* taskList = new MyListWidget(ui->tasksContainerWidget);
-        QString objectName = status + QStringLiteral("ListWidget");
+        objectName = status + QStringLiteral("ListWidget");
         taskList->setObjectName(objectName);
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));

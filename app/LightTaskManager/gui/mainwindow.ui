@@ -61,8 +61,15 @@
           </sizepolicy>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="tasksContainerHorizontalLayout">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+           </layout>
+          </item>
           <item row="0" column="0">
-           <layout class="QHBoxLayout" name="tasksContainerHorizontalLayout"/>
+           <layout class="QHBoxLayout" name="statusesLabelsHorizontalLayout"/>
           </item>
          </layout>
         </widget>
