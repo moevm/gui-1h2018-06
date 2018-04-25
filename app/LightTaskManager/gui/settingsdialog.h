@@ -18,7 +18,7 @@ signals:
     void applytodoDirectory(QString directory);
 
 public:
-    explicit SettingsDialog(const SettingsManager &settingsManager = SettingsManager(), QWidget *parent = 0);
+    explicit SettingsDialog(SettingsManager settingsManager = SettingsManager(), QWidget *parent = 0);
     ~SettingsDialog();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::SettingsDialog *ui;
-    const SettingsManager& m_settingsManager;
+    SettingsManager m_settingsManager;
 
     void setup();
 };

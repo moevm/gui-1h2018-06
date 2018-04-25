@@ -1,7 +1,7 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
 
-SettingsDialog::SettingsDialog(const SettingsManager &settingsManager, QWidget *parent) :
+SettingsDialog::SettingsDialog(SettingsManager settingsManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingsDialog),
     m_settingsManager(settingsManager)
@@ -19,6 +19,31 @@ void SettingsDialog::on_buttonBox_accepted()
 {
     emit applytodoDirectory(ui->todolistBinPathLineEdit->text());
     QMessageBox(QMessageBox::Information, "Информация", "Перезагрузите приложение, чтобы настройки обновились.").exec();
+    QStringList users = ui->usersTextEdit->toPlainText().split("\n");
+    QStringList tags = ui->tagsTextEdit->toPlainText().split("\n");
+    QStringList statuses = ui->statusesTextEdit->toPlainText().split("\n");
+    int userCount = 2;
+    for(size_t i = 0; i < (size_t) userCount; i++)
+    {
+       QString key = QStringLiteral("User") + QString::number(i);
+       m_settingsManager.set("Users", key, users[i]);
+    }
+
+    int statusesCount = 4;
+    for(size_t i = 0; i < (size_t) statusesCount; i++)
+    {
+       QString key = QStringLiteral("Status") + QString::number(i);
+       m_settingsManager.set("Statuses", key, statuses[i]);
+    }
+
+    int tagsCount = 3;
+    for(size_t i = 0; i < (size_t) tagsCount; i++)
+    {
+       QString key = QStringLiteral("Tag") + QString::number(i);
+       m_settingsManager.set("Tags", key, tags[i]);
+    }
+
+    m_settingsManager.saveSettings();
     this->close();
 }
 
