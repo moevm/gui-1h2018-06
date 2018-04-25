@@ -5,8 +5,10 @@
 #include <QTableWidget>
 #include <QFileDialog>
 #include <QListWidgetItem>
+#include <QLayout>
 
 #include "models/taskmanager.h"
+#include "gui/widgets/mylistwidget.h"
 
 #include "adddialog.h"
 #include "deletetaskdialog.h"
@@ -32,12 +34,9 @@ private slots:
 
     void on_actionInitializeRepository_triggered();
 
-    void on_todoListWidget_clicked(const QModelIndex &index);
+    void changeTaskStatusAction(QString data);
 
-    void on_completedListWidget_clicked(const QModelIndex &index);
-
-    void completeTaskAction(QString data);
-    void uncompleteTaskAction(QString data);
+    void showTask(QModelIndex index);
 
     void on_actionAddTask_triggered();
 
@@ -58,6 +57,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QScopedPointer<TaskManager> m_taskManager;
+    QScopedPointer<SettingsManager> m_settingsManager;
+
+    QStringList m_statuses;
+    QList< MyListWidget* > m_tasksLists;
 
     void setupWidgets();
     void setupPresenter();

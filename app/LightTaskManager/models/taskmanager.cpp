@@ -89,15 +89,16 @@ void TaskManager::parseData(QByteArray data)
     }
 }
 
-void TaskManager::completeTask(QString data)
+void TaskManager::changeTaskStatus(QString data)
 {
     QString index = data.split(" ").operator [](1);
-    qDebug() << data.split(" ") << index;
+    QString status = data.split(" ").operator [](2);
+    qDebug() << data.split(" ") << index << status;
     bool isCorrect;
     size_t number = index.toUInt(&isCorrect);
     if(isCorrect)
     {
-        completeTask(number);
+        changeTaskStatus(number, status);
     }
     else
     {
@@ -105,30 +106,9 @@ void TaskManager::completeTask(QString data)
     }
 }
 
-void TaskManager::completeTask(size_t index)
+void TaskManager::changeTaskStatus(size_t index, QString status)
 {
-    m_todolistAdapter->completeTask(index);
-}
-
-void TaskManager::uncompleteTask(QString data)
-{
-    QString index = data.split(" ").operator [](1);
-    qDebug() << data.split(" ") << index;
-    bool isCorrect;
-    size_t number = index.toUInt(&isCorrect);
-    if(isCorrect)
-    {
-        uncompleteTask(number);
-    }
-    else
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Невозможно сменить статус задачи №" + index).exec();
-    }
-}
-
-void TaskManager::uncompleteTask(size_t index)
-{
-    m_todolistAdapter->uncompleteTask(index);
+    m_todolistAdapter->changeTaskStatus(index, status);
 }
 
 void TaskManager::addTask(QString task)

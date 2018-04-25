@@ -4,7 +4,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_taskManager(new TaskManager(this))
+    m_taskManager(new TaskManager(this)),
+    m_settingsManager(new SettingsManager())
 {
     ui->setupUi(this);
     setupWidgets();
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    qDeleteAll(m_tasksLists.begin(), m_tasksLists.end());
     delete ui;
 }
 
@@ -32,8 +34,8 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
-    connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
+    //connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
+    //connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
 
     updateTaskWidgets(QStringList());
 
@@ -42,6 +44,36 @@ void MainWindow::setupWidgets()
     ui->editTaskPushButton->setEnabled(false);
     ui->saveTaskPushButton->setEnabled(false);
     ui->acceptFiltersPushButton->setEnabled(false);
+
+
+    try
+    {
+        int statusesCount = m_settingsManager->get("Statuses", "Count").toInt();
+        if(statusesCount > 0)
+        {
+            for(size_t i = 0; i < (size_t) statusesCount; i++)
+            {
+                QString key = QStringLiteral("Status") + QString::number(i);
+                QString statusName = m_settingsManager->get("Statuses", key).toString();
+                m_statuses.push_back(statusName);
+            }
+        }
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
+    }
+
+    for(auto status : m_statuses)
+    {
+        MyListWidget* taskList = new MyListWidget(ui->tasksContainerWidget);
+        QString objectName = status + QStringLiteral("ListWidget");
+        taskList->setObjectName(objectName);
+        connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
+        connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
+        ui->tasksContainerHorizontalLayout->addWidget(taskList);
+        m_tasksLists.push_back(taskList);
+    }
 }
 
 void MainWindow::setupPresenter()
@@ -61,57 +93,28 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     qDebug() << "----- tasks -----";
     qDebug() << todoList;
 
-    ui->todoListWidget->clear();
-    ui->completedListWidget->clear();
     ui->indexLineEdit->clear();
     ui->tagLineEdit->clear();
     ui->dateLineEdit->clear();
     ui->userLineEdit->clear();
     ui->currentTaskPlainTextEdit->clear();
-
-    SettingsManager& sm = m_taskManager->getSettingsManager();
     QList< QStringList > tasksContainers;
-    QStringList statuses;
-    try
+    for(auto status : m_statuses)
     {
-        int statusesCount = sm.get("Statuses", "Count").toInt();
-        if(statusesCount > 0)
+        QStringList tmp;
+        QString statusTemplate = QStringLiteral("[") + status + QStringLiteral("]");
+        for(auto item : todoList)
         {
-            for(size_t i = 0; i < (size_t) statusesCount; i++)
+            if(item.contains(statusTemplate))
             {
-                QString key = QStringLiteral("Status") + QString::number(i);
-                QString statusName = sm.get("Statuses", key).toString();
-                statuses.push_back(statusName);
-            }
-
-            for(auto status : statuses)
-            {
-                QStringList tmp;
-                QString statusTemplate = QStringLiteral("[") + status + QStringLiteral("]");
-                for(auto item : todoList)
-                {
-                    if(item.contains(statusTemplate))
-                    {
-                        QString data = item.remove(statusTemplate);
-                        tmp.push_back(data);
-                    }
-                }
-                tasksContainers.push_back(tmp);
+                QString data = item.remove(statusTemplate);
+                tmp.push_back(data);
             }
         }
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Todo item error", e.what()).exec();
+        tasksContainers.push_back(tmp);
     }
 
-    qDebug() << tasksContainers;
-
-
-    for(size_t i = 0; i < (size_t) statuses.size(); i++)
-    {
-        ui->taskContainerFrame
-    }
+    qDebug() << tasksContainers << m_statuses;
 
     /*QStringList todoItems;
     QStringList completedItems;
@@ -163,39 +166,36 @@ void MainWindow::on_actionInitializeRepository_triggered()
     m_taskManager->initializeRepository(path);
 }
 
-void MainWindow::on_todoListWidget_clicked(const QModelIndex &index)
+void MainWindow::changeTaskStatusAction(QString data)
 {
-    ui->currentTaskPlainTextEdit->clear();
+    m_taskManager->changeTaskStatus(data);
+}
+
+void MainWindow::showTask(QModelIndex index)
+{
+    qDebug() << index.data().toString();
+
+    // todo
+    /*ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
     ui->tagLineEdit->setText(m_taskManager->parseTag(content));
     ui->dateLineEdit->setText(m_taskManager->parseDate(content));
     ui->userLineEdit->setText(m_taskManager->parseUser(content));
     ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);
-}
+    ui->editTaskPushButton->setEnabled(true);*/
 
-void MainWindow::on_completedListWidget_clicked(const QModelIndex &index)
-{
-    ui->currentTaskPlainTextEdit->clear();
+    // completed
+    /*ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
     ui->tagLineEdit->setText(m_taskManager->parseTag(content));
     ui->dateLineEdit->setText(m_taskManager->parseDate(content));
     ui->userLineEdit->setText(m_taskManager->parseUser(content));
     ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);
+    ui->editTaskPushButton->setEnabled(true);*/
 }
 
-void MainWindow::completeTaskAction(QString data)
-{
-    m_taskManager->completeTask(data);
-}
-
-void MainWindow::uncompleteTaskAction(QString data)
-{
-    m_taskManager->uncompleteTask(data);
-}
 void MainWindow::on_actionAddTask_triggered()
 {
     AddDialog add(this);

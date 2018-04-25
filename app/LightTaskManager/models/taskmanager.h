@@ -9,6 +9,7 @@
 class TaskManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit TaskManager(QObject *parent = nullptr);
     ~TaskManager();
@@ -36,10 +37,8 @@ public slots:
     void readDirectory(QString directory);
     void parseData(QByteArray data);    
 
-    void completeTask(QString data);
-    void completeTask(size_t index);
-    void uncompleteTask(QString data);
-    void uncompleteTask(size_t index);
+    void changeTaskStatus(QString data);
+    void changeTaskStatus(size_t index, QString status);
 
     void addTask(QString task);
     void deleteTask(QString index);

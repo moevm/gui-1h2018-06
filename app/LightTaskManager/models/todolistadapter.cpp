@@ -52,17 +52,10 @@ void TodolistAdapter::addTask(QString text)
     m_todolistProcess->start(args);
 }
 
-void TodolistAdapter::completeTask(size_t index)
+void TodolistAdapter::changeTaskStatus(size_t index, QString status)
 {
-    QString args = m_todolistBinPath + " " + m_completeTask + " " + QString::number(index);
-    qDebug() << "complete task" << args;
-    m_todolistProcess->start(args);
-}
-
-void TodolistAdapter::uncompleteTask(size_t index)
-{
-    QString args = m_todolistBinPath + " " + m_uncompleteTask + " " + QString::number(index);
-    qDebug() << "uncomplete task" << args;
+    QString args = m_todolistBinPath + " " + m_changeTaskStatus + " " + QString::number(index) + " " + status;
+    qDebug() << "change task status" << args;
     m_todolistProcess->start(args);
 }
 
