@@ -43,14 +43,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QListWidget" name="usersListWidget">
-        <property name="editTriggers">
-         <set>QAbstractItemView::AllEditTriggers</set>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <widget class="QTextEdit" name="usersTextEdit"/>
       </item>
      </layout>
     </widget>
@@ -62,11 +55,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QListWidget" name="tagsListWidget">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <widget class="QTextEdit" name="tagsTextEdit"/>
       </item>
      </layout>
     </widget>
@@ -78,11 +67,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QListWidget" name="statusesListWidget">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <widget class="QTextEdit" name="statusesTextEdit"/>
       </item>
      </layout>
     </widget>

@@ -18,20 +18,21 @@ SettingsDialog::~SettingsDialog()
 void SettingsDialog::on_buttonBox_accepted()
 {
     emit applytodoDirectory(ui->todolistBinPathLineEdit->text());
+    QMessageBox(QMessageBox::Information, "Информация", "Перезагрузите приложение, чтобы настройки обновились.").exec();
     this->close();
 }
 
 void SettingsDialog::setup()
 {
     ui->todolistBinPathLineEdit->clear();
-    ui->usersListWidget->clear();
-    ui->tagsListWidget->clear();
-    ui->statusesListWidget->clear();
+    ui->usersTextEdit->clear();
+    ui->tagsTextEdit->clear();
+    ui->statusesTextEdit->clear();
 
     QString todoListBinPath = "";
-    QStringList users;
-    QStringList tags;
-    QStringList statuses;
+    QString users;
+    QString tags;
+    QString statuses;
 
     try
     {
@@ -43,7 +44,7 @@ void SettingsDialog::setup()
             for(size_t i = 0; i < (size_t) userCount; i++)
             {
                 QString key = QStringLiteral("User") + QString::number(i);
-                QString user = m_settingsManager.get("Users", key).toString();
+                QString user = m_settingsManager.get("Users", key).toString() + "\n";
                 users.push_back(user);
             }
         }
@@ -54,7 +55,7 @@ void SettingsDialog::setup()
             for(size_t i = 0; i < (size_t) tagsCount; i++)
             {
                 QString key = QStringLiteral("Tag") + QString::number(i);
-                QString tag = m_settingsManager.get("Tags", key).toString();
+                QString tag = m_settingsManager.get("Tags", key).toString() + "\n";
                 tags.push_back(tag);
             }
         }
@@ -65,7 +66,7 @@ void SettingsDialog::setup()
             for(size_t i = 0; i < (size_t) statusesCount; i++)
             {
                 QString key = QStringLiteral("Status") + QString::number(i);
-                QString status = m_settingsManager.get("Statuses", key).toString();
+                QString status = m_settingsManager.get("Statuses", key).toString() + "\n";
                 statuses.push_back(status);
             }
         }
@@ -76,7 +77,7 @@ void SettingsDialog::setup()
     }
 
     ui->todolistBinPathLineEdit->setText(todoListBinPath);
-    ui->usersListWidget->addItems(users);
-    ui->tagsListWidget->addItems(tags);
-    ui->statusesListWidget->addItems(statuses);
+    ui->usersTextEdit->setText(users);
+    ui->tagsTextEdit->setText(tags);
+    ui->statusesTextEdit->setText(statuses);
 }
