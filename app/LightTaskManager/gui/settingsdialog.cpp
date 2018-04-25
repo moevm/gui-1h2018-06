@@ -19,9 +19,9 @@ void SettingsDialog::on_buttonBox_accepted()
 {
     emit applytodoDirectory(ui->todolistBinPathLineEdit->text());
     QMessageBox(QMessageBox::Information, "Информация", "Перезагрузите приложение, чтобы настройки обновились.").exec();
-    QStringList users = ui->usersTextEdit->toPlainText().split("\n");
+    QStringList users = ui->usersTextEdit->toPlainText().split("\n", QString::SkipEmptyParts);
     QStringList tags = ui->tagsTextEdit->toPlainText().split("\n");
-    QStringList statuses = ui->statusesTextEdit->toPlainText().split("\n");
+    QStringList statuses = ui->statusesTextEdit->toPlainText().split("\n", QString::SkipEmptyParts);
     int usersCount = users.size();
     m_settingsManager.set("Users", "Count", usersCount);
     for(size_t i = 0; i < (size_t) usersCount; i++)
