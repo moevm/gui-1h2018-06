@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>546</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,17 +15,148 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="1">
-    <widget class="QLabel" name="personLabel">
-     <property name="text">
-      <string>Исполнитель:</string>
+    <widget class="QFrame" name="tagsFrame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="0">
+       <widget class="QLabel" name="newTagLabel">
+        <property name="text">
+         <string>Другой Тэг:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="activeTagsLabel">
+        <property name="text">
+         <string>Активные Тэги:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QLineEdit" name="newTagLineEdit"/>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="addNewTagPushButton">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="addTagPushButton">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QComboBox" name="tagComboBox"/>
+      </item>
+      <item row="3" column="1" colspan="3">
+       <widget class="QLineEdit" name="activeTagsLineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="4">
+       <widget class="QLabel" name="tagLabel">
+        <property name="text">
+         <string>Тэги</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QLineEdit" name="tagLineEdit"/>
-   </item>
    <item row="4" column="2">
-    <widget class="QLineEdit" name="personLineEdit"/>
+    <widget class="QFrame" name="usersFrame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="2" column="0">
+       <widget class="QLabel" name="newUserLabel">
+        <property name="text">
+         <string>Другой исполнитель:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="newUserLineEdit"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="addNewUserPushButton">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="activeUsersLabel">
+        <property name="text">
+         <string>Активные исполнители:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="QLineEdit" name="activeUsersLineEdit"/>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="personLabel">
+        <property name="text">
+         <string>Исполнители</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="addUserPushButton">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QComboBox" name="userComboBox"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QDialogButtonBox" name="addButtonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="addLabel">
@@ -37,23 +168,13 @@
    <item row="1" column="1" colspan="2">
     <widget class="QTextEdit" name="addTextEdit"/>
    </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="tagLabel">
-     <property name="text">
-      <string>Тэг:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" colspan="2">
+   <item row="3" column="1" colspan="2">
     <widget class="QCalendarWidget" name="calendarWidget"/>
    </item>
-   <item row="5" column="2">
-    <widget class="QDialogButtonBox" name="addButtonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <item row="2" column="1" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Срок выполнения</string>
      </property>
     </widget>
    </item>

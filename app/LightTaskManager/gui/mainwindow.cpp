@@ -218,7 +218,7 @@ void MainWindow::showTask(QModelIndex index)
 
 void MainWindow::on_actionAddTask_triggered()
 {
-    AddDialog add(this);
+    AddDialog add(*(m_settingsManager.data()), this);
     connect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
     add.exec();
     disconnect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
