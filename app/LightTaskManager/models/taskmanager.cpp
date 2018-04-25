@@ -165,13 +165,17 @@ QString TaskManager::parseIndex(QString content)
 
 QString TaskManager::parseTag(QString content)
 {
-    QString tag = "";
-    qDebug() << "parseTag" << content.split("+");
-    /*if(content.contains("+"))
+    QString currentTaskTags = "";
+    QStringList allTags = readTags();
+    for(auto tag : allTags)
     {
-        tags.push_back(content.split("+")[1].split(" ")[0]);
-    }*/
-    return tag;
+        QString tagTemplate = QStringLiteral("+") + tag;
+        if(content.contains(tagTemplate))
+        {
+            currentTaskTags += tag + " ";
+        }
+    }
+    return currentTaskTags;
 }
 
 QString TaskManager::parseDate(QString content)
@@ -187,18 +191,52 @@ QString TaskManager::parseDate(QString content)
 
 QString TaskManager::parseUser(QString content)
 {
-    QString res = "";
-    if(content.contains("@"))
+    QString currentTaskUsers = "";
+    QStringList allUsers = readUsers();
+    for(auto user : allUsers)
     {
-        res = content.split("@").operator [](1).split(" ")[0];
+        QString userTemplate = QStringLiteral("@") + user;
+        if(content.contains(userTemplate))
+        {
+            currentTaskUsers += user + " ";
+        }
     }
-    return res;
-    //return content.section("@", 1, 1);
+    return currentTaskUsers;
 }
 
 QString TaskManager::parseTask(QString content)
 {
-    QString res = "";
+    QString description = "";
+
+    QString index = parseIndex(content);
+    QStringList tags = parseTag(content).split(" ", QString::SkipEmptyParts);
+    QStringList users = parseUser(content).split(" ", QString::SkipEmptyParts);
+    QString date = parseDate(content);
+
+    content.remove(0, index.length() + 1);
+    for(auto tag : tags)
+    {
+        content.remove(QStringLiteral("+") + tag);
+    }
+
+    for(auto user : users)
+    {
+        content.remove(QStringLiteral("@") + user);
+    }
+
+    content.remove(QStringLiteral("until [") + date + QStringLiteral("]"));
+
+    qDebug() << "description" << content;
+
+    QStringList tmp = content.split(QRegExp(" "), QString::SkipEmptyParts);
+    for(auto s : tmp)
+    {
+        description += s + QStringLiteral(" ");
+    }
+
+    return description;
+
+    /*QString res = "";
     QString index = content.split(" ", QString::SkipEmptyParts).operator[](0);
     content.remove(0, index.length() +1);
     //content = content.remove(parseIndex(content));
@@ -212,7 +250,7 @@ QString TaskManager::parseTask(QString content)
     {
         res += s + QStringLiteral(" ");
     }
-    return res;
+    return res;*/
 }
 
 void TaskManager::applytodoDirectory(QString directory)
@@ -228,6 +266,75 @@ void TaskManager::applytodoDirectory(QString directory)
 QString TaskManager::todoSettingsPath()
 {
     return m_todolistAdapter->currentTodoListBinPath();
+}
+
+QStringList TaskManager::readStatuses()
+{
+    QStringList statuses;
+    try
+    {
+        int statusesCount = m_settingsManager->get("Statuses", "Count").toInt();
+        if(statusesCount > 0)
+        {
+            for(size_t i = 0; i < (size_t) statusesCount; i++)
+            {
+                QString key = QStringLiteral("Status") + QString::number(i);
+                QString statusName = m_settingsManager->get("Statuses", key).toString();
+                statuses.push_back(statusName);
+            }
+        }
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
+    }
+    return statuses;
+}
+
+QStringList TaskManager::readTags()
+{
+    QStringList tags;
+    try
+    {
+        int tagsCount = m_settingsManager->get("Tags", "Count").toInt();
+        if(tagsCount > 0)
+        {
+            for(size_t i = 0; i < (size_t) tagsCount; i++)
+            {
+                QString key = QStringLiteral("Tag") + QString::number(i);
+                QString tagName = m_settingsManager->get("Tags", key).toString();
+                tags.push_back(tagName);
+            }
+        }
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
+    }
+    return tags;
+}
+
+QStringList TaskManager::readUsers()
+{
+    QStringList users;
+    try
+    {
+        int usersCount = m_settingsManager->get("Users", "Count").toInt();
+        if(usersCount > 0)
+        {
+            for(size_t i = 0; i < (size_t) usersCount; i++)
+            {
+                QString key = QStringLiteral("User") + QString::number(i);
+                QString userName = m_settingsManager->get("Users", key).toString();
+                users.push_back(userName);
+            }
+        }
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
+    }
+    return users;
 }
 
 QStringList TaskManager::filterByTagName(QStringList allTasks)

@@ -44,23 +44,7 @@ void MainWindow::setupWidgets()
     ui->acceptFiltersPushButton->setEnabled(false);
 
 
-    try
-    {
-        int statusesCount = m_settingsManager->get("Statuses", "Count").toInt();
-        if(statusesCount > 0)
-        {
-            for(size_t i = 0; i < (size_t) statusesCount; i++)
-            {
-                QString key = QStringLiteral("Status") + QString::number(i);
-                QString statusName = m_settingsManager->get("Statuses", key).toString();
-                m_statuses.push_back(statusName);
-            }
-        }
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
-    }
+    m_statuses = m_taskManager->readStatuses();
 
     for(auto status : m_statuses)
     {
