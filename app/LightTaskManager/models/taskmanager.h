@@ -56,6 +56,8 @@ public slots:
     QStringList readTags();
     QStringList readUsers();
 
+    SettingsManager& getSettingsManager();
+
 protected slots:
     QStringList filterByTagName(QStringList allTasks);
     QStringList filterByUserName(QStringList allTasks);

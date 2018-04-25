@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-#include "models/settingsmanager.h"
+#include "models/taskmanager.h"
 
 namespace Ui {
 class AddDialog;
@@ -17,7 +17,7 @@ class AddDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddDialog(SettingsManager &settingsManager, QWidget *parent = 0);
+    explicit AddDialog(TaskManager& taskManager, QWidget *parent = 0);
     ~AddDialog();
 
 signals:
@@ -38,7 +38,7 @@ private slots:
 
 private:
     Ui::AddDialog *ui;
-    SettingsManager& m_settingsManager;
+    TaskManager& m_taskManager;
 
     QDate m_date;
 
@@ -46,8 +46,6 @@ private:
     QStringList m_users;
 
     void setup();
-    QStringList readTags();
-    QStringList readUsers();
 };
 
 #endif // ADDDIALOG_H

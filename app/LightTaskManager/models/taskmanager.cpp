@@ -226,8 +226,6 @@ QString TaskManager::parseTask(QString content)
 
     content.remove(QStringLiteral("until [") + date + QStringLiteral("]"));
 
-    qDebug() << "description" << content;
-
     QStringList tmp = content.split(QRegExp(" "), QString::SkipEmptyParts);
     for(auto s : tmp)
     {
@@ -235,22 +233,6 @@ QString TaskManager::parseTask(QString content)
     }
 
     return description;
-
-    /*QString res = "";
-    QString index = content.split(" ", QString::SkipEmptyParts).operator[](0);
-    content.remove(0, index.length() +1);
-    //content = content.remove(parseIndex(content));
-    content = content.remove("+" + parseTag(content));
-    content = content.remove("@" + parseUser(content));
-    content = content.remove(parseDate(content));
-    content.remove("until [");
-    content.remove("]");
-    QStringList tmp = content.split(QRegExp(" "), QString::SkipEmptyParts);
-    for(auto s : tmp)
-    {
-        res += s + QStringLiteral(" ");
-    }
-    return res;*/
 }
 
 void TaskManager::applytodoDirectory(QString directory)
@@ -335,6 +317,11 @@ QStringList TaskManager::readUsers()
         QMessageBox(QMessageBox::Warning, "SettingsError", e.what());
     }
     return users;
+}
+
+SettingsManager &TaskManager::getSettingsManager()
+{
+    return (*(m_settingsManager.data()));
 }
 
 QStringList TaskManager::filterByTagName(QStringList allTasks)

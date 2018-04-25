@@ -1,10 +1,10 @@
 #include "adddialog.h"
 #include "ui_adddialog.h"
 
-AddDialog::AddDialog(SettingsManager& settingsManager, QWidget *parent) :
+AddDialog::AddDialog(TaskManager &taskManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddDialog),
-    m_settingsManager(settingsManager),
+    m_taskManager(taskManager),
     m_date(QDate())
 {
     ui->setupUi(this);
@@ -19,58 +19,12 @@ AddDialog::~AddDialog()
 void AddDialog::setup()
 {
     ui->tagComboBox->clear();
-    m_tags = readTags();
+    m_tags = m_taskManager.readTags();
     ui->tagComboBox->addItems(m_tags);
 
     ui->userComboBox->clear();
-    m_users = readUsers();
+    m_users = m_taskManager.readUsers();
     ui->userComboBox->addItems(m_users);
-}
-
-QStringList AddDialog::readTags()
-{
-    QStringList tags;
-    try
-    {
-        int tagsCount = m_settingsManager.get("Tags", "Count").toInt();
-        if(tagsCount > 0)
-        {
-            for(size_t i = 0; i < (size_t) tagsCount; i++)
-            {
-                QString key = "Tag" + QString::number(i);
-                QString tag = m_settingsManager.get("Tags", key).toString();
-                tags.push_back(tag);
-            }
-        }
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Settings Error", e.what()).exec();
-    }
-    return tags;
-}
-
-QStringList AddDialog::readUsers()
-{
-    QStringList users;
-    try
-    {
-        int usersCount = m_settingsManager.get("Users", "Count").toInt();
-        if(usersCount > 0)
-        {
-            for(size_t i = 0; i < (size_t) usersCount; i++)
-            {
-                QString key = "User" + QString::number(i);
-                QString user = m_settingsManager.get("Users", key).toString();
-                users.push_back(user);
-            }
-        }
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Settings Error", e.what()).exec();
-    }
-    return users;
 }
 
 void AddDialog::on_addButtonBox_accepted()
@@ -124,14 +78,14 @@ void AddDialog::on_addNewTagPushButton_clicked()
     ui->activeTagsLineEdit->setText(currentTags + QStringLiteral(" +") + tag);
 
     int tagsCount = m_tags.size() + 1;
-    m_settingsManager.set("Tags", "Count", tagsCount);
+    m_taskManager.getSettingsManager().set("Tags", "Count", tagsCount);
     QString newTagName = QStringLiteral("Tag") + QString::number(tagsCount - 1);
-    m_settingsManager.set("Tags", newTagName, tag);
-    m_settingsManager.saveSettings();
+    m_taskManager.getSettingsManager().set("Tags", newTagName, tag);
+    m_taskManager.getSettingsManager().saveSettings();
 
     ui->tagComboBox->clear();
     ui->newTagLineEdit->clear();
-    m_tags = readTags();
+    m_tags = m_taskManager.readTags();
     ui->tagComboBox->addItems(m_tags);
 }
 
@@ -149,13 +103,13 @@ void AddDialog::on_addNewUserPushButton_clicked()
     ui->activeUsersLineEdit->setText(currentUsers + QStringLiteral(" @") + user);
 
     int usersCount = m_users.size() + 1;
-    m_settingsManager.set("Users", "Count", usersCount);
+    m_taskManager.getSettingsManager().set("Users", "Count", usersCount);
     QString newUserName = QStringLiteral("User") + QString::number(usersCount - 1);
-    m_settingsManager.set("Users", newUserName, user);
-    m_settingsManager.saveSettings();
+    m_taskManager.getSettingsManager().set("Users", newUserName, user);
+    m_taskManager.getSettingsManager().saveSettings();
 
     ui->userComboBox->clear();
     ui->newUserLineEdit->clear();
-    m_users = readUsers();
+    m_users = m_taskManager.readUsers();
     ui->userComboBox->addItems(m_users);
 }

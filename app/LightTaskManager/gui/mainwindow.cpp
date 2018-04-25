@@ -4,7 +4,6 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_settingsManager(new SettingsManager()),
     m_taskManager(new TaskManager(this))
 {
     ui->setupUi(this);
@@ -201,7 +200,7 @@ void MainWindow::showTask(QModelIndex index)
 
 void MainWindow::on_actionAddTask_triggered()
 {
-    AddDialog add(*(m_settingsManager.data()), this);
+    AddDialog add(*(m_taskManager.data()), this);
     connect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
     add.exec();
     disconnect(&add, SIGNAL(addTask(QString)), m_taskManager.data(), SLOT(addTask(QString)));
@@ -254,7 +253,7 @@ void MainWindow::on_actionOpenTerminal_triggered()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    SettingsDialog dialog(*(m_settingsManager.data()), this);
+    SettingsDialog dialog(m_taskManager->getSettingsManager(), this);
     connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
