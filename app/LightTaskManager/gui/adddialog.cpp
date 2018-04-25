@@ -99,7 +99,7 @@ void AddDialog::on_addButtonBox_accepted()
 
         QString date = "until [" + m_date.toString() +"]";
 
-        QString task = desctiption + " " + tags + users + date;
+        QString task = desctiption + " " + tags + users + " " + date;
         qDebug() << "new task =" << task;
         emit addTask(task);
     }

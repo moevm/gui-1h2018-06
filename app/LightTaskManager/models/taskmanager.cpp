@@ -166,12 +166,12 @@ QString TaskManager::parseIndex(QString content)
 QString TaskManager::parseTag(QString content)
 {
     QString tag = "";
-    if(content.contains("+"))
+    qDebug() << "parseTag" << content.split("+");
+    /*if(content.contains("+"))
     {
-        tag = content.split("+")[1].split(" ")[0];
-    }
+        tags.push_back(content.split("+")[1].split(" ")[0]);
+    }*/
     return tag;
-    //return content.section("+", 0, 0);
 }
 
 QString TaskManager::parseDate(QString content)
@@ -228,11 +228,6 @@ void TaskManager::applytodoDirectory(QString directory)
 QString TaskManager::todoSettingsPath()
 {
     return m_todolistAdapter->currentTodoListBinPath();
-}
-
-SettingsManager &TaskManager::getSettingsManager()
-{
-    return (*(m_settingsManager.data()));
 }
 
 QStringList TaskManager::filterByTagName(QStringList allTasks)

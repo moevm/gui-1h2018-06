@@ -56,8 +56,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QScopedPointer<TaskManager> m_taskManager;
     QScopedPointer<SettingsManager> m_settingsManager;
+    QScopedPointer<TaskManager> m_taskManager;
 
     QStringList m_statuses;
     QList< MyListWidget* > m_tasksLists;
