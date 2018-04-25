@@ -147,4 +147,15 @@ void AddDialog::on_addNewUserPushButton_clicked()
     QString user = ui->newUserLineEdit->text();
     QString currentUsers = ui->activeUsersLineEdit->text();
     ui->activeUsersLineEdit->setText(currentUsers + QStringLiteral(" @") + user);
+
+    int usersCount = m_users.size() + 1;
+    m_settingsManager.set("Users", "Count", usersCount);
+    QString newUserName = QStringLiteral("User") + QString::number(usersCount - 1);
+    m_settingsManager.set("Users", newUserName, user);
+    m_settingsManager.saveSettings();
+
+    ui->userComboBox->clear();
+    ui->newUserLineEdit->clear();
+    m_users = readUsers();
+    ui->userComboBox->addItems(m_users);
 }
