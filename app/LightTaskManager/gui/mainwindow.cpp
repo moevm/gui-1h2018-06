@@ -136,7 +136,6 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     {
         m_tasksLists[i]->addItems(tasksContainers[i]);
     }
-
     /*QStringList todoItems;
     QStringList completedItems;
 
