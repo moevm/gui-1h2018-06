@@ -178,27 +178,14 @@ void MainWindow::changeTaskStatusAction(QString data)
 
 void MainWindow::showTask(QModelIndex index)
 {
-    qDebug() << index.data().toString();
-
-    // todo
-    /*ui->currentTaskPlainTextEdit->clear();
+    ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
     ui->tagLineEdit->setText(m_taskManager->parseTag(content));
     ui->dateLineEdit->setText(m_taskManager->parseDate(content));
     ui->userLineEdit->setText(m_taskManager->parseUser(content));
     ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);*/
-
-    // completed
-    /*ui->currentTaskPlainTextEdit->clear();
-    QString content = index.data().toString();
-    ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
-    ui->tagLineEdit->setText(m_taskManager->parseTag(content));
-    ui->dateLineEdit->setText(m_taskManager->parseDate(content));
-    ui->userLineEdit->setText(m_taskManager->parseUser(content));
-    ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);*/
+    ui->editTaskPushButton->setEnabled(true);
 }
 
 void MainWindow::on_actionAddTask_triggered()
