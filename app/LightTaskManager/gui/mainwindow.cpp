@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setupWidgets();
     setupPresenter();
+    this->showMaximized();
 }
 
 MainWindow::~MainWindow()
@@ -159,13 +160,27 @@ void MainWindow::updateTaskWidgets()
     {
         for(size_t j = 0; j < (size_t) tasksContainers[i].size(); j++)
         {
-            QListWidgetItem* item = new QListWidgetItem(tasksContainers[i][j]);
-            MyListWidgetItem* myListItem = new MyListWidgetItem(this);
+            QListWidgetItem* item = new QListWidgetItem();
+            //item->setSizeHint(QSize(0, 75));
+
+            QString data = tasksContainers[i][j];
+            QString index = m_taskManager->parseIndex(data);
+            QString desctiption = m_taskManager->parseTask(data);
+            QString date = m_taskManager->parseDate(data);
+            QStringList tags = m_taskManager->parseTag(data).split(" ", QString::SkipEmptyParts);
+            QStringList users = m_taskManager->parseUser(data).split(" ", QString::SkipEmptyParts);
+
+
+
+            MyListWidgetItem* row = new MyListWidgetItem(index, desctiption, date, tags, users, this);
+            item->setSizeHint(row->minimumSizeHint());
 
             m_tasksLists[i]->addItem(item);
-            m_tasksLists[i]->setItemWidget(item, myListItem);
+            m_tasksLists[i]->setItemWidget(item, row);
         }
         //m_tasksLists[i]->addItems(tasksContainers[i]);
+        //m_tasksLists[i]->setItemDelegate(new TaskViewDeligete(m_tasksLists[i]));
+
     }
     /*QStringList todoItems;
     QStringList completedItems;
@@ -221,21 +236,65 @@ void MainWindow::changeTaskStatusAction(QString data)
 {
     QString status = "undefined";
     MyListWidget* senderWidget = qobject_cast<MyListWidget *>(sender());
-    for(size_t i = 0; i < (size_t) m_statusesLabels.size(); i++)
+    if(senderWidget)
     {
-        if(m_tasksLists[i] == senderWidget)
+
+        for(size_t i = 0; i < (size_t) m_statusesLabels.size(); i++)
         {
-            status = m_statusesLabels[i]->text();
+            if(m_tasksLists[i] == senderWidget)
+            {
+                status = m_statusesLabels[i]->text();
+            }
         }
+
+        if(senderWidget->currentItem())
+        {
+            qDebug() << "success";
+        }
+
+
+        /*MyListWidgetItem *item = qobject_cast<MyListWidgetItem*>(senderWidget->currentItem()->listWidget()->indexWidget(senderWidget->currentIndex()));
+        if(item)
+        {
+            qDebug() << "success";
+            data = item->index();
+            qDebug() << data << status;
+
+            m_taskManager->changeTaskStatus(data, status);
+        }
+        else
+        {
+            qDebug() << "can not convert QListWidgetItem to MyListWdgetItem";
+        }*/
     }
-
-    qDebug() << data << status;
-
-    m_taskManager->changeTaskStatus(data, status);
 }
 
 void MainWindow::showTask(QModelIndex index)
 {
+    MyListWidget* list = qobject_cast<MyListWidget*>(sender());
+    if(list)
+    {
+        MyListWidgetItem* item = qobject_cast<MyListWidgetItem*>(list->currentItem()->listWidget()->indexWidget(index));
+        if(item)
+        {
+            ui->currentTaskPlainTextEdit->clear();
+            ui->indexLineEdit->setText(item->index());
+            ui->tagLineEdit->setText(item->tags());
+            ui->dateLineEdit->setText(item->date());
+            ui->userLineEdit->setText(item->users());
+            ui->currentTaskPlainTextEdit->setPlainText(item->description());
+            ui->editTaskPushButton->setEnabled(true);
+        }
+        else
+        {
+            qDebug() << "can not convert QListWidgetItem to MyListWidgetItem";
+        }
+    }
+    else
+    {
+        qDebug() << "Not success";
+    }
+    /*qDebug() << "show task" << item->description();
     ui->currentTaskPlainTextEdit->clear();
     QString content = index.data().toString();
     ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
@@ -243,7 +302,7 @@ void MainWindow::showTask(QModelIndex index)
     ui->dateLineEdit->setText(m_taskManager->parseDate(content));
     ui->userLineEdit->setText(m_taskManager->parseUser(content));
     ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);
+    ui->editTaskPushButton->setEnabled(true);*/
 }
 
 void MainWindow::on_actionAddTask_triggered()
