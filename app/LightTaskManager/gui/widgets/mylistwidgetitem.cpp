@@ -20,6 +20,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     descriptionTextEdit->setStyleSheet("font-weight: bold;");
     descriptionTextEdit->setPlainText(m_description);
     descriptionTextEdit->setReadOnly(true);
+    descriptionTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     containerLayout->addWidget(descriptionTextEdit);
 
     containerLayout->addWidget(new QLabel("Срок выполнения: " + m_date, this));
