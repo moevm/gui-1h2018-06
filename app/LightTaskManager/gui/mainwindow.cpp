@@ -136,6 +136,7 @@ void MainWindow::updateTaskWidgets()
     ui->dateLineEdit->clear();
     ui->userLineEdit->clear();
     ui->currentTaskPlainTextEdit->clear();
+
     QList< QStringList > tasksContainers;
     for(auto status : m_statusesLabels)
     {
@@ -156,7 +157,15 @@ void MainWindow::updateTaskWidgets()
 
     for(size_t i = 0; i < (size_t) m_statusesLabels.size(); i++)
     {
-        m_tasksLists[i]->addItems(tasksContainers[i]);
+        for(size_t j = 0; j < (size_t) tasksContainers[i].size(); j++)
+        {
+            QListWidgetItem* item = new QListWidgetItem(tasksContainers[i][j]);
+            MyListWidgetItem* myListItem = new MyListWidgetItem(this);
+
+            m_tasksLists[i]->addItem(item);
+            m_tasksLists[i]->setItemWidget(item, myListItem);
+        }
+        //m_tasksLists[i]->addItems(tasksContainers[i]);
     }
     /*QStringList todoItems;
     QStringList completedItems;
