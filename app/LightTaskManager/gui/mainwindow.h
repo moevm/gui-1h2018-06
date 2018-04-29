@@ -28,7 +28,10 @@ public:
 
 private slots:
     void updateDirectoryWidgets(QString filePath);
-    void updateTaskWidgets(QStringList todoList);
+
+    void setTasks(QStringList taskList);
+
+    void updateTaskWidgets();
 
     void on_actionOpenRepository_triggered();
 
@@ -60,6 +63,8 @@ private:
 
     QList< QLabel* > m_statusesLabels;
     QList< MyListWidget* > m_tasksLists;
+
+    QStringList m_tasks;
 
     void setupWidgets();
     void setupPresenter();

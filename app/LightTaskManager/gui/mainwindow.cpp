@@ -49,26 +49,27 @@ void MainWindow::setupWidgets()
 void MainWindow::setupPresenter()
 {
     connect(m_taskManager.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
-    connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(updateTaskWidgets(QStringList)));
+    connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(setTasks(QStringList)));
     connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
 }
 
 void MainWindow::updateTaskLists()
 {
-    /*for(auto label : m_statusesLabels)
+    for(auto label : m_statusesLabels)
     {
-        ui->statusesLabelsHorizontalLayout->removeWidget(label);
+        label->deleteLater();
     }
-    ui->statusesLabelsHorizontalLayout->update();
 
     for(auto list : m_tasksLists)
     {
-        ui->tasksContainerHorizontalLayout->removeWidget(list);
+        list->deleteLater();
     }
-    ui->tasksContainerHorizontalLayout->update();*/
 
-    //m_statuses.clear();
-    //m_tasksLists.clear();
+    m_statusesLabels.clear();
+    m_tasksLists.clear();
+
+    qDebug() << m_statusesLabels;
+    qDebug() << m_tasksLists;
 
     QStringList statuses = m_taskManager->readStatuses();
 
@@ -80,7 +81,6 @@ void MainWindow::updateTaskLists()
         statusLabel->setAlignment(Qt::AlignCenter);
         statusLabel->setObjectName(objectName);
         m_statusesLabels.push_back(statusLabel);
-        //ui->statusesLabelsHorizontalLayout->addWidget(statusLabel);
 
         MyListWidget* taskList = new MyListWidget(ui->tasksContainerWidget);
         objectName = status + QStringLiteral("ListWidget");
@@ -91,7 +91,6 @@ void MainWindow::updateTaskLists()
         qDebug() << taskList->dragEnabled() << taskList->dragDropMode();
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
-        //ui->tasksContainerHorizontalLayout->addWidget(taskList);
         m_tasksLists.push_back(taskList);
     }
 
@@ -108,7 +107,7 @@ void MainWindow::updateTaskLists()
     qDebug() << "labelsCount" << ui->statusesLabelsHorizontalLayout->count();
     qDebug() << "listsCount" << ui->tasksContainerHorizontalLayout->count();
 
-    //updateTaskWidgets(QStringList());
+    updateTaskWidgets();
 }
 
 void MainWindow::updateDirectoryWidgets(QString filePath)
@@ -116,10 +115,16 @@ void MainWindow::updateDirectoryWidgets(QString filePath)
     ui->filePathLineEdit->setText(filePath);
 }
 
-void MainWindow::updateTaskWidgets(QStringList todoList)
+void MainWindow::setTasks(QStringList taskList)
+{
+    m_tasks = taskList;
+    updateTaskWidgets();
+}
+
+void MainWindow::updateTaskWidgets()
 {
     qDebug() << "----- tasks -----";
-    qDebug() << todoList;
+    qDebug() << m_tasks;
 
     for(auto list : m_tasksLists)
     {
@@ -136,7 +141,7 @@ void MainWindow::updateTaskWidgets(QStringList todoList)
     {
         QStringList tmp;
         QString statusTemplate = QStringLiteral("[") + status->text() + QStringLiteral("]");
-        for(auto item : todoList)
+        for(auto item : m_tasks)
         {
             if(item.contains(statusTemplate))
             {
