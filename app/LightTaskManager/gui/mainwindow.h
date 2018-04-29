@@ -58,11 +58,13 @@ private:
     Ui::MainWindow *ui;
     QScopedPointer<TaskManager> m_taskManager;
 
-    QStringList m_statuses;
+    QList< QLabel* > m_statusesLabels;
     QList< MyListWidget* > m_tasksLists;
 
     void setupWidgets();
     void setupPresenter();
+
+    void updateTaskLists();
 };
 
 #endif // MAINWINDOW_H

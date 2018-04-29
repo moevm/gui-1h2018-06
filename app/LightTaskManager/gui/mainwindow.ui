@@ -274,17 +274,17 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="indexLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
      <item row="6" column="1">
       <widget class="QPushButton" name="saveTaskPushButton">
        <property name="text">
         <string>Сохранить</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="tagLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -295,24 +295,24 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="indexLabel">
-       <property name="text">
-        <string>Индекс</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="indexLineEdit">
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="tagLineEdit">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="dateLabel">
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="userLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="indexLabel">
        <property name="text">
-        <string>Дедлайн</string>
+        <string>Индекс</string>
        </property>
       </widget>
      </item>
@@ -323,10 +323,10 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="userLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
+     <item row="2" column="0">
+      <widget class="QLabel" name="dateLabel">
+       <property name="text">
+        <string>Дедлайн</string>
        </property>
       </widget>
      </item>

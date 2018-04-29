@@ -129,7 +129,8 @@ void TaskManager::openTerminal(QString path)
 {
     qDebug() << "open terminal";
 #ifdef Q_OS_MACOS
-    QProcess::startDetached("open /Applications/Utilities/Terminal.app");
+    //QProcess::startDetached("open /Applications/Utilities/Terminal.app");
+    QProcess::execute("/bin/bash -c /bin/ls");
 #endif
 #ifdef Q_OS_LINUX
     QProcess::startDetached("konsole");
@@ -137,7 +138,7 @@ void TaskManager::openTerminal(QString path)
 #endif
 
     //QProcess terminal(this);
-    //m_term->setProgram("/bin/bash");
+    //m_term->setProgram("/bin/bash ");
     //terminal.setWorkingDirectory(path);
     //QStringList args;
     //args << "-c ls";
