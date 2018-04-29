@@ -260,6 +260,13 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="indexLabel">
+       <property name="text">
+        <string>Индекс</string>
+       </property>
+      </widget>
+     </item>
      <item row="4" column="0" colspan="2">
       <widget class="QPlainTextEdit" name="currentTaskPlainTextEdit">
        <property name="readOnly">
@@ -267,17 +274,10 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QPushButton" name="editTaskPushButton">
+     <item row="2" column="0">
+      <widget class="QLabel" name="dateLabel">
        <property name="text">
-        <string>Редактировать</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="indexLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
+        <string>Дедлайн</string>
        </property>
       </widget>
      </item>
@@ -295,8 +295,15 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="tagLineEdit">
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="dateLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="indexLineEdit">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -309,10 +316,17 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="indexLabel">
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="tagLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QPushButton" name="editTaskPushButton">
        <property name="text">
-        <string>Индекс</string>
+        <string>Редактировать</string>
        </property>
       </widget>
      </item>
@@ -320,20 +334,6 @@
       <widget class="QLabel" name="userLabel">
        <property name="text">
         <string>Пользователь</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="dateLabel">
-       <property name="text">
-        <string>Дедлайн</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="dateLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
        </property>
       </widget>
      </item>

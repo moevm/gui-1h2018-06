@@ -5,6 +5,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QSpacerItem>
+#include <QTextEdit>
 
 class MyListWidgetItem : public QWidget
 {
