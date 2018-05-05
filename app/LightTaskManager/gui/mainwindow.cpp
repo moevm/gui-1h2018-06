@@ -160,6 +160,8 @@ void MainWindow::updateTaskWidgets()
         {
             QListWidgetItem* item = new QListWidgetItem();
             //item->setSizeHint(QSize(0, 75));
+            item->setTextAlignment(Qt::TopLeftCorner);
+            item->setFont(QFont("Arial", -1, 10, false));
 
             QString data = tasksContainers[i][j];
             QString index = m_taskManager->parseIndex(data);
