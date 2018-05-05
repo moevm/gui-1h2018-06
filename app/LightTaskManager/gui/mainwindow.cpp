@@ -169,11 +169,11 @@ void MainWindow::updateTaskWidgets()
 
             item->setText(index);
 
-            MyListWidgetItem* row = new MyListWidgetItem(index, desctiption, date, tags, users, this);
-            item->setSizeHint(row->minimumSizeHint());
+            MyListWidgetItem* taskBoard = new MyListWidgetItem(index, desctiption, date, tags, users, m_tasksLists[i]);
+            item->setSizeHint(taskBoard->minimumSizeHint());
 
             m_tasksLists[i]->addItem(item);
-            m_tasksLists[i]->setItemWidget(item, row);
+            m_tasksLists[i]->setItemWidget(item, taskBoard);
         }
         //m_tasksLists[i]->addItems(tasksContainers[i]);
         //m_tasksLists[i]->setItemDelegate(new TaskViewDeligete(m_tasksLists[i]));
