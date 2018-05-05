@@ -35,9 +35,6 @@ void MainWindow::setupWidgets()
     ui->statusBar->setStyleSheet("background-color:#333; color: #55bb55");
     ui->statusBar->showMessage("Ready");
 
-    //connect(ui->completedListWidget, SIGNAL(dropAction(QString)), this, SLOT(completeTaskAction(QString)));
-    //connect(ui->todoListWidget, SIGNAL(dropAction(QString)), this, SLOT(uncompleteTaskAction(QString)));
-
     ui->actionAddTask->setEnabled(false);
     ui->actionDeleteTask->setEnabled(false);
     ui->editTaskPushButton->setEnabled(false);
@@ -170,7 +167,7 @@ void MainWindow::updateTaskWidgets()
             QStringList tags = m_taskManager->parseTag(data).split(" ", QString::SkipEmptyParts);
             QStringList users = m_taskManager->parseUser(data).split(" ", QString::SkipEmptyParts);
 
-
+            item->setText(index);
 
             MyListWidgetItem* row = new MyListWidgetItem(index, desctiption, date, tags, users, this);
             item->setSizeHint(row->minimumSizeHint());
@@ -182,42 +179,6 @@ void MainWindow::updateTaskWidgets()
         //m_tasksLists[i]->setItemDelegate(new TaskViewDeligete(m_tasksLists[i]));
 
     }
-    /*QStringList todoItems;
-    QStringList completedItems;
-
-    for(auto item : todoList)
-    {
-
-        if(item.contains("[ ]"))
-        {
-            QString data = item.remove("[ ]");
-            todoItems.push_back(data);
-        }
-        else
-        {
-            if(item.contains("[x]"))
-            {
-                QString data = item.remove("[x]");
-                completedItems.push_back(data);
-            }
-            else
-            {
-                qDebug() << "undefined status" << item;
-            }
-        }
-    }
-
-    for(size_t i = 0; i < (size_t) todoItems.size(); i++)
-    {
-        QListWidgetItem* listItem = new QListWidgetItem(todoItems[i]);
-        ui->todoListWidget->addItem(listItem);
-    }
-
-    for(size_t i = 0; i < (size_t) completedItems.size(); i++)
-    {
-        QListWidgetItem* listItem = new QListWidgetItem(completedItems[i]);
-        ui->completedListWidget->addItem(listItem);
-    }*/
 }
 
 void MainWindow::on_actionOpenRepository_triggered()
@@ -234,6 +195,10 @@ void MainWindow::on_actionInitializeRepository_triggered()
 
 void MainWindow::changeTaskStatusAction(QString data)
 {
+    // get tasks index
+    QString index = data.split(" ", QString::SkipEmptyParts).at(0);
+
+    // get task status
     QString status = "undefined";
     MyListWidget* senderWidget = qobject_cast<MyListWidget *>(sender());
     if(senderWidget)
@@ -246,27 +211,10 @@ void MainWindow::changeTaskStatusAction(QString data)
                 status = m_statusesLabels[i]->text();
             }
         }
-
-        if(senderWidget->currentItem())
-        {
-            qDebug() << "success";
-        }
-
-
-        /*MyListWidgetItem *item = qobject_cast<MyListWidgetItem*>(senderWidget->currentItem()->listWidget()->indexWidget(senderWidget->currentIndex()));
-        if(item)
-        {
-            qDebug() << "success";
-            data = item->index();
-            qDebug() << data << status;
-
-            m_taskManager->changeTaskStatus(data, status);
-        }
-        else
-        {
-            qDebug() << "can not convert QListWidgetItem to MyListWdgetItem";
-        }*/
     }
+
+    // change task status by index
+    m_taskManager->changeTaskStatus(index.toULongLong(), status);
 }
 
 void MainWindow::showTask(QModelIndex index)
