@@ -8,7 +8,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     m_tags(tags),
     m_users(users)
 {
-    this->setStyleSheet("margin-left: 5px; margin-right: 5px;");
+    this->setStyleSheet("margin-left: 5px; margin-right: 5px; border-bottom: 1px solid #eee;");
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     QFrame* container = new QFrame(this);
@@ -26,7 +26,10 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     descriptionTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     containerLayout->addWidget(descriptionTextEdit);
 
-    containerLayout->addWidget(new QLabel("До: " + m_date, this));
+    if(m_date.length() > 0)
+    {
+        containerLayout->addWidget(new QLabel("До: " + m_date, this));
+    }
 
     QHBoxLayout* paramsLayout = new QHBoxLayout(this);
 
@@ -41,7 +44,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     {
         QLabel* label = new QLabel(tag, this);
         label->setAlignment(Qt::AlignCenter);
-        label->setStyleSheet("background-color: #55bb55; color: #fff; border-radius: 5px; padding: 1px;");
+        label->setStyleSheet("background-color: #55bb55; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
         tagsLayout->addWidget(label);
     }
     paramsLayout->addLayout(tagsLayout);
@@ -57,7 +60,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     {
         QLabel* label = new QLabel(user, this);
         label->setAlignment(Qt::AlignCenter);
-        label->setStyleSheet("background-color: #bb0000; color: #fff; border-radius: 5px; padding: 1px;");
+        label->setStyleSheet("background-color: #bb0000; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
         usersLayout->addWidget(label);
     }
     paramsLayout->addLayout(usersLayout);
