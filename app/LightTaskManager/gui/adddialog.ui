@@ -29,44 +29,10 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QLabel" name="newTagLabel">
-        <property name="text">
-         <string>Другой Тэг:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="activeTagsLabel">
-        <property name="text">
-         <string>Активные Тэги:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QLineEdit" name="newTagLineEdit"/>
-      </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="addNewTagPushButton">
-        <property name="text">
-         <string>Добавить</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="3">
        <widget class="QPushButton" name="addTagPushButton">
         <property name="text">
          <string>Добавить</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="3">
-       <widget class="QComboBox" name="tagComboBox"/>
-      </item>
-      <item row="3" column="1" colspan="3">
-       <widget class="QLineEdit" name="activeTagsLineEdit">
-        <property name="readOnly">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -77,6 +43,23 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="activeTagsLabel">
+        <property name="text">
+         <string>Активные Тэги:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QComboBox" name="tagComboBox"/>
+      </item>
+      <item row="2" column="1" colspan="3">
+       <widget class="QLineEdit" name="activeTagsLineEdit">
+        <property name="readOnly">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -98,33 +81,6 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="2" column="0">
-       <widget class="QLabel" name="newUserLabel">
-        <property name="text">
-         <string>Другой исполнитель:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="newUserLineEdit"/>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="addNewUserPushButton">
-        <property name="text">
-         <string>Добавить</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="activeUsersLabel">
-        <property name="text">
-         <string>Активные исполнители:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="QLineEdit" name="activeUsersLineEdit"/>
-      </item>
       <item row="0" column="0" colspan="3">
        <widget class="QLabel" name="personLabel">
         <property name="text">
@@ -134,6 +90,16 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="activeUsersLabel">
+        <property name="text">
+         <string>Активные исполнители:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QLineEdit" name="activeUsersLineEdit"/>
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="addUserPushButton">

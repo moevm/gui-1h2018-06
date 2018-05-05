@@ -37,8 +37,74 @@ void AddDialog::on_addButtonBox_accepted()
     {
         QString desctiption = ui->addTextEdit->toPlainText();
 
-        QString tags = ui->activeTagsLineEdit->text();
-        QString users = ui->activeUsersLineEdit->text();
+        QString tags = "";
+        QStringList currentTags = ui->activeTagsLineEdit->text().split(" ", QString::SkipEmptyParts);
+        QStringList supportedTags = m_taskManager.readTags();
+        for(auto currentTag : currentTags)
+        {
+            QString currentTagData = currentTag;
+            if(!(currentTagData.contains("+")))
+            {
+                currentTag = QStringLiteral("+") + currentTag;
+            }
+            else
+            {
+                currentTagData = currentTagData.remove("+");
+            }
+
+            bool contains = false;
+            for(auto supportedTag : supportedTags)
+            {
+                if(supportedTag == currentTag)
+                {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if(!contains)
+            {
+                addNewTag(currentTagData);
+            }
+
+            tags += currentTag + " ";
+        }
+
+
+        QString users = "";
+        QStringList currentUsers = ui->activeUsersLineEdit->text().split(" ", QString::SkipEmptyParts);
+        QStringList supportedUsers = m_taskManager.readUsers();
+        for(auto currentUser : currentUsers)
+        {
+            QString currentUserData = currentUser;
+            if(!(currentUserData.contains("@")))
+            {
+                currentUser = QStringLiteral("@") + currentUser;
+            }
+            else
+            {
+                currentUserData = currentUserData.remove("@");
+            }
+
+            bool contains = false;
+            for(auto supportedUser : supportedUsers)
+            {
+                if(supportedUser == currentUser)
+                {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if(!contains)
+            {
+                addNewUser(currentUserData);
+            }
+
+            users += currentUser + " ";
+        }
+
+
         QString date = "until [" + m_date.toString() +"]";
 
         QString task = desctiption + " " + tags + users + " " + date;
@@ -59,24 +125,6 @@ void AddDialog::on_addTagPushButton_clicked()
     ui->activeTagsLineEdit->setText(currentTags + QStringLiteral(" +") + tag);
 }
 
-void AddDialog::on_addNewTagPushButton_clicked()
-{
-    QString tag = ui->newTagLineEdit->text();
-    QString currentTags = ui->activeTagsLineEdit->text();
-    ui->activeTagsLineEdit->setText(currentTags + QStringLiteral(" +") + tag);
-
-    int tagsCount = m_tags.size() + 1;
-    m_taskManager.getSettingsManager().set("Tags", "Count", tagsCount);
-    QString newTagName = QStringLiteral("Tag") + QString::number(tagsCount - 1);
-    m_taskManager.getSettingsManager().set("Tags", newTagName, tag);
-    m_taskManager.getSettingsManager().saveSettings();
-
-    ui->tagComboBox->clear();
-    ui->newTagLineEdit->clear();
-    m_tags = m_taskManager.readTags();
-    ui->tagComboBox->addItems(m_tags);
-}
-
 void AddDialog::on_addUserPushButton_clicked()
 {
     QString user = ui->userComboBox->currentText();
@@ -84,20 +132,20 @@ void AddDialog::on_addUserPushButton_clicked()
     ui->activeUsersLineEdit->setText(currentUsers + QStringLiteral(" @") + user);
 }
 
-void AddDialog::on_addNewUserPushButton_clicked()
+void AddDialog::addNewTag(QString tag)
 {
-    QString user = ui->newUserLineEdit->text();
-    QString currentUsers = ui->activeUsersLineEdit->text();
-    ui->activeUsersLineEdit->setText(currentUsers + QStringLiteral(" @") + user);
+    int tagsCount = m_tags.size() + 1;
+    m_taskManager.getSettingsManager().set("Tags", "Count", tagsCount);
+    QString newTagName = QStringLiteral("Tag") + QString::number(tagsCount - 1);
+    m_taskManager.getSettingsManager().set("Tags", newTagName, tag);
+    m_taskManager.getSettingsManager().saveSettings();
+}
 
+void AddDialog::addNewUser(QString user)
+{
     int usersCount = m_users.size() + 1;
     m_taskManager.getSettingsManager().set("Users", "Count", usersCount);
     QString newUserName = QStringLiteral("User") + QString::number(usersCount - 1);
     m_taskManager.getSettingsManager().set("Users", newUserName, user);
     m_taskManager.getSettingsManager().saveSettings();
-
-    ui->userComboBox->clear();
-    ui->newUserLineEdit->clear();
-    m_users = m_taskManager.readUsers();
-    ui->userComboBox->addItems(m_users);
 }

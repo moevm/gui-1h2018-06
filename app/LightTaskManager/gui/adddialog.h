@@ -30,11 +30,10 @@ private slots:
 
     void on_addTagPushButton_clicked();
 
-    void on_addNewTagPushButton_clicked();
-
     void on_addUserPushButton_clicked();
 
-    void on_addNewUserPushButton_clicked();
+    void addNewTag(QString tag);
+    void addNewUser(QString user);
 
 private:
     Ui::AddDialog *ui;
