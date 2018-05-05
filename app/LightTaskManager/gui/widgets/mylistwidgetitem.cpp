@@ -8,11 +8,11 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     m_tags(tags),
     m_users(users)
 {
-    this->setStyleSheet("margin-left: 5px; margin-right: 5px; border-bottom: 1px solid #eee;");
+    this->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: transparent;");
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     QFrame* container = new QFrame(this);
-    container->setStyleSheet("background-color: #transparent; border-radius: 5px;");
+    //container->setStyleSheet("background-color: transparent;");
     QVBoxLayout* containerLayout = new QVBoxLayout(container);
     mainLayout->addWidget(container);
 
