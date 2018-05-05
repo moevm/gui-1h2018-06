@@ -53,9 +53,9 @@ void AddDialog::on_addButtonBox_accepted()
             }
 
             bool contains = false;
-            for(auto supportedTag : supportedTags)
+            for(auto supportedTagData : supportedTags)
             {
-                if(supportedTag == currentTag)
+                if(supportedTagData == currentTagData)
                 {
                     contains = true;
                     break;
@@ -87,9 +87,9 @@ void AddDialog::on_addButtonBox_accepted()
             }
 
             bool contains = false;
-            for(auto supportedUser : supportedUsers)
+            for(auto supportedUserData : supportedUsers)
             {
-                if(supportedUser == currentUser)
+                if(supportedUserData == currentUserData)
                 {
                     contains = true;
                     break;
