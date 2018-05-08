@@ -260,81 +260,109 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QLabel" name="indexLabel">
-       <property name="text">
-        <string>Индекс</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" colspan="2">
+     <item row="1" column="0" colspan="2">
       <widget class="QPlainTextEdit" name="currentTaskPlainTextEdit">
-       <property name="readOnly">
-        <bool>true</bool>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>2</verstretch>
+        </sizepolicy>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="dateLabel">
-       <property name="text">
-        <string>Дедлайн</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QPushButton" name="saveTaskPushButton">
-       <property name="text">
-        <string>Сохранить</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="tagLabel">
-       <property name="text">
-        <string>Тэг</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="dateLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="indexLineEdit">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="userLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
+      <widget class="QPushButton" name="saveTaskPushButton">
+       <property name="text">
+        <string>Сохранить</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="tagLineEdit">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
+     <item row="3" column="0">
       <widget class="QPushButton" name="editTaskPushButton">
        <property name="text">
         <string>Редактировать</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="userLabel">
-       <property name="text">
-        <string>Пользователь</string>
+     <item row="0" column="0" colspan="2">
+      <widget class="QFrame" name="taskInformationFrame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="indexLabel">
+          <property name="text">
+           <string>Индекс</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="indexLineEdit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="tagsLabel">
+          <property name="text">
+           <string>Тэги</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QListWidget" name="tagsListWidget"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="dateLabel">
+          <property name="text">
+           <string>Дедлайн</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="dateLineEdit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="usersLabel">
+          <property name="text">
+           <string>Пользователи</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QListWidget" name="usersListWidget"/>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>

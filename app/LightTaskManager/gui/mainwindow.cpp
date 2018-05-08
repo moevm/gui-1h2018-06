@@ -131,9 +131,9 @@ void MainWindow::updateTaskWidgets()
     }
 
     ui->indexLineEdit->clear();
-    ui->tagLineEdit->clear();
+    ui->tagsListWidget->clear();
     ui->dateLineEdit->clear();
-    ui->userLineEdit->clear();
+    ui->usersListWidget->clear();
     ui->currentTaskPlainTextEdit->clear();
 
     QList< QStringList > tasksContainers;
@@ -222,17 +222,22 @@ void MainWindow::changeTaskStatusAction(QString data)
 
 void MainWindow::showTask(QModelIndex index)
 {
+    ui->indexLineEdit->clear();
+    ui->tagsListWidget->clear();
+    ui->dateLineEdit->clear();
+    ui->usersListWidget->clear();
+    ui->currentTaskPlainTextEdit->clear();
+
     MyListWidget* list = qobject_cast<MyListWidget*>(sender());
     if(list)
     {
         MyListWidgetItem* item = qobject_cast<MyListWidgetItem*>(list->currentItem()->listWidget()->indexWidget(index));
         if(item)
         {
-            ui->currentTaskPlainTextEdit->clear();
             ui->indexLineEdit->setText(item->index());
-            ui->tagLineEdit->setText(item->tags());
+            ui->tagsListWidget->addItems(item->tags().split(" ", QString::SkipEmptyParts));
             ui->dateLineEdit->setText(item->date());
-            ui->userLineEdit->setText(item->users());
+            ui->usersListWidget->addItems(item->users().split(" ", QString::SkipEmptyParts));
             ui->currentTaskPlainTextEdit->setPlainText(item->description());
             ui->editTaskPushButton->setEnabled(true);
         }
@@ -282,10 +287,20 @@ void MainWindow::on_actionDeleteTask_triggered()
 void MainWindow::on_editTaskPushButton_clicked()
 {
     ui->currentTaskPlainTextEdit->setReadOnly(false);
-    ui->tagLineEdit->setReadOnly(false);
     ui->dateLineEdit->setReadOnly(false);
-    ui->userLineEdit->setReadOnly(false);
     ui->saveTaskPushButton->setEnabled(true);
+
+    for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
+    {
+        QListWidgetItem* tagsListItem = ui->tagsListWidget->item(i);
+        tagsListItem->setFlags(tagsListItem->flags () | Qt::ItemIsEditable);
+    }
+
+    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
+    {
+        QListWidgetItem* usersListItem = ui->usersListWidget->item(i);
+        usersListItem->setFlags(usersListItem->flags () | Qt::ItemIsEditable);
+    }
 }
 
 void MainWindow::on_saveTaskPushButton_clicked()
@@ -293,18 +308,29 @@ void MainWindow::on_saveTaskPushButton_clicked()
     QString taskIndex = ui->indexLineEdit->text();
 
     QString taskTags = "";
-    QStringList tags = ui->tagLineEdit->text().split(" ", QString::SkipEmptyParts);
+
+    for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
+    {
+        taskTags += QStringLiteral("+") + ui->tagsListWidget->item(i)->text() + QStringLiteral(" ");
+    }
+
+    /*QStringList tags = ui->tagLineEdit->text().split(" ", QString::SkipEmptyParts);
     for(auto tag : tags)
     {
         taskTags += QStringLiteral("+") + tag + QStringLiteral(" ");
-    }
+    }*/
 
     QString taskUsers = "";
-    QStringList users = ui->userLineEdit->text().split(" ", QString::SkipEmptyParts);
+    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
+    {
+        taskUsers += QStringLiteral("@") + ui->usersListWidget->item(i)->text() + QStringLiteral(" ");
+    }
+
+    /*QStringList users = ui->usersListWidget->;
     for(auto user : users)
     {
         taskUsers += QStringLiteral("@") + user + QStringLiteral(" ");
-    }
+    }*/
 
     QString taskDate = QStringLiteral("until [") + ui->dateLineEdit->text() + QStringLiteral("]");
 
@@ -315,10 +341,20 @@ void MainWindow::on_saveTaskPushButton_clicked()
     m_taskManager->editTask(taskIndex, task);
 
     ui->currentTaskPlainTextEdit->setReadOnly(true);
-    ui->tagLineEdit->setReadOnly(true);
     ui->dateLineEdit->setReadOnly(true);
-    ui->userLineEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
+
+    /*for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
+    {
+        QListWidgetItem* tagsListItem = ui->tagsListWidget->item(i);
+        tagsListItem->setFlags(tagsListItem->flags () & Qt::ItemIsEditable);
+    }
+
+    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
+    {
+        QListWidgetItem* usersListItem = ui->usersListWidget->item(i);
+        usersListItem->setFlags(usersListItem->flags () & Qt::ItemIsEditable);
+    }*/
 }
 
 void MainWindow::on_actionOpenTerminal_triggered()
