@@ -8,7 +8,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     m_tags(tags),
     m_users(users)
 {
-    this->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: transparent;");
+    this->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     QFrame* container = new QFrame(this);
@@ -28,21 +28,24 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
 
     if(m_date.length() > 0)
     {
-        containerLayout->addWidget(new QLabel("До: " + m_date, this));
+        QLabel* dateLabel = new QLabel("До: " + m_date, this);
+        dateLabel->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
+        containerLayout->addWidget(dateLabel);
     }
 
     QHBoxLayout* paramsLayout = new QHBoxLayout(this);
 
     QVBoxLayout* tagsLayout = new QVBoxLayout(this);
-    if(m_tags.count() > 0)
+    /*if(m_tags.count() > 0)
     {
         QLabel* tagsTitle = new QLabel("Тэги", this);
+        tagsTitle->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
         tagsTitle->setAlignment(Qt::AlignCenter);
         tagsLayout->addWidget(tagsTitle);
-    }
+    }*/
     for(auto tag : m_tags)
     {
-        QLabel* label = new QLabel(tag, this);
+        QLabel* label = new QLabel(QStringLiteral("+") + tag, this);
         label->setAlignment(Qt::AlignCenter);
         label->setStyleSheet("background-color: #55bb55; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
         tagsLayout->addWidget(label);
@@ -50,17 +53,18 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     paramsLayout->addLayout(tagsLayout);
 
     QVBoxLayout* usersLayout = new QVBoxLayout(this);
-    if(m_users.count() > 0)
+    /*if(m_users.count() > 0)
     {
         QLabel* usersTitle = new QLabel("Пользовтели", this);
+        usersTitle->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
         usersTitle->setAlignment(Qt::AlignCenter);
         usersLayout->addWidget(usersTitle);
-    }
+    }*/
     for(auto user : m_users)
     {
-        QLabel* label = new QLabel(user, this);
+        QLabel* label = new QLabel(QStringLiteral("@") + user, this);
         label->setAlignment(Qt::AlignCenter);
-        label->setStyleSheet("background-color: #bb0000; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
+        label->setStyleSheet("background-color: #4682b4; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
         usersLayout->addWidget(label);
     }
     paramsLayout->addLayout(usersLayout);

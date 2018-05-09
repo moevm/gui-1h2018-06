@@ -86,7 +86,7 @@ void MainWindow::updateTaskLists()
         taskList->setDragEnabled(true);
         taskList->setDropIndicatorShown(true);
         taskList->setDragDropMode(QAbstractItemView::DragDrop);     
-        taskList->setAlternatingRowColors(true);
+        //taskList->setAlternatingRowColors(true);
         qDebug() << taskList->dragEnabled() << taskList->dragDropMode();
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
