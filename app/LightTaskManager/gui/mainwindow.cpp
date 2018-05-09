@@ -66,8 +66,8 @@ void MainWindow::updateTaskLists()
     m_statusesLabels.clear();
     m_tasksLists.clear();
 
-    qDebug() << m_statusesLabels;
-    qDebug() << m_tasksLists;
+    //qDebug() << m_statusesLabels;
+    //qDebug() << m_tasksLists;
 
     QStringList statuses = m_taskManager->readStatuses();
 
@@ -87,7 +87,6 @@ void MainWindow::updateTaskLists()
         taskList->setDropIndicatorShown(true);
         taskList->setDragDropMode(QAbstractItemView::DragDrop);     
         //taskList->setAlternatingRowColors(true);
-        qDebug() << taskList->dragEnabled() << taskList->dragDropMode();
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
         m_tasksLists.push_back(taskList);
@@ -103,8 +102,8 @@ void MainWindow::updateTaskLists()
         ui->tasksContainerHorizontalLayout->addWidget(list);
     }
 
-    qDebug() << "labelsCount" << ui->statusesLabelsHorizontalLayout->count();
-    qDebug() << "listsCount" << ui->tasksContainerHorizontalLayout->count();
+    //qDebug() << "labelsCount" << ui->statusesLabelsHorizontalLayout->count();
+    //qDebug() << "listsCount" << ui->tasksContainerHorizontalLayout->count();
 
     updateTaskWidgets();
 }
@@ -122,8 +121,8 @@ void MainWindow::setTasks(QStringList taskList)
 
 void MainWindow::updateTaskWidgets()
 {
-    qDebug() << "----- tasks -----";
-    qDebug() << m_tasks;
+    //qDebug() << "----- tasks -----";
+    //qDebug() << m_tasks;
 
     for(auto list : m_tasksLists)
     {
@@ -152,7 +151,7 @@ void MainWindow::updateTaskWidgets()
         tasksContainers.push_back(tmp);
     }
 
-    qDebug() << tasksContainers << m_statusesLabels;
+    //qDebug() << tasksContainers << m_statusesLabels;
 
     for(size_t i = 0; i < (size_t) m_statusesLabels.size(); i++)
     {
@@ -250,15 +249,6 @@ void MainWindow::showTask(QModelIndex index)
     {
         qDebug() << "Not success";
     }
-    /*qDebug() << "show task" << item->description();
-    ui->currentTaskPlainTextEdit->clear();
-    QString content = index.data().toString();
-    ui->indexLineEdit->setText(m_taskManager->parseIndex(content));
-    ui->tagLineEdit->setText(m_taskManager->parseTag(content));
-    ui->dateLineEdit->setText(m_taskManager->parseDate(content));
-    ui->userLineEdit->setText(m_taskManager->parseUser(content));
-    ui->currentTaskPlainTextEdit->setPlainText(m_taskManager->parseTask(content));
-    ui->editTaskPushButton->setEnabled(true);*/
 }
 
 void MainWindow::on_actionAddTask_triggered()

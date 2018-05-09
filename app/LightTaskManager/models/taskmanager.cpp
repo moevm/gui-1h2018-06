@@ -58,7 +58,7 @@ void TaskManager::readDirectory(QString directory)
 
 void TaskManager::parseData(QByteArray data)
 {
-    qDebug() << "filters:" << m_tagFilter << m_userFilter;
+    //qDebug() << "filters:" << m_tagFilter << m_userFilter;
 
     QString str(data);
     if(str.contains("all"))
@@ -70,15 +70,15 @@ void TaskManager::parseData(QByteArray data)
         if(!m_tagFilter.isEmpty())
         {
             todoList = filterByTagName(todoList);
-            qDebug() << "----- tasks filtered by tag -----" << m_tagFilter;
-            qDebug() << todoList;
+            //qDebug() << "----- tasks filtered by tag -----" << m_tagFilter;
+            //qDebug() << todoList;
         }
 
         if(!m_userFilter.isEmpty())
         {
             todoList = filterByUserName(todoList);
-            qDebug() << "----- tasks filtered by user -----" << m_userFilter;
-            qDebug() << todoList;
+            //qDebug() << "----- tasks filtered by user -----" << m_userFilter;
+            //qDebug() << todoList;
         }
 
         emit dataUpdated(todoList);
@@ -92,7 +92,7 @@ void TaskManager::parseData(QByteArray data)
 void TaskManager::changeTaskStatus(QString data, QString status)
 {
     QString index = data.split(" ").operator [](1);
-    qDebug() << "change task status" << data.split(" ") << index << status;
+    //qDebug() << "change task status" << data.split(" ") << index << status;
     bool isCorrect;
     size_t number = index.toUInt(&isCorrect);
     if(isCorrect)
@@ -202,8 +202,6 @@ QString TaskManager::parseUser(QString content)
             currentTaskUsers += user + " ";
         }
     }
-
-    qDebug() << "taskUsers" << currentTaskUsers;
     return currentTaskUsers;
 }
 
@@ -240,7 +238,7 @@ QString TaskManager::parseTask(QString content)
 
 void TaskManager::applytodoDirectory(QString directory)
 {
-    qDebug() << "todoDirectory" << directory;
+    //qDebug() << "todoDirectory" << directory;
     m_settingsManager->set("General", "TodoListBinPath", directory);
     m_settingsManager->saveSettings();
 

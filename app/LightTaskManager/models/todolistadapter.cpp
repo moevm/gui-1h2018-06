@@ -31,7 +31,7 @@ void TodolistAdapter::initializeRepository(QString directory)
     m_todolistProcess->setWorkingDirectory(m_directory);
 
     QString args = m_todolistBinPath + " " + m_initializeRepository;
-    qDebug() << "initialize" << m_directory << args;
+    //qDebug() << "initialize" << m_directory << args;
     m_todolistProcess->start(args);
 }
 
@@ -41,42 +41,42 @@ void TodolistAdapter::openRepository(QString directory)
     m_todolistProcess->setWorkingDirectory(m_directory);
 
     QString args = m_todolistBinPath + " " + m_getTasks;
-    qDebug() << "open" << m_directory << args;
+    //qDebug() << "open" << m_directory << args;
     m_todolistProcess->start(args);
 }
 
 void TodolistAdapter::addTask(QString text)
 {
     QString args = m_todolistBinPath + " " + m_addTask + " " + text;
-    qDebug() << "add task" << args;
+    //qDebug() << "add task" << args;
     m_todolistProcess->start(args);
 }
 
 void TodolistAdapter::changeTaskStatus(size_t index, QString status)
 {
     QString args = m_todolistBinPath + " " + m_changeTaskStatus + " " + QString::number(index) + " " + status;
-    qDebug() << "change task status" << args;
+    //qDebug() << "change task status" << args;
     m_todolistProcess->start(args);
 }
 
 void TodolistAdapter::deleteTask(size_t index)
 {
     QString args = m_todolistBinPath + " " + m_deleteTask + " " + QString::number(index);
-    qDebug() << "delete task" << args;
+    //qDebug() << "delete task" << args;
     m_todolistProcess->start(args);
 }
 
 void TodolistAdapter::editTask(size_t index, QString text)
 {
     QString args = m_todolistBinPath + " " + m_editTask + " " + QString::number(index) + " " + text;
-    qDebug() << "edit task" << args;
+    //qDebug() << "edit task" << args;
     m_todolistProcess->start(args);
 }
 
 void TodolistAdapter::onMessage()
 {
     QByteArray message = m_todolistProcess->readAllStandardOutput();
-    qDebug() << "read message" << QString::fromUtf8(message);
+    //qDebug() << "read message" << QString::fromUtf8(message);
     emit directoryUpdated(m_directory);
     emit tasksUpdated(message);
 }
