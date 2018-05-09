@@ -109,3 +109,10 @@ void SettingsDialog::setup()
     ui->tagsTextEdit->setText(tags);
     ui->statusesTextEdit->setText(statuses);
 }
+
+void SettingsDialog::on_todolistBinPathToolButton_clicked()
+{
+    QString str = QFileDialog::getExistingDirectory(0, "Выберите путь до директории с todolist", "");
+    ui->todolistBinPathLineEdit->clear();
+    ui->todolistBinPathLineEdit->setText(str);
+}
