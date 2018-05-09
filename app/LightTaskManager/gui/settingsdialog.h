@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDebug>
+#include <QFileDialog>
 
 #include "models/settingsmanager.h"
 
@@ -23,6 +24,8 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
+
+    void on_todolistBinPathToolButton_clicked();
 
 private:
     Ui::SettingsDialog *ui;
