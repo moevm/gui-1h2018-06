@@ -18,13 +18,20 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
 
     //containerLayout->addWidget(new QLabel("#" + m_index, this));
 
-    QTextEdit* descriptionTextEdit = new QTextEdit(this);
+    /*QTextEdit* descriptionTextEdit = new QTextEdit(this);
     descriptionTextEdit->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
     descriptionTextEdit->setMaximumHeight(25);
     descriptionTextEdit->setPlainText(m_description);
     descriptionTextEdit->setReadOnly(true);
     descriptionTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    containerLayout->addWidget(descriptionTextEdit);
+    containerLayout->addWidget(descriptionTextEdit);*/
+
+    QLabel* descriptionLabel = new QLabel(this);
+    descriptionLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
+    descriptionLabel->setMaximumWidth(container->width());
+    //descriptionLabel->setMaximumWidth(parent->width());
+    descriptionLabel->setText(m_description);
+    containerLayout->addWidget(descriptionLabel);
 
     if(m_date.length() > 0)
     {
