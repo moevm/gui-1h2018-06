@@ -58,6 +58,14 @@ private slots:
 
     void on_acceptFiltersPushButton_clicked();
 
+    void on_addTagToolButton_clicked();
+
+    void on_addUserToolButton_clicked();
+
+    void on_removeTagToolButton_clicked();
+
+    void on_removeUserToolButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QScopedPointer<TaskManager> m_taskManager;

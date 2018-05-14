@@ -40,6 +40,10 @@ void MainWindow::setupWidgets()
     ui->editTaskPushButton->setEnabled(false);
     ui->saveTaskPushButton->setEnabled(false);
     ui->acceptFiltersPushButton->setEnabled(false);
+    ui->addTagToolButton->setEnabled(false);
+    ui->addUserToolButton->setEnabled(false);
+    ui->removeTagToolButton->setEnabled(false);
+    ui->removeUserToolButton->setEnabled(false);
 
     updateTaskLists();
 }
@@ -284,17 +288,21 @@ void MainWindow::on_editTaskPushButton_clicked()
     ui->currentTaskDescriptionPlainTextEdit->setReadOnly(false);
     ui->currentTaskDateLineEdit->setReadOnly(false);
     ui->saveTaskPushButton->setEnabled(true);
+    ui->addTagToolButton->setEnabled(true);
+    ui->addUserToolButton->setEnabled(true);
+    ui->removeTagToolButton->setEnabled(true);
+    ui->removeUserToolButton->setEnabled(true);
 
     for(size_t i = 0; i < (size_t) ui->currentTaskTagsListWidget->count(); i++)
     {
         QListWidgetItem* tagsListItem = ui->currentTaskTagsListWidget->item(i);
-        tagsListItem->setFlags(tagsListItem->flags () | Qt::ItemIsEditable);
+        tagsListItem->setFlags(tagsListItem->flags() | Qt::ItemIsEditable);
     }
 
     for(size_t i = 0; i < (size_t) ui->currentTaskUsersListWidget->count(); i++)
     {
         QListWidgetItem* usersListItem = ui->currentTaskUsersListWidget->item(i);
-        usersListItem->setFlags(usersListItem->flags () | Qt::ItemIsEditable);
+        usersListItem->setFlags(usersListItem->flags() | Qt::ItemIsEditable);
     }
 }
 
@@ -340,6 +348,10 @@ void MainWindow::on_saveTaskPushButton_clicked()
     ui->currentTaskDescriptionPlainTextEdit->setReadOnly(true);
     ui->currentTaskDateLineEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
+    ui->addTagToolButton->setEnabled(false);
+    ui->addUserToolButton->setEnabled(false);
+    ui->removeTagToolButton->setEnabled(false);
+    ui->removeUserToolButton->setEnabled(false);
 
     /*for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
     {
@@ -373,4 +385,30 @@ void MainWindow::on_acceptFiltersPushButton_clicked()
     m_taskManager->setTagFilter(ui->filterByTagLineEdit->text());
     m_taskManager->setUserFilter(ui->filterByUserLineEdit->text());
     m_taskManager->reopenRepository();
+}
+
+void MainWindow::on_addTagToolButton_clicked()
+{
+    QListWidgetItem* emptyItem = new QListWidgetItem("");
+    ui->currentTaskTagsListWidget->addItem(emptyItem);
+    emptyItem->setFlags(emptyItem->flags() | Qt::ItemIsEditable);
+    ui->currentTaskTagsListWidget->setCurrentItem(emptyItem);
+}
+
+void MainWindow::on_addUserToolButton_clicked()
+{
+    QListWidgetItem* emptyItem = new QListWidgetItem("");
+    ui->currentTaskUsersListWidget->addItem(emptyItem);
+    emptyItem->setFlags(emptyItem->flags() | Qt::ItemIsEditable);
+    ui->currentTaskUsersListWidget->setCurrentItem(emptyItem);
+}
+
+void MainWindow::on_removeTagToolButton_clicked()
+{
+    qDeleteAll(ui->currentTaskTagsListWidget->selectedItems());
+}
+
+void MainWindow::on_removeUserToolButton_clicked()
+{
+    qDeleteAll(ui->currentTaskUsersListWidget->selectedItems());
 }
