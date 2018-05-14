@@ -34,17 +34,19 @@ private slots:
 
     void updateTaskWidgets();
 
+    void showTask(QModelIndex index);
+
+    void enableTasksActions();
+
+    void showStatusMessage(QString message);
+
     void on_actionOpenRepository_triggered();
 
     void on_actionInitializeRepository_triggered();
 
     void changeTaskStatusAction(QString data);
 
-    void showTask(QModelIndex index);
-
     void on_actionAddTask_triggered();
-
-    void enableTasksActions();
 
     void on_actionDeleteTask_triggered();
 
@@ -76,7 +78,7 @@ private:
     QStringList m_tasks;
 
     void setupWidgets();
-    void setupPresenter();
+    void setupModel();
 
     void updateTaskLists();
 };

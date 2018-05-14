@@ -60,6 +60,8 @@ void TaskManager::parseTodolistOutput(QByteArray data)
 {
     //qDebug() << "filters:" << m_tagFilter << m_userFilter;
 
+    emit statusMessage("parse todolist output with filters " + m_tagFilter + " and " + m_userFilter);
+
     QString str(data);
     if(str.contains("all"))
     {
@@ -92,7 +94,6 @@ void TaskManager::parseTodolistOutput(QByteArray data)
 void TaskManager::changeTaskStatus(QString data, QString status)
 {
     QString index = data.split(" ", QString::SkipEmptyParts).operator [](0);
-    //qDebug() << "change task status" << data.split(" ") << index << status;
     bool isCorrect;
     size_t number = index.toUInt(&isCorrect);
     if(isCorrect)
@@ -107,27 +108,32 @@ void TaskManager::changeTaskStatus(QString data, QString status)
 
 void TaskManager::changeTaskStatus(size_t index, QString status)
 {
+    emit statusMessage("change task " + QString::number(index) + " status to " + status);
     m_todolistAdapter->changeTaskStatus(index, status);
 }
 
 void TaskManager::addTask(QString task)
 {
+    emit statusMessage("add task " + task);
     m_todolistAdapter->addTask(task);
 }
 
 void TaskManager::deleteTask(QString index)
 {
+    emit statusMessage("delete task " + index);
     m_todolistAdapter->deleteTask(index.toUInt());
 }
 
 void TaskManager::editTask(QString index, QString task)
 {
+    emit statusMessage("edit task " + index);
     m_todolistAdapter->editTask(index.toUInt(), task);
 }
 
 void TaskManager::openTerminal(QString path)
 {
     qDebug() << "open terminal";
+    emit statusMessage("open terminal application with path " + path);
 #ifdef Q_OS_MACOS
     //QProcess::startDetached("open /Applications/Utilities/Terminal.app");
     QProcess::execute("/bin/bash -c /bin/ls");
@@ -277,12 +283,13 @@ QString TaskManager::getDescription(QString taskContent)
 
 void TaskManager::setTodolistDirectory(QString directory)
 {
-    //qDebug() << "todoDirectory" << directory;
     m_settingsManager->set("General", "TodoListBinPath", directory);
     m_settingsManager->saveSettings();
 
     QString todolistPath = m_settingsManager->get("General", "TodoListBinPath").toString();
     m_todolistAdapter->setBinPath(todolistPath);
+
+    emit statusMessage("set Todolist directory " + directory);
 }
 
 QString TaskManager::getTodolistDirectory()
@@ -292,6 +299,7 @@ QString TaskManager::getTodolistDirectory()
 
 QStringList TaskManager::readStatuses()
 {
+    emit statusMessage("read statuses");
     QStringList statuses;
     try
     {
@@ -315,6 +323,7 @@ QStringList TaskManager::readStatuses()
 
 QStringList TaskManager::readTags()
 {
+    emit statusMessage("read tags");
     QStringList tags;
     try
     {
@@ -338,6 +347,7 @@ QStringList TaskManager::readTags()
 
 QStringList TaskManager::readUsers()
 {
+    emit statusMessage("read users");
     QStringList users;
     try
     {

@@ -28,6 +28,7 @@ protected:
 signals:
     void directoryUpdated(QString directory);
     void dataUpdated(QStringList todoList);
+    void statusMessage(QString message);
 
 public slots:
 

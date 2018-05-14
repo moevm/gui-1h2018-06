@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setupWidgets();
-    setupPresenter();
+    setupModel();
     this->showMaximized();
 }
 
@@ -48,11 +48,12 @@ void MainWindow::setupWidgets()
     updateTaskLists();
 }
 
-void MainWindow::setupPresenter()
+void MainWindow::setupModel()
 {
     connect(m_taskManager.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(updateDirectoryWidgets(QString)));
     connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(setTasks(QStringList)));
     connect(m_taskManager.data(), SIGNAL(dataUpdated(QStringList)), this, SLOT(enableTasksActions()));
+    connect(m_taskManager.data(), SIGNAL(statusMessage(QString)), this, SLOT(showStatusMessage(QString)));
 }
 
 void MainWindow::updateTaskLists()
@@ -272,6 +273,11 @@ void MainWindow::enableTasksActions()
     ui->actionAddTask->setEnabled(true);
     ui->actionDeleteTask->setEnabled(true);
     ui->acceptFiltersPushButton->setEnabled(true);
+}
+
+void MainWindow::showStatusMessage(QString message)
+{
+    ui->statusBar->showMessage(message, 500);
 }
 
 void MainWindow::on_actionDeleteTask_triggered()
