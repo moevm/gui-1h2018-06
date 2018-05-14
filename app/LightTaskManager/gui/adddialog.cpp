@@ -29,13 +29,14 @@ void AddDialog::setup()
 
 void AddDialog::on_addButtonBox_accepted()
 {
-    if(ui->addTextEdit->toPlainText() == nullptr)
+    if(ui->addTitleLineEdit->text() == nullptr)
     {
-        QMessageBox(QMessageBox::Information, "Information", "Введите описание задачи").exec();
+        QMessageBox(QMessageBox::Information, "Information", "Введите заголовок задачи").exec();
     }
     else
     {
-        QString desctiption = ui->addTextEdit->toPlainText();
+        QString desctiption = QStringLiteral("#") + ui->addTitleLineEdit->text() + QStringLiteral("# ") +
+                ui->addDescriptionTextEdit->toPlainText();
 
         QString tags = "";
         QStringList currentTags = ui->activeTagsLineEdit->text().split(" ", QString::SkipEmptyParts);

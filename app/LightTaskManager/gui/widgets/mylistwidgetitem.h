@@ -12,9 +12,11 @@ class MyListWidgetItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MyListWidgetItem(QString index, QString description, QString date, QStringList tags, QStringList users, QWidget *parent = nullptr);
+    explicit MyListWidgetItem(QString index, QString title, QString description, QString date, QStringList tags, QStringList users, QWidget *parent = nullptr);
 
     QString index() const;
+
+    QString title() const;
 
     QString description() const;
 
@@ -26,6 +28,7 @@ public:
 
 protected:
     QString m_index;
+    QString m_title;
     QString m_description;
     QString m_date;
     QStringList m_tags;

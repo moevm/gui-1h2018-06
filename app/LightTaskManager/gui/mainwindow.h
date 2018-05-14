@@ -10,7 +10,6 @@
 #include "models/taskmanager.h"
 #include "gui/widgets/mylistwidget.h"
 #include "gui/widgets/mylistwidgetitem.h"
-#include "gui/widgets/taskviewdeligete.h"
 
 #include "adddialog.h"
 #include "deletetaskdialog.h"

@@ -261,7 +261,7 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="1" column="0" colspan="2">
-      <widget class="QPlainTextEdit" name="currentTaskPlainTextEdit">
+      <widget class="QPlainTextEdit" name="currentTaskDescriptionPlainTextEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -314,53 +314,67 @@
         <property name="bottomMargin">
          <number>0</number>
         </property>
+        <item row="2" column="1">
+         <widget class="QListWidget" name="currentTaskTagsListWidget"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="currentTaskDateLabel">
+          <property name="text">
+           <string>Дедлайн</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="currentTaskDateLineEdit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="currentTaskUsersLabel">
+          <property name="text">
+           <string>Пользователи</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QListWidget" name="currentTaskUsersListWidget"/>
+        </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="indexLabel">
+         <widget class="QLabel" name="currentTaskIndexLabel">
           <property name="text">
            <string>Индекс</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="indexLineEdit">
+         <widget class="QLineEdit" name="currentTaskIndexLineEdit">
           <property name="readOnly">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="tagsLabel">
+        <item row="2" column="0">
+         <widget class="QLabel" name="currentTaskTagsLabel">
           <property name="text">
            <string>Тэги</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QListWidget" name="tagsListWidget"/>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="dateLabel">
+        <item row="1" column="0">
+         <widget class="QLabel" name="currentTaskTitleLabel">
           <property name="text">
-           <string>Дедлайн</string>
+           <string>Заголовок</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="dateLineEdit">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="currentTaskTitleLineEdit">
           <property name="readOnly">
            <bool>true</bool>
           </property>
          </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="usersLabel">
-          <property name="text">
-           <string>Пользователи</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QListWidget" name="usersListWidget"/>
         </item>
        </layout>
       </widget>

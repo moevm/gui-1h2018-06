@@ -45,6 +45,7 @@ public slots:
     void editTask(QString index, QString task);
     void openTerminal(QString path);
     QString parseIndex(QString content);
+    QString getTitle(QString content);
     QString parseTag(QString content);
     QString parseDate(QString content);
     QString parseUser(QString content);

@@ -129,11 +129,12 @@ void MainWindow::updateTaskWidgets()
         list->clear();
     }
 
-    ui->indexLineEdit->clear();
-    ui->tagsListWidget->clear();
-    ui->dateLineEdit->clear();
-    ui->usersListWidget->clear();
-    ui->currentTaskPlainTextEdit->clear();
+    ui->currentTaskIndexLineEdit->clear();
+    ui->currentTaskTitleLineEdit->clear();
+    ui->currentTaskTagsListWidget->clear();
+    ui->currentTaskDateLineEdit->clear();
+    ui->currentTaskUsersListWidget->clear();
+    ui->currentTaskDescriptionPlainTextEdit->clear();
 
     QList< QStringList > tasksContainers;
     for(auto status : m_statusesLabels)
@@ -164,6 +165,7 @@ void MainWindow::updateTaskWidgets()
 
             QString data = tasksContainers[i][j];
             QString index = m_taskManager->parseIndex(data);
+            QString title = m_taskManager->getTitle(data);
             QString desctiption = m_taskManager->parseTask(data);
             QString date = m_taskManager->parseDate(data);
             QStringList tags = m_taskManager->parseTag(data).split(" ", QString::SkipEmptyParts);
@@ -171,7 +173,7 @@ void MainWindow::updateTaskWidgets()
 
             item->setText(index);
 
-            MyListWidgetItem* taskBoard = new MyListWidgetItem(index, desctiption, date, tags, users, m_tasksLists[i]);
+            MyListWidgetItem* taskBoard = new MyListWidgetItem(index, title, desctiption, date, tags, users, m_tasksLists[i]);
             item->setSizeHint(taskBoard->minimumSizeHint());
 
             m_tasksLists[i]->addItem(item);
@@ -221,11 +223,12 @@ void MainWindow::changeTaskStatusAction(QString data)
 
 void MainWindow::showTask(QModelIndex index)
 {
-    ui->indexLineEdit->clear();
-    ui->tagsListWidget->clear();
-    ui->dateLineEdit->clear();
-    ui->usersListWidget->clear();
-    ui->currentTaskPlainTextEdit->clear();
+    ui->currentTaskIndexLineEdit->clear();
+    ui->currentTaskTitleLineEdit->clear();
+    ui->currentTaskTagsListWidget->clear();
+    ui->currentTaskDateLineEdit->clear();
+    ui->currentTaskUsersListWidget->clear();
+    ui->currentTaskDescriptionPlainTextEdit->clear();
 
     MyListWidget* list = qobject_cast<MyListWidget*>(sender());
     if(list)
@@ -233,11 +236,12 @@ void MainWindow::showTask(QModelIndex index)
         MyListWidgetItem* item = qobject_cast<MyListWidgetItem*>(list->currentItem()->listWidget()->indexWidget(index));
         if(item)
         {
-            ui->indexLineEdit->setText(item->index());
-            ui->tagsListWidget->addItems(item->tags().split(" ", QString::SkipEmptyParts));
-            ui->dateLineEdit->setText(item->date());
-            ui->usersListWidget->addItems(item->users().split(" ", QString::SkipEmptyParts));
-            ui->currentTaskPlainTextEdit->setPlainText(item->description());
+            ui->currentTaskIndexLineEdit->setText(item->index());
+            ui->currentTaskTitleLineEdit->setText(item->title());
+            ui->currentTaskTagsListWidget->addItems(item->tags().split(" ", QString::SkipEmptyParts));
+            ui->currentTaskDateLineEdit->setText(item->date());
+            ui->currentTaskUsersListWidget->addItems(item->users().split(" ", QString::SkipEmptyParts));
+            ui->currentTaskDescriptionPlainTextEdit->setPlainText(item->description());
             ui->editTaskPushButton->setEnabled(true);
         }
         else
@@ -276,32 +280,33 @@ void MainWindow::on_actionDeleteTask_triggered()
 
 void MainWindow::on_editTaskPushButton_clicked()
 {
-    ui->currentTaskPlainTextEdit->setReadOnly(false);
-    ui->dateLineEdit->setReadOnly(false);
+    ui->currentTaskTitleLineEdit->setReadOnly(false);
+    ui->currentTaskDescriptionPlainTextEdit->setReadOnly(false);
+    ui->currentTaskDateLineEdit->setReadOnly(false);
     ui->saveTaskPushButton->setEnabled(true);
 
-    for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
+    for(size_t i = 0; i < (size_t) ui->currentTaskTagsListWidget->count(); i++)
     {
-        QListWidgetItem* tagsListItem = ui->tagsListWidget->item(i);
+        QListWidgetItem* tagsListItem = ui->currentTaskTagsListWidget->item(i);
         tagsListItem->setFlags(tagsListItem->flags () | Qt::ItemIsEditable);
     }
 
-    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
+    for(size_t i = 0; i < (size_t) ui->currentTaskUsersListWidget->count(); i++)
     {
-        QListWidgetItem* usersListItem = ui->usersListWidget->item(i);
+        QListWidgetItem* usersListItem = ui->currentTaskUsersListWidget->item(i);
         usersListItem->setFlags(usersListItem->flags () | Qt::ItemIsEditable);
     }
 }
 
 void MainWindow::on_saveTaskPushButton_clicked()
 {
-    QString taskIndex = ui->indexLineEdit->text();
+    QString taskIndex = ui->currentTaskIndexLineEdit->text();
 
     QString taskTags = "";
 
-    for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
+    for(size_t i = 0; i < (size_t) ui->currentTaskTagsListWidget->count(); i++)
     {
-        taskTags += QStringLiteral("+") + ui->tagsListWidget->item(i)->text() + QStringLiteral(" ");
+        taskTags += QStringLiteral("+") + ui->currentTaskTagsListWidget->item(i)->text() + QStringLiteral(" ");
     }
 
     /*QStringList tags = ui->tagLineEdit->text().split(" ", QString::SkipEmptyParts);
@@ -311,9 +316,9 @@ void MainWindow::on_saveTaskPushButton_clicked()
     }*/
 
     QString taskUsers = "";
-    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
+    for(size_t i = 0; i < (size_t) ui->currentTaskUsersListWidget->count(); i++)
     {
-        taskUsers += QStringLiteral("@") + ui->usersListWidget->item(i)->text() + QStringLiteral(" ");
+        taskUsers += QStringLiteral("@") + ui->currentTaskUsersListWidget->item(i)->text() + QStringLiteral(" ");
     }
 
     /*QStringList users = ui->usersListWidget->;
@@ -322,16 +327,18 @@ void MainWindow::on_saveTaskPushButton_clicked()
         taskUsers += QStringLiteral("@") + user + QStringLiteral(" ");
     }*/
 
-    QString taskDate = QStringLiteral("until [") + ui->dateLineEdit->text() + QStringLiteral("]");
+    QString taskDate = QStringLiteral("until [") + ui->currentTaskDateLineEdit->text() + QStringLiteral("]");
 
-    QString taskDescription = ui->currentTaskPlainTextEdit->toPlainText();
+    QString taskTitle = QStringLiteral("#") + ui->currentTaskTitleLineEdit->text() + QStringLiteral("#");
+    QString taskDescription = ui->currentTaskDescriptionPlainTextEdit->toPlainText();
 
-    QString task = taskDescription + " " + taskTags + taskUsers + taskDate;
+    QString task = taskTitle + " " + taskDescription + " " + taskTags + taskUsers + taskDate;
 
     m_taskManager->editTask(taskIndex, task);
 
-    ui->currentTaskPlainTextEdit->setReadOnly(true);
-    ui->dateLineEdit->setReadOnly(true);
+    ui->currentTaskTitleLineEdit->setReadOnly(true);
+    ui->currentTaskDescriptionPlainTextEdit->setReadOnly(true);
+    ui->currentTaskDateLineEdit->setReadOnly(true);
     ui->saveTaskPushButton->setEnabled(false);
 
     /*for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)

@@ -1,8 +1,9 @@
 #include "mylistwidgetitem.h"
 
-MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString date, QStringList tags, QStringList users, QWidget *parent) :
+MyListWidgetItem::MyListWidgetItem(QString index, QString title, QString description, QString date, QStringList tags, QStringList users, QWidget *parent) :
     QWidget(parent),
     m_index(index),
+    m_title(title),
     m_description(description),
     m_date(date),
     m_tags(tags),
@@ -18,18 +19,10 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
 
     //containerLayout->addWidget(new QLabel("#" + m_index, this));
 
-    /*QTextEdit* descriptionTextEdit = new QTextEdit(this);
-    descriptionTextEdit->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-    descriptionTextEdit->setMaximumHeight(25);
-    descriptionTextEdit->setPlainText(m_description);
-    descriptionTextEdit->setReadOnly(true);
-    descriptionTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    containerLayout->addWidget(descriptionTextEdit);*/
-
-    QLabel* descriptionLabel = new QLabel(m_description, this);
-    descriptionLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-    descriptionLabel->setMaximumWidth(container->width());
-    containerLayout->addWidget(descriptionLabel);
+    QLabel* titleLabel = new QLabel(m_title, this);
+    titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
+    //titleLabel->setMaximumWidth(container->width());
+    containerLayout->addWidget(titleLabel);
 
     if(m_date.length() > 0)
     {
@@ -80,6 +73,11 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
 QString MyListWidgetItem::index() const
 {
     return m_index;
+}
+
+QString MyListWidgetItem::title() const
+{
+    return m_title;
 }
 
 QString MyListWidgetItem::description() const

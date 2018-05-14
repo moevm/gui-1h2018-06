@@ -164,6 +164,42 @@ QString TaskManager::parseIndex(QString content)
     return content.section(" ", 1, 1);
 }
 
+QString TaskManager::getTitle(QString content)
+{
+    QString title = parseIndex(content);
+
+    QString tmp = "";
+    bool finded = false;
+    for(auto symbol : content)
+    {
+        if(symbol == '#')
+        {
+            if(!finded)
+            {
+                finded = true;
+            }
+            else
+            {
+                finded = false;
+            }
+        }
+        else
+        {
+            if(finded)
+            {
+                tmp += symbol;
+            }
+        }
+    }
+
+    if(tmp.size() > 0)
+    {
+        title = tmp;
+    }
+
+    return title;
+}
+
 QString TaskManager::parseTag(QString content)
 {
     QString currentTaskTags = "";
@@ -210,9 +246,12 @@ QString TaskManager::parseTask(QString content)
     QString description = "";
 
     QString index = parseIndex(content);
+    QString title = getTitle(content);
     QStringList tags = parseTag(content).split(" ", QString::SkipEmptyParts);
     QStringList users = parseUser(content).split(" ", QString::SkipEmptyParts);
     QString date = parseDate(content);
+
+    content.remove(QStringLiteral("#") + title + QStringLiteral("#"));
 
     content.remove(0, index.length() + 1);
     for(auto tag : tags)
