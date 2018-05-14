@@ -14,8 +14,8 @@ public:
     explicit TaskManager(QObject *parent = nullptr);
     ~TaskManager();
 
+    /// setup filters
     void setTagFilter(const QString &tagFilter);
-
     void setUserFilter(const QString &userFilter);
 
 protected:
@@ -30,29 +30,40 @@ signals:
     void dataUpdated(QStringList todoList);
 
 public slots:
+
+    /// working with repositories
     void openRepository(QString directory);
     void initializeRepository(QString directory);
     void reopenRepository();
 
-    void readDirectory(QString directory);
-    void parseData(QByteArray data);    
+    /// update current directory
+    void onCurrentDirectoryChanged(QString directory);
 
+    /// handle todolist events
+    void parseTodolistOutput(QByteArray data);
+
+    /// working with tasks
     void changeTaskStatus(QString data, QString status);
     void changeTaskStatus(size_t index, QString status);
-
     void addTask(QString task);
     void deleteTask(QString index);
     void editTask(QString index, QString task);
-    void openTerminal(QString path);
-    QString parseIndex(QString content);
-    QString getTitle(QString content);
-    QString parseTag(QString content);
-    QString parseDate(QString content);
-    QString parseUser(QString content);
-    QString parseTask(QString content);
-    void applytodoDirectory(QString directory);
-    QString todoSettingsPath();
 
+    void openTerminal(QString path);
+
+    /// get task information
+    QString getTaskIndex(QString taskContent);
+    QString getTitle(QString taskContent);
+    QString getTags(QString taskContent);
+    QString getDate(QString taskContent);
+    QString getUsers(QString taskContent);
+    QString getDescription(QString taskContent);
+
+    /// setup todolist
+    void setTodolistDirectory(QString directory);
+    QString getTodolistDirectory();
+
+    /// read information from config file
     QStringList readStatuses();
     QStringList readTags();
     QStringList readUsers();
@@ -60,6 +71,8 @@ public slots:
     SettingsManager& getSettingsManager();
 
 protected slots:
+
+    /// filter tasks
     QStringList filterByTagName(QStringList allTasks);
     QStringList filterByUserName(QStringList allTasks);
 };

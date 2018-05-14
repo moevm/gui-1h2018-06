@@ -12,8 +12,8 @@ TaskManager::TaskManager(QObject *parent) :
         QString todolistPath = m_settingsManager->get("General", "TodoListBinPath").toString();
         m_todolistAdapter = QSharedPointer<TodolistAdapter> (new TodolistAdapter(todolistPath, this));
 
-        connect(m_todolistAdapter.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(readDirectory(QString)));
-        connect(m_todolistAdapter.data(), SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseData(QByteArray)));
+        connect(m_todolistAdapter.data(), SIGNAL(directoryUpdated(QString)), this, SLOT(onCurrentDirectoryChanged(QString)));
+        connect(m_todolistAdapter.data(), SIGNAL(tasksUpdated(QByteArray)), this, SLOT(parseTodolistOutput(QByteArray)));
     }
     catch(std::invalid_argument e)
     {
@@ -51,12 +51,12 @@ void TaskManager::reopenRepository()
     openRepository(m_todolistAdapter->currentDirectory());
 }
 
-void TaskManager::readDirectory(QString directory)
+void TaskManager::onCurrentDirectoryChanged(QString directory)
 {
     emit directoryUpdated(directory);
 }
 
-void TaskManager::parseData(QByteArray data)
+void TaskManager::parseTodolistOutput(QByteArray data)
 {
     //qDebug() << "filters:" << m_tagFilter << m_userFilter;
 
@@ -91,7 +91,7 @@ void TaskManager::parseData(QByteArray data)
 
 void TaskManager::changeTaskStatus(QString data, QString status)
 {
-    QString index = data.split(" ").operator [](1);
+    QString index = data.split(" ", QString::SkipEmptyParts).operator [](0);
     //qDebug() << "change task status" << data.split(" ") << index << status;
     bool isCorrect;
     size_t number = index.toUInt(&isCorrect);
@@ -159,18 +159,18 @@ void TaskManager::openTerminal(QString path)
     //qDebug() << "read" << m_term->readAll() << m_term->readAllStandardError();
 }
 
-QString TaskManager::parseIndex(QString content)
+QString TaskManager::getTaskIndex(QString taskContent)
 {
-    return content.section(" ", 1, 1);
+    return taskContent.section(" ", 1, 1);
 }
 
-QString TaskManager::getTitle(QString content)
+QString TaskManager::getTitle(QString taskContent)
 {
-    QString title = parseIndex(content);
+    QString title = getTaskIndex(taskContent);
 
     QString tmp = "";
     bool finded = false;
-    for(auto symbol : content)
+    for(auto symbol : taskContent)
     {
         if(symbol == '#')
         {
@@ -200,14 +200,14 @@ QString TaskManager::getTitle(QString content)
     return title;
 }
 
-QString TaskManager::parseTag(QString content)
+QString TaskManager::getTags(QString taskContent)
 {
     QString currentTaskTags = "";
     QStringList allTags = readTags();
     for(auto tag : allTags)
     {
         QString tagTemplate = QStringLiteral("+") + tag;
-        if(content.contains(tagTemplate))
+        if(taskContent.contains(tagTemplate))
         {
             currentTaskTags += tag + " ";
         }
@@ -215,25 +215,25 @@ QString TaskManager::parseTag(QString content)
     return currentTaskTags;
 }
 
-QString TaskManager::parseDate(QString content)
+QString TaskManager::getDate(QString taskContent)
 {
     QString date = "";
-    if(content.contains("until ["))
+    if(taskContent.contains("until ["))
     {
-        date = content.split("until [")[1].split("]")[0];
+        date = taskContent.split("until [")[1].split("]")[0];
         //qDebug() << "test reqExp" << date;
     }
     return date;
 }
 
-QString TaskManager::parseUser(QString content)
+QString TaskManager::getUsers(QString taskContent)
 {
     QString currentTaskUsers = "";
     QStringList allUsers = readUsers();
     for(auto user : allUsers)
     {
         QString userTemplate = QStringLiteral("@") + user;
-        if(content.contains(userTemplate))
+        if(taskContent.contains(userTemplate))
         {
             currentTaskUsers += user + " ";
         }
@@ -241,32 +241,32 @@ QString TaskManager::parseUser(QString content)
     return currentTaskUsers;
 }
 
-QString TaskManager::parseTask(QString content)
+QString TaskManager::getDescription(QString taskContent)
 {
     QString description = "";
 
-    QString index = parseIndex(content);
-    QString title = getTitle(content);
-    QStringList tags = parseTag(content).split(" ", QString::SkipEmptyParts);
-    QStringList users = parseUser(content).split(" ", QString::SkipEmptyParts);
-    QString date = parseDate(content);
+    QString index = getTaskIndex(taskContent);
+    QString title = getTitle(taskContent);
+    QStringList tags = getTags(taskContent).split(" ", QString::SkipEmptyParts);
+    QStringList users = getUsers(taskContent).split(" ", QString::SkipEmptyParts);
+    QString date = getDate(taskContent);
 
-    content.remove(QStringLiteral("#") + title + QStringLiteral("#"));
+    taskContent.remove(QStringLiteral("#") + title + QStringLiteral("#"));
 
-    content.remove(0, index.length() + 1);
+    taskContent.remove(0, index.length() + 1);
     for(auto tag : tags)
     {
-        content.remove(QStringLiteral("+") + tag);
+        taskContent.remove(QStringLiteral("+") + tag);
     }
 
     for(auto user : users)
     {
-        content.remove(QStringLiteral("@") + user);
+        taskContent.remove(QStringLiteral("@") + user);
     }
 
-    content.remove(QStringLiteral("until [") + date + QStringLiteral("]"));
+    taskContent.remove(QStringLiteral("until [") + date + QStringLiteral("]"));
 
-    QStringList tmp = content.split(QRegExp(" "), QString::SkipEmptyParts);
+    QStringList tmp = taskContent.split(QRegExp(" "), QString::SkipEmptyParts);
     for(auto s : tmp)
     {
         description += s + QStringLiteral(" ");
@@ -275,7 +275,7 @@ QString TaskManager::parseTask(QString content)
     return description;
 }
 
-void TaskManager::applytodoDirectory(QString directory)
+void TaskManager::setTodolistDirectory(QString directory)
 {
     //qDebug() << "todoDirectory" << directory;
     m_settingsManager->set("General", "TodoListBinPath", directory);
@@ -285,7 +285,7 @@ void TaskManager::applytodoDirectory(QString directory)
     m_todolistAdapter->setBinPath(todolistPath);
 }
 
-QString TaskManager::todoSettingsPath()
+QString TaskManager::getTodolistDirectory()
 {
     return m_todolistAdapter->currentTodoListBinPath();
 }

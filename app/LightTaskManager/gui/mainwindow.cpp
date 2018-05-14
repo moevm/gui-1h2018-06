@@ -164,12 +164,12 @@ void MainWindow::updateTaskWidgets()
             item->setFont(QFont("Arial", -1, 10, false));
 
             QString data = tasksContainers[i][j];
-            QString index = m_taskManager->parseIndex(data);
+            QString index = m_taskManager->getTaskIndex(data);
             QString title = m_taskManager->getTitle(data);
-            QString desctiption = m_taskManager->parseTask(data);
-            QString date = m_taskManager->parseDate(data);
-            QStringList tags = m_taskManager->parseTag(data).split(" ", QString::SkipEmptyParts);
-            QStringList users = m_taskManager->parseUser(data).split(" ", QString::SkipEmptyParts);
+            QString desctiption = m_taskManager->getDescription(data);
+            QString date = m_taskManager->getDate(data);
+            QStringList tags = m_taskManager->getTags(data).split(" ", QString::SkipEmptyParts);
+            QStringList users = m_taskManager->getUsers(data).split(" ", QString::SkipEmptyParts);
 
             item->setText(index);
 
@@ -362,9 +362,9 @@ void MainWindow::on_actionOpenTerminal_triggered()
 void MainWindow::on_actionSettings_triggered()
 {
     SettingsDialog dialog(m_taskManager->getSettingsManager(), this);
-    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
+    connect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(setTodolistDirectory(QString)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(applytodoDirectory(QString)));
+    disconnect(&dialog, SIGNAL(applytodoDirectory(QString)), m_taskManager.data(), SLOT(setTodolistDirectory(QString)));
     updateTaskLists();
 }
 
