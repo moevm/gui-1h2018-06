@@ -26,11 +26,9 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString description, QString d
     descriptionTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     containerLayout->addWidget(descriptionTextEdit);*/
 
-    QLabel* descriptionLabel = new QLabel(this);
+    QLabel* descriptionLabel = new QLabel(m_description, this);
     descriptionLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
     descriptionLabel->setMaximumWidth(container->width());
-    //descriptionLabel->setMaximumWidth(parent->width());
-    descriptionLabel->setText(m_description);
     containerLayout->addWidget(descriptionLabel);
 
     if(m_date.length() > 0)

@@ -112,7 +112,11 @@ void SettingsDialog::setup()
 
 void SettingsDialog::on_todolistBinPathToolButton_clicked()
 {
-    QString str = QFileDialog::getExistingDirectory(0, "Выберите путь до директории с todolist", "");
-    ui->todolistBinPathLineEdit->clear();
-    ui->todolistBinPathLineEdit->setText(str);
+    //QString str = QFileDialog::getExistingDirectory(0, "", "");
+    QString path = QFileDialog::getOpenFileName(this, "Выберите путь до программы todolist", "");
+    if(path.length() > 0)
+    {
+        ui->todolistBinPathLineEdit->clear();
+        ui->todolistBinPathLineEdit->setText(path);
+    }
 }
