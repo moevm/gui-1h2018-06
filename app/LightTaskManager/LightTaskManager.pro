@@ -33,8 +33,7 @@ SOURCES += \
     gui/deletetaskdialog.cpp \
     gui/settingsdialog.cpp \
     models/taskmanager.cpp \
-    gui/widgets/mylistwidgetitem.cpp \
-    gui/widgets/taskviewdeligete.cpp
+    gui/widgets/mylistwidgetitem.cpp
 
 HEADERS += \
         gui/mainwindow.h \
@@ -45,8 +44,7 @@ HEADERS += \
     gui/deletetaskdialog.h \
     gui/settingsdialog.h \
     models/taskmanager.h \
-    gui/widgets/mylistwidgetitem.h \
-    gui/widgets/taskviewdeligete.h
+    gui/widgets/mylistwidgetitem.h
 
 FORMS += \
         gui/mainwindow.ui \
