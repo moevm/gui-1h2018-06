@@ -36,6 +36,11 @@ void TaskManager::setUserFilter(const QString &userFilter)
     m_userFilter = userFilter;
 }
 
+void TaskManager::runCommand(QString command)
+{
+    m_todolistAdapter->runCommand(command);
+}
+
 void TaskManager::openRepository(QString directory)
 {
     m_todolistAdapter->openRepository(directory);

@@ -86,3 +86,10 @@ void TodolistAdapter::setBinPath(QString todolistPath)
     m_todolistBinPath.clear();
     m_todolistBinPath = todolistPath;
 }
+
+void TodolistAdapter::runCommand(QString command)
+{
+    QString args = m_todolistBinPath + " " + command;
+    qDebug() << "run command:" << args;
+    m_todolistProcess->start(args);
+}

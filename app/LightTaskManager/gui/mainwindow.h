@@ -68,6 +68,8 @@ private slots:
 
     void on_removeUserToolButton_clicked();
 
+    void on_commandLineLineEdit_returnPressed();
+
 private:
     Ui::MainWindow *ui;
     QScopedPointer<TaskManager> m_taskManager;

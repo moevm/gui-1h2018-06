@@ -32,6 +32,9 @@ signals:
 
 public slots:
 
+    /// working with adapter
+    void runCommand(QString command);
+
     /// working with repositories
     void openRepository(QString directory);
     void initializeRepository(QString directory);

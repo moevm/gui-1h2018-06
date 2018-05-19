@@ -71,9 +71,6 @@ void MainWindow::updateTaskLists()
     m_statusesLabels.clear();
     m_tasksLists.clear();
 
-    //qDebug() << m_statusesLabels;
-    //qDebug() << m_tasksLists;
-
     QStringList statuses = m_taskManager->readStatuses();
 
     for(auto status : statuses)
@@ -90,8 +87,7 @@ void MainWindow::updateTaskLists()
         taskList->setObjectName(objectName);
         taskList->setDragEnabled(true);
         taskList->setDropIndicatorShown(true);
-        taskList->setDragDropMode(QAbstractItemView::DragDrop);     
-        //taskList->setAlternatingRowColors(true);
+        taskList->setDragDropMode(QAbstractItemView::DragDrop);
         connect(taskList, SIGNAL(dropAction(QString)), this, SLOT(changeTaskStatusAction(QString)));
         connect(taskList, SIGNAL(clicked(QModelIndex)), this, SLOT(showTask(QModelIndex)));
         m_tasksLists.push_back(taskList);
@@ -106,9 +102,6 @@ void MainWindow::updateTaskLists()
     {
         ui->tasksContainerHorizontalLayout->addWidget(list);
     }
-
-    //qDebug() << "labelsCount" << ui->statusesLabelsHorizontalLayout->count();
-    //qDebug() << "listsCount" << ui->tasksContainerHorizontalLayout->count();
 
     updateTaskWidgets();
 }
@@ -126,9 +119,6 @@ void MainWindow::setTasks(QStringList taskList)
 
 void MainWindow::updateTaskWidgets()
 {
-    //qDebug() << "----- tasks -----";
-    //qDebug() << m_tasks;
-
     for(auto list : m_tasksLists)
     {
         list->clear();
@@ -157,14 +147,11 @@ void MainWindow::updateTaskWidgets()
         tasksContainers.push_back(tmp);
     }
 
-    //qDebug() << tasksContainers << m_statusesLabels;
-
     for(size_t i = 0; i < (size_t) m_statusesLabels.size(); i++)
     {
         for(size_t j = 0; j < (size_t) tasksContainers[i].size(); j++)
         {
             QListWidgetItem* item = new QListWidgetItem();
-            //item->setSizeHint(QSize(0, 75));
             item->setTextAlignment(Qt::TopLeftCorner);
             item->setFont(QFont("Arial", -1, 10, false));
 
@@ -184,9 +171,6 @@ void MainWindow::updateTaskWidgets()
             m_tasksLists[i]->addItem(item);
             m_tasksLists[i]->setItemWidget(item, taskBoard);
         }
-        //m_tasksLists[i]->addItems(tasksContainers[i]);
-        //m_tasksLists[i]->setItemDelegate(new TaskViewDeligete(m_tasksLists[i]));
-
     }
 }
 
@@ -358,18 +342,6 @@ void MainWindow::on_saveTaskPushButton_clicked()
     ui->addUserToolButton->setEnabled(false);
     ui->removeTagToolButton->setEnabled(false);
     ui->removeUserToolButton->setEnabled(false);
-
-    /*for(size_t i = 0; i < (size_t) ui->tagsListWidget->count(); i++)
-    {
-        QListWidgetItem* tagsListItem = ui->tagsListWidget->item(i);
-        tagsListItem->setFlags(tagsListItem->flags () & Qt::ItemIsEditable);
-    }
-
-    for(size_t i = 0; i < (size_t) ui->usersListWidget->count(); i++)
-    {
-        QListWidgetItem* usersListItem = ui->usersListWidget->item(i);
-        usersListItem->setFlags(usersListItem->flags () & Qt::ItemIsEditable);
-    }*/
 }
 
 void MainWindow::on_actionOpenTerminal_triggered()
@@ -417,4 +389,14 @@ void MainWindow::on_removeTagToolButton_clicked()
 void MainWindow::on_removeUserToolButton_clicked()
 {
     qDeleteAll(ui->currentTaskUsersListWidget->selectedItems());
+}
+
+void MainWindow::on_commandLineLineEdit_returnPressed()
+{
+    QString text = ui->commandLineLineEdit->text();
+    if(text.length() > 0)
+    {
+        ui->commandLineLineEdit->clear();
+        m_taskManager->runCommand(text);
+    }
 }

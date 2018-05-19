@@ -46,6 +46,8 @@ public slots:
 
     void onMessage();
     void setBinPath(QString todolistPath);
+
+    void runCommand(QString command);
 };
 
 #endif // TODOLISTADAPTER_H
