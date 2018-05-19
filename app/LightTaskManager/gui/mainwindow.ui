@@ -20,7 +20,7 @@
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>3</horstretch>
-        <verstretch>1</verstretch>
+        <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="frameShape">
@@ -123,6 +123,12 @@
     </item>
     <item row="0" column="0">
      <widget class="QGroupBox" name="actionsGroupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>3</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="title">
        <string>Поиск</string>
       </property>
@@ -309,6 +315,10 @@
           <property name="text">
            <string>+</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources/resources.qrc">
+            <normaloff>:/images/images/Plus.png</normaloff>:/images/images/Plus.png</iconset>
+          </property>
          </widget>
         </item>
         <item row="3" column="2">
@@ -320,6 +330,10 @@
           </property>
           <property name="text">
            <string>-</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resources/resources.qrc">
+            <normaloff>:/images/images/Minus.png</normaloff>:/images/images/Minus.png</iconset>
           </property>
          </widget>
         </item>
@@ -350,6 +364,10 @@
           <property name="text">
            <string>+</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources/resources.qrc">
+            <normaloff>:/images/images/Plus.png</normaloff>:/images/images/Plus.png</iconset>
+          </property>
          </widget>
         </item>
         <item row="6" column="2">
@@ -361,6 +379,10 @@
           </property>
           <property name="text">
            <string>-</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resources/resources.qrc">
+            <normaloff>:/images/images/Minus.png</normaloff>:/images/images/Minus.png</iconset>
           </property>
          </widget>
         </item>
