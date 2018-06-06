@@ -39,6 +39,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString title, QString descrip
         firstColumn->setLayout(firstColumnLayout);
         firstColumn->layout()->setSpacing(0);
         firstColumn->layout()->setContentsMargins(0, 0, 0, 0);
+        firstColumn->layout()->setAlignment(Qt::AlignTop);
             if(m_date.length() > 0)
             {
                 QLabel* dateLabel = new QLabel("До: " + m_date, this);
@@ -49,7 +50,7 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString title, QString descrip
             {
                 QLabel* label = new QLabel(QStringLiteral("+") + tag, this);
                 label->setAlignment(Qt::AlignLeft);
-                label->setStyleSheet("color: #0000bb; border: 1px solid transparent; text-decoration:underline;");
+                label->setStyleSheet("color: #0000bb; border: 1px solid transparent; text-decoration: none;");
                 firstColumn->layout()->addWidget(label);
             }
         columnsContainer->layout()->addWidget(firstColumn);
@@ -59,11 +60,12 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString title, QString descrip
         secondColumn->setLayout(secondColumnLayout);
         secondColumn->layout()->setSpacing(0);
         secondColumn->layout()->setContentsMargins(0, 0, 0, 0);
+        secondColumn->layout()->setAlignment(Qt::AlignTop);
             for(auto user : m_users)
             {
                 QLabel* label = new QLabel(QStringLiteral("@") + user, this);
                 label->setAlignment(Qt::AlignRight);
-                label->setStyleSheet("color: #ff4500; border: 1px solid transparent;");
+                label->setStyleSheet("color: #cd7f32; border: 1px solid transparent;");
                 secondColumn->layout()->addWidget(label);
             }
         columnsContainer->layout()->addWidget(secondColumn);
