@@ -9,65 +9,66 @@ MyListWidgetItem::MyListWidgetItem(QString index, QString title, QString descrip
     m_tags(tags),
     m_users(users)
 {
-    this->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
-
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    this->setLayout(mainLayout);
+    this->layout()->setContentsMargins(5, 15, 5, 10);
+
+
     QFrame* container = new QFrame(this);
-    //container->setStyleSheet("background-color: transparent;");
     QVBoxLayout* containerLayout = new QVBoxLayout(container);
-    mainLayout->addWidget(container);
+    container->setLayout(containerLayout);
+    container->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
+    container->layout()->setSpacing(0);
+    container->layout()->setContentsMargins(5, 5, 5, 5);
 
-    //containerLayout->addWidget(new QLabel("#" + m_index, this));
-
+    // task title
     QLabel* titleLabel = new QLabel(m_title, this);
     titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-    //titleLabel->setMaximumWidth(container->width());
-    containerLayout->addWidget(titleLabel);
+    container->layout()->addWidget(titleLabel);
 
-    if(m_date.length() > 0)
-    {
-        QLabel* dateLabel = new QLabel("До: " + m_date, this);
-        dateLabel->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
-        containerLayout->addWidget(dateLabel);
-    }
+    // columns container
+    QFrame* columnsContainer = new QFrame(container);
+    QHBoxLayout* columnsContainerLayout = new QHBoxLayout(columnsContainer);
+    columnsContainer->setLayout(columnsContainerLayout);
+    columnsContainer->setStyleSheet("margin: 0px; padding: 0px; background:transparent; border: 1px solid transparent");
+    columnsContainer->layout()->setSpacing(0);
+    columnsContainer->layout()->setContentsMargins(0, 0, 0, 0);
 
-    QHBoxLayout* paramsLayout = new QHBoxLayout(this);
+        QFrame* firstColumn = new QFrame(columnsContainer);
+        QVBoxLayout* firstColumnLayout = new QVBoxLayout(firstColumn);
+        firstColumn->setLayout(firstColumnLayout);
+        firstColumn->layout()->setSpacing(0);
+        firstColumn->layout()->setContentsMargins(0, 0, 0, 0);
+            if(m_date.length() > 0)
+            {
+                QLabel* dateLabel = new QLabel("До: " + m_date, this);
+                dateLabel->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
+                firstColumn->layout()->addWidget(dateLabel);
+            }
+            for(auto tag : m_tags)
+            {
+                QLabel* label = new QLabel(QStringLiteral("+") + tag, this);
+                label->setAlignment(Qt::AlignLeft);
+                label->setStyleSheet("color: #0000bb; border: 1px solid transparent; text-decoration:underline;");
+                firstColumn->layout()->addWidget(label);
+            }
+        columnsContainer->layout()->addWidget(firstColumn);
 
-    QVBoxLayout* tagsLayout = new QVBoxLayout(this);
-    /*if(m_tags.count() > 0)
-    {
-        QLabel* tagsTitle = new QLabel("Тэги", this);
-        tagsTitle->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
-        tagsTitle->setAlignment(Qt::AlignCenter);
-        tagsLayout->addWidget(tagsTitle);
-    }*/
-    for(auto tag : m_tags)
-    {
-        QLabel* label = new QLabel(QStringLiteral("+") + tag, this);
-        label->setAlignment(Qt::AlignCenter);
-        label->setStyleSheet("background-color: #55bb55; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
-        tagsLayout->addWidget(label);
-    }
-    paramsLayout->addLayout(tagsLayout);
-
-    QVBoxLayout* usersLayout = new QVBoxLayout(this);
-    /*if(m_users.count() > 0)
-    {
-        QLabel* usersTitle = new QLabel("Пользовтели", this);
-        usersTitle->setStyleSheet("border: 1px solid transparent; background-color: transparent;");
-        usersTitle->setAlignment(Qt::AlignCenter);
-        usersLayout->addWidget(usersTitle);
-    }*/
-    for(auto user : m_users)
-    {
-        QLabel* label = new QLabel(QStringLiteral("@") + user, this);
-        label->setAlignment(Qt::AlignCenter);
-        label->setStyleSheet("background-color: #4682b4; color: #fff; border: 1px solid transparent; border-radius: 3px; padding: 1px;");
-        usersLayout->addWidget(label);
-    }
-    paramsLayout->addLayout(usersLayout);
-
-    containerLayout->addLayout(paramsLayout);
+        QFrame* secondColumn = new QFrame(columnsContainer);
+        QVBoxLayout* secondColumnLayout = new QVBoxLayout(secondColumn);
+        secondColumn->setLayout(secondColumnLayout);
+        secondColumn->layout()->setSpacing(0);
+        secondColumn->layout()->setContentsMargins(0, 0, 0, 0);
+            for(auto user : m_users)
+            {
+                QLabel* label = new QLabel(QStringLiteral("@") + user, this);
+                label->setAlignment(Qt::AlignRight);
+                label->setStyleSheet("color: #ff4500; border: 1px solid transparent;");
+                secondColumn->layout()->addWidget(label);
+            }
+        columnsContainer->layout()->addWidget(secondColumn);
+    container->layout()->addWidget(columnsContainer);
+    this->layout()->addWidget(container);
 }
 
 QString MyListWidgetItem::index() const

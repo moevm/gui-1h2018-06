@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QSpacerItem>
 #include <QTextEdit>
+#include <QDebug>
 
 class MyListWidgetItem : public QWidget
 {
